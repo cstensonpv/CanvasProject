@@ -9,22 +9,31 @@
 import UIKit
 
 class ViewController: UIViewController {
-	let model = Model()
+	let model = CanvasProjectModel()
+	let notificationCenter = NSNotificationCenter.defaultCenter()
+
+//	required init?(coder aDecoder: NSCoder) {
+//	    fatalError("init(coder:) has not been implemented")
+//	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		notificationCenter.addObserver(self, selector: "update", name: "ReceivedData", object: nil)
 		// Do any additional setup after loading the view, typically from a nib.
 		
 	}
 	@IBOutlet weak var theLabel: UILabel!
 	@IBOutlet weak var textField: UITextField!
+	
 	@IBAction func requestHelloWorld(sender: AnyObject) {
-		let response = model.getTestRequest()
+//		let response = model.getTestRequest()
 	}
 	
 	@IBAction func helloWorld(sender: UIButton, forEvent event: UIEvent) {
 		model.test()
-		theLabel.text = textField.text
+		if let text = textField.text {
+			model.setTestValue(text)
+		}
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -32,6 +41,9 @@ class ViewController: UIViewController {
 		// Dispose of any resources that can be recreated.
 	}
 
-
+	func update() {
+		print("Received data")
+		theLabel.text = model.testValue
+	}
 }
 
