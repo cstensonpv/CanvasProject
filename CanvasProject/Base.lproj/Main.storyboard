@@ -42,6 +42,20 @@
                                     <action selector="requestHelloWorld:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iQQ-mB-ZQe"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aE9-WI-SRc">
+                                <rect key="frame" x="20" y="123" width="107" height="30"/>
+                                <state key="normal" title="JSON response"/>
+                                <connections>
+                                    <action selector="jsonTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RM7-q1-hwj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Og3-vM-Co8">
+                                <rect key="frame" x="156" y="58" width="83" height="30"/>
+                                <state key="normal" title="JSON POST"/>
+                                <connections>
+                                    <action selector="jsonPostTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eTP-em-cVi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
