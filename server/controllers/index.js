@@ -4,5 +4,8 @@ var express = require('express'),
 	router = express.Router();
 
 router.use('/user', require('./userCtrl'))
-router.use('/project', require('./projectCtrl'))
-router.use('/canvasObject', require('./canvasObjectCtrl'))
+//router.use('/project', require('./projectCtrl'))
+// router.use('/canvasObject', require('./canvasObjectCtrl'))
+
+
+module.exports = router;

@@ -56,13 +56,14 @@ app.get('/test', function(req, res) {
 	console.log("Hello World requested");
 });
 
-app.get('/add', function(req, res) {
+app.post('/add', function(req, res) {
 	//res.send("Add Page");
-	// console.log(req.query.hej);
+	console.log(req.body);
+	console.log(req.params);
 
 	var thor = new Tank({
-	  name: req.query.name,
-	  size: req.query.size
+	  name: req.body.name,
+	  size: req.body.size
 	});
 	console.log(thor);
 
@@ -80,9 +81,10 @@ app.get('/add', function(req, res) {
 app.get('/get/:name', function(req, res){
 	console.log(req.params.name);
 	Tank.findOne({ name: req.params.name }, function(err, result) {
-	  if (err) return console.error(err);
-	  console.log("result");
-	  console.dir(result);
+	  if (err){
+	  	res.send("No such entry in the DB");
+	  	return console.error(err);
+	  } 
 	  res.send(result);
 
 	});
