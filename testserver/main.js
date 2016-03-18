@@ -27,23 +27,26 @@ var routes
 //var httprequest = require('./httprequest');
 
 
-// var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
-// var db = mongoose.connection;
+var db = mongoose.connection;
 
-// db.on('error', console.error);
-// db.once('open', function() {
+db.on('error', console.error);
+db.once('open', function() {
 //   // Create your schemas and models here.
  	
 
 //   // Compile a 'Movie' model using the movieSchema as the structure.
 //   // Mongoose also creates a MongoDB collection called 'Movies' for these documents.
-// });
+});
 
-// var schema = new mongoose.Schema({ name: 'string', size: 'number' });
-// var Tank = mongoose.model('Tank', schema);
+var schema = new mongoose.Schema({ name: 'string', size: 'number' });
+var Tank = mongoose.model('Tank', schema);
 
-// mongoose.connect('mongodb://localhost/test');
+var dbuser = "cstenson";
+var dbpassword = "intnet16";
+
+mongoose.connect('mongodb://' + dbuser + ':' + dbpassword + '@ds015939.mlab.com:15939/intnet16');
 
 
 // ];
@@ -53,38 +56,38 @@ app.get('/test', function(req, res) {
 	console.log("Hello World requested");
 });
 
-// app.get('/add', function(req, res) {
-// 	//res.send("Add Page");
-// 	// console.log(req.query.hej);
+app.get('/add', function(req, res) {
+	//res.send("Add Page");
+	// console.log(req.query.hej);
 
-// 	var thor = new Tank({
-// 	  name: req.query.name,
-// 	  size: req.query.size
-// 	});
-// 	console.log(thor);
+	var thor = new Tank({
+	  name: req.query.name,
+	  size: req.query.size
+	});
+	console.log(thor);
 
-// 	thor.save(function(err, thor) {
-// 	  if (err){
-// 	  	res.send("Error!!!")
-// 	  	return console.error(err);
-// 	  } else{
-// 	  	res.send("Inserted accepted");
-// 	  }
-// 	  //console.dir(thor);
-// 	});
-// });
+	thor.save(function(err, thor) {
+	  if (err){
+	  	res.send("Error!!!")
+	  	return console.error(err);
+	  } else{
+	  	res.send("Inserted accepted");
+	  }
+	  //console.dir(thor);
+	});
+});
 // app.delete(':type/:name')
-// app.get('/get/:name', function(req, res){
-// 	console.log(req.params.name);
-// 	Tank.findOne({ name: req.params.name }, function(err, result) {
-// 	  if (err) return console.error(err);
-// 	  console.log("result");
-// 	  console.dir(result);
-// 	  res.send(result);
+app.get('/get/:name', function(req, res){
+	console.log(req.params.name);
+	Tank.findOne({ name: req.params.name }, function(err, result) {
+	  if (err) return console.error(err);
+	  console.log("result");
+	  console.dir(result);
+	  res.send(result);
 
-// 	});
+	});
 	
-// })
+})
 
 app.post('/post', function(req, res){
 	console.log(req.body);
