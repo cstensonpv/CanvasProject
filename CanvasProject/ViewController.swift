@@ -26,7 +26,7 @@ class ViewController: UIViewController {
 	@IBOutlet weak var textField: UITextField!
 	
 	@IBAction func requestHelloWorld(sender: AnyObject) {
-//		let response = model.getTestRequest()
+		model.testStringGet()
 	}
 	
 	@IBAction func helloWorld(sender: UIButton, forEvent event: UIEvent) {
@@ -36,13 +36,19 @@ class ViewController: UIViewController {
 		}
 	}
 
+	@IBAction func jsonTest(sender: AnyObject) {
+		model.testJSONGet()
+	}
+	@IBAction func jsonPostTest(sender: AnyObject) {
+		model.testJSONPost()
+	}
+	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
 
 	func update() {
-		print("Received data")
 		theLabel.text = model.testValue
 	}
 }
