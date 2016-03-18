@@ -1,0 +1,10 @@
+{
+	"id" : "56ec18f4326ee43c15520eb3",
+	"type" : "text",
+	"position" : {
+		"x" : 10,
+		"y" : 10
+	},
+	"text" : "Test textruta",
+	"style": "Header"
+}
