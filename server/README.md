@@ -60,7 +60,7 @@ returns
 ´´´
 
 ### Update user
-```
+´´´
 PUT /user?param=value(&param2=value2)>
 ```
 the params are the serialization of the JSON Object from swift. 
@@ -72,35 +72,35 @@ returns:
 'succes'
 or
 'failure'
-´´´
+```
 ####Example
 to be written
 
 ###Delete user
 ´´´
 DELETE /user/:name
-´´´
+```
 returns:
 ´´´javascript
 'succes'
 or
 'failure'
-´´´
+```
 ####Example
 to be written
 
 ### Get user
 ´´´
 GET /user/<USERNAME>
-´´´
+```
 returns
 ´´´javascript
 'userObject'
-´´´
+```
 or
 ´´´
 'User does not exists'
-´´´
+```
 
 ##Projects
 to be written
