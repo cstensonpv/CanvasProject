@@ -38,7 +38,7 @@ POST /user/:<USERNAME>
 ```
 returns Generated UserID if username isn't already taken
 
-####Example 
+#####Example 
 
 ```
 POST /user/userName
@@ -73,7 +73,7 @@ returns:
 or
 'failure'
 ```
-####Example
+#####Example
 to be written
 
 ###Delete user
@@ -86,7 +86,7 @@ returns:
 or
 'failure'
 ```
-####Example
+#####Example
 to be written
 
 ### Get user
