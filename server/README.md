@@ -33,7 +33,7 @@ This documentation is used of me when implementing the back-end. I will try to g
 ### Add user
 (No authentication added)
 
-```
+´´´
 POST /user/:<USERNAME>
 ```
 returns Generated UserID if username isn't already taken
@@ -51,18 +51,18 @@ returns
 }
 ```
 Then if we try to do it again
-```
+´´´
 POST /user/userName
 ```
 returns
-```javascript
+´´´javascript
 "userName taken"
 ´´´
 
 ### Update user
 ´´´
 PUT /user?param=value(&param2=value2)>
-```
+´´´
 the params are the serialization of the JSON Object from swift. 
 
 Hopefully I can get how this one looks when you try to send it.
