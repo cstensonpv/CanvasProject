@@ -57,7 +57,7 @@ POST /user/userName
 returns
 ´´´javascript
 "userName taken"
-´´´
+```
 
 ### Update user
 ´´´
