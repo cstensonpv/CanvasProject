@@ -26,7 +26,10 @@ This documentation is used of me when implementing the back-end. I will try to g
 
 ```
 {
-  "UserID" : ""
+  "_id": "56ee9cac4eb7f89c051cc950",
+  "UserName": "UserName22",
+  "__v": 0,
+  "registred": "2016-03-20T12:50:52.632Z"
 }
 ```
 
@@ -65,17 +68,17 @@ returns
 ```
 PUT /user?param=value(&param2=value2)>
 ```
-the params are the serialization of the JSON Object from swift. 
+(the params are the serialization of the JSON Object from swift. 
 
-Hopefully I can get how this one looks when you try to send it.
+Hopefully I can get how this one looks when you try to send it.)
 
 #####Example
-update username "UserName" to "UserName22"
-id from UserName, and the param UserName is the desired UserName.
+Update username "UserName" to "UserName22"
+id from UserName, and UserName is the new UserName.
 ```
 PUT /user?_id=56ee9cac4eb7f89c051cc950&username=UserName22
 ```
-returns (if UserName22 is not already taken)
+returns new User objecty (if UserName22 is not already taken)
 ```javascript
 {
   "_id": "56ee9cac4eb7f89c051cc950",
@@ -88,15 +91,15 @@ returns (if UserName22 is already taken)
 ```javascript
 Username taken!
 ```
-returns (if wrong _id is submitted)
+returns (if unvalid _id is submitted)
 ```javascript
 UserID doesn't exists!
 ```
-#Implemented to here
+
 
 ###Delete user
 ```
-DELETE /user/:name
+DELETE /user/:UserName
 ```
 returns:
 ```javascript
@@ -104,21 +107,24 @@ returns:
 or
 'failure'
 ```
-#####Example
-to be written
-
 ### Get user
 ```
 GET /user/<USERNAME>
 ```
-returns
+returns if user exists
 ```javascript
-'userObject'
+{
+    "_id": "56eee1825c517ac01ff3f33c",
+    "UserName": "userName",
+    "__v": 0,
+    "registred": "2016-03-20T17:44:34.044Z"
+}
 ```
-or
+or if no user with the userName exists
 ```
 'User does not exists'
 ```
+#Implemented to here
 
 ##Projects
 to be written

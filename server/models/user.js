@@ -9,7 +9,6 @@ exports.create = function(userName,callback) {
     	'UserName' : userName
     	// ,'registred': '2015-02-16'
   	})
-  	var err;
  	user.save(callback);
 }
 
@@ -25,10 +24,22 @@ exports.update = function(id, userName, callback) {
 }
 
 exports.remove = function(userName, callback) {
-	console.log(id);
-	console.log(userName);
 	User.find({'UserName' : userName}, function (err, user) {
-		console.log(user)
-		user.save(callback);
+		if(user.length > 0 ){
+			User.remove(callback);
+		}else{
+			callback(new Error("User doesn't exists!"),user);
+		}
+	});
+}
+
+exports.get = function(userName, callback) {
+	var err;
+	User.find({'UserName' : userName}, function (err, user) {
+		if(user.length > 0 ){
+			callback(err, user);
+		}else{
+			callback(new Error("User doesn't exists!"),user);
+		}
 	});
 }
