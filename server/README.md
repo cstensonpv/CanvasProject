@@ -61,8 +61,6 @@ returns
 "userName taken"
 ``` 
 
-#Implemented to here
-
 ### Update user
 ```
 PUT /user?param=value(&param2=value2)>
@@ -71,14 +69,30 @@ the params are the serialization of the JSON Object from swift.
 
 Hopefully I can get how this one looks when you try to send it.
 
-returns:
-```javascript
-'succes'
-or
-'failure'
-```
 #####Example
-to be written
+update username "UserName" to "UserName22"
+id from UserName, and the param UserName is the desired UserName.
+```
+PUT /user?_id=56ee9cac4eb7f89c051cc950&username=UserName22
+```
+returns (if UserName22 is not already taken)
+```javascript
+{
+  "_id": "56ee9cac4eb7f89c051cc950",
+  "UserName": "UserName22",
+  "__v": 0,
+  "registred": "2016-03-20T12:50:52.632Z"
+}
+```
+returns (if UserName22 is already taken)
+```javascript
+Username taken!
+```
+returns (if wrong _id is submitted)
+```javascript
+UserID doesn't exists!
+```
+#Implemented to here
 
 ###Delete user
 ```

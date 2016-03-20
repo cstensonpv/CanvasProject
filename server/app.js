@@ -9,7 +9,6 @@ var express = require('express')
 var server_port = 8080;
 var server_ip_address = '127.0.0.1';
 
-
 // app.set('view engine', 'jade')
 
 app.use(require('./controllers'))
