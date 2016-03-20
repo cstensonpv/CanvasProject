@@ -46,8 +46,10 @@ POST /user/userName
 returns
 ```javascript
 {
-  "_id":"56ec70fca06ed49c1d685044"
-  "userName":"Calle"
+  "__v": 0,
+  "UserName": "UserName",
+  "_id": "56ee9cac4eb7f89c051cc950",
+  "registred": "2016-03-20T12:50:52.632Z"
 }
 ```
 Then if we try to do it again
@@ -57,7 +59,9 @@ POST /user/userName
 returns
 ```javascript
 "userName taken"
-```
+``` 
+
+#Implemented to here
 
 ### Update user
 ```
