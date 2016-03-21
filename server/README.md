@@ -124,7 +124,6 @@ or if no user with the userName exists
 ```
 'User does not exists'
 ```
-#Implemented to here
 
 ##Project
 #### JSON Structure
@@ -265,12 +264,68 @@ if not succesfull
 'Something went wrong'
 'User not in project'
 ```
-
+#Implemented to here
 ##CanvasObject
-to be written
+The actual objects that are added to the canvas
 
-Add - POST  /canvasobject/:projectID/:type?param=xx&param=xx - returns Generated objectID if succesfull otherwise returns false
-get one object - GET /canvasObject/:projectID/:objectID returns a single object
-get all objects from project - GET /canvasObject/:projectID/ retruns all objects in the project
-update - PUT /canvasObject/:projectID/:objectID?parameter=change(&paraeter=change) - (returns success??)
-delete - DELETE /canvasObject/:projectID/:objectID - (returns succes??)
+###Add object
+```
+POST  /canvasobject/<PROJECTID>/<TYPE>?param=xx&param=xx
+```
+returns if succesful
+```javascript
+generated canvas object
+```
+if error
+```javascript
+false
+```
+###GET a canvasObject
+```
+GET /canvasObject/<PROJECTID>/<OBJECTID>
+```
+returns if object exists
+```javascript
+Canvas object
+```
+else
+```javascript
+false
+```
+
+### GET all canvasObject within a project
+```
+GET /canvasObject/<PROJECTID>/
+```
+returns
+```javascript
+[
+canvasObj,
+canvasobj,
+...
+]
+```
+### UPDATE canvas object
+```
+PUT /canvasObject/<PROJECTID>/<OBJECTID>?parameter=change(&parameter=change)
+```
+returns new object if succesfull
+```javascript
+canvasObject
+```
+if not succesfull it returns the old object
+```javascript
+canvasObject
+```
+###DELETE canvas object
+```
+DELETE /canvasObject/<PROJECTID>/<OBJECTID>
+```
+returns
+```javascript
+succes
+```
+or
+```
+failure
+```

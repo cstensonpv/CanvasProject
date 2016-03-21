@@ -36,21 +36,8 @@ exports.create = function(projectName, creator, callback) {
 		   	, 'creator' : creator
 		   	, 'colaborators' : [creator]
 	 	})
-	 	// console.log(project);
 		project.save(callback);
-	})
-	// User.find({'UserName' : creator}, function (err, creatorObj) {
-	// 	console.log(creatorObj[0]);
-	// 	//console.log(creator);
-	// 	if(creatorObj.length > 0 ){
-		 	
-	// 	}else{
-	// 		console.log("else");
-	// 		callback(new Error("Creator doesn't exists!"),creator);
-	// 	}
-	// });
-	//add the new project
-  	
+	})  	
 }
 
 exports.updateName = function(project_id, newName, callback) {
@@ -63,13 +50,6 @@ exports.updateName = function(project_id, newName, callback) {
 		}
 		
 	})
-	// Project.findById(project_id, function (err, project) {
-	// 	if(project){
-			
-	// 	}else{
-	// 		callback(new Error("ProjectID doesn't exists!"),project);
-	// 	}
-	// });
 }
 
 exports.addColaborator = function(project_id, userName, callback) {
@@ -87,6 +67,7 @@ exports.addColaborator = function(project_id, userName, callback) {
 		})
 	});
 }
+
 exports.removeColaborator = function(project_id, userName, callback) {
 	findUser(userName, function(err, user) {
 		findProject(project_id, function(err, project) {
@@ -110,7 +91,7 @@ exports.removeColaborator = function(project_id, userName, callback) {
 }
 
 exports.remove = function(project_id, callback) {
-	findProject(project_id, function(err, project){// console.log("project exists");
+	findProject(project_id, function(err, project){
 		Project.remove(callback);
 	})
 }
