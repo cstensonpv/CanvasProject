@@ -4,6 +4,7 @@ var express = require('express')
   	, router = express.Router()
   	, userModel = require('../models/user')
 
+
 router.get('/:UserName', function(req, res) {
 	console.log("Request get user : " + req.params.UserName);
 	userModel.get(req.params.UserName, function (err, user) {
