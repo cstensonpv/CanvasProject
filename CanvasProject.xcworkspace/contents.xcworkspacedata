@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:testserver/main.js">
+   </FileRef>
+   <FileRef
       location = "group:CanvasProject.xcodeproj">
    </FileRef>
    <FileRef

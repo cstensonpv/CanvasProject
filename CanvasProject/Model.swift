@@ -16,8 +16,8 @@ class CanvasProjectModel {
 	let username: String = "Mats"
 	let userID: String = "1"
 	var currentProject: Project?
-	var serverAddress = "http://localhost"
-	var serverPort = "8080"
+	var serverAddress: String = "http://localhost"
+	var serverPort: String = "8080"
 	
 	func test() {
 		print("test")

@@ -27,23 +27,23 @@ var routes
 //var httprequest = require('./httprequest');
 
 
-// var mongoose = require('mongoose');
+ var mongoose = require('mongoose');
 
-// var db = mongoose.connection;
+ var db = mongoose.connection;
 
-// db.on('error', console.error);
-// db.once('open', function() {
-//   // Create your schemas and models here.
+ db.on('error', console.error);
+ db.once('open', function() {
+   // Create your schemas and models here.
  	
 
-//   // Compile a 'Movie' model using the movieSchema as the structure.
-//   // Mongoose also creates a MongoDB collection called 'Movies' for these documents.
-// });
+   // Compile a 'Movie' model using the movieSchema as the structure.
+   // Mongoose also creates a MongoDB collection called 'Movies' for these documents.
+ });
 
-// var schema = new mongoose.Schema({ name: 'string', size: 'number' });
-// var Tank = mongoose.model('Tank', schema);
+ var schema = new mongoose.Schema({ name: 'string', size: 'number' });
+ var Tank = mongoose.model('Tank', schema);
 
-// mongoose.connect('mongodb://localhost/test');
+ mongoose.connect('mongodb://localhost/test');
 
 
 // ];
