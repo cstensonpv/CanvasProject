@@ -16,6 +16,7 @@
 		F10525621C96E61C004EAE1A /* CanvasProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10525611C96E61C004EAE1A /* CanvasProjectTests.swift */; };
 		F105256D1C96E61C004EAE1A /* CanvasProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F105256C1C96E61C004EAE1A /* CanvasProjectUITests.swift */; };
 		F11C92D11C9C59C100483023 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11C92D01C9C59C100483023 /* Project.swift */; };
+		F1AB278F1C9F436300A9CE0F /* testserver in Resources */ = {isa = PBXBuildFile; fileRef = F1AB278E1C9F436300A9CE0F /* testserver */; };
 		F1E857C01C96F7E600E30EC7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E857BF1C96F7E600E30EC7 /* Model.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		F105256C1C96E61C004EAE1A /* CanvasProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasProjectUITests.swift; sourceTree = "<group>"; };
 		F105256E1C96E61C004EAE1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F11C92D01C9C59C100483023 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		F1AB278E1C9F436300A9CE0F /* testserver */ = {isa = PBXFileReference; lastKnownFileType = folder; path = testserver; sourceTree = "<group>"; };
 		F1E857BF1C96F7E600E30EC7 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,6 +88,7 @@
 		2A2243F0E7A22C26243332C8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F1AB278E1C9F436300A9CE0F /* testserver */,
 				15EA9F16B8707D87825B7304 /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F10525571C96E61B004EAE1A /* LaunchScreen.storyboard in Resources */,
+				F1AB278F1C9F436300A9CE0F /* testserver in Resources */,
 				F10525541C96E61B004EAE1A /* Assets.xcassets in Resources */,
 				F10525521C96E61B004EAE1A /* Main.storyboard in Resources */,
 			);
