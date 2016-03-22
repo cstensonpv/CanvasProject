@@ -124,29 +124,68 @@ or if no user with the userName exists
 ```
 'User does not exists'
 ```
-#Implemented to here
 
-##Projects
+##Project
 #### JSON Structure
 ```javascript
+{
+  "_id": "56efb7772ae164b8261aa26f",
+  "name": "test",
+  "creator": "Calle",
+  "__v": 0,
+  "colaborators": [
+    "56ef023e1c37e4a80538f828"
+  ],
+  "registred": "2016-03-21T08:57:27.757Z"
+}
 ```
 ### Add new Project
 More than one project can have the same name. key är _id.
+Creator is checked that it is a user in the system. saved as the reference to the user of the creator.
 ```
 POST /project?name=<NAME>&creator=<USERNAME>
 ```
+(vi bör kunna identifiera creator på vem som skickade requesten från början??)
 returns
 ```javascript
-Object
+{
+  "__v": 0,
+  "name": "test2",
+  "creator": {
+    "_id": "56efbffde10fad5411928ab7",
+    "UserName": "Rasmus",
+    "__v": 0,
+    "registred": "2016-03-21T09:33:49.982Z"
+  },
+  "_id": "56efeb5d02141fb418181bfe",
+  "colaborators": [
+    {
+      "_id": "56efbffde10fad5411928ab7",
+      "UserName": "Rasmus",
+      "__v": 0,
+      "registred": "2016-03-21T09:33:49.982Z"
+    }
+  ],
+  "registred": "2016-03-21T12:38:53.082Z"
+}
 ```
 ### GET Project
-Shoule be called every time a user access a project and should add the user to notifyObserver. Is done throug an middleware "userBelongsToProject". wich checks if the user is a collaborator to the project.
+Shoule be called every time a user access a project and should add the user to notifyObserver. Is done throug an middleware "userBelongsToProject". wich checks if the user is a collaborator to the project.???
 ```
-GET /project/:id
+GET /project/<ID>
 ```
 return if project exists
 ```javascript
-Object
+{
+  "_id": "56efb7772ae164b8261aa26f",
+  "name": "test",
+  "creator": "Calle",
+  "__v": 0,
+  "colaborators": [
+    "56ef023e1c37e4a80538f828"
+  ],
+  "registred": "2016-03-21T08:57:27.757Z"
+}
 ```
 return if project dosen't exist
 ```
@@ -154,15 +193,24 @@ return if project dosen't exist
 ```
 ### UPDATE Project Name
 ```
-PUT /project/:<ID>?name=<NAME>
+PUT /project/<ID>?name=<NAME>
 ```
 returns new project object
 ```javascript
-Object
+{
+  "_id": "56efeb5d02141fb418181bfe",
+  "name": "test3",
+  "creator": "56efbffde10fad5411928ab7",
+  "__v": 0,
+  "colaborators": [
+    "56efbffde10fad5411928ab7"
+  ],
+  "registred": "2016-03-21T12:38:53.082Z"
+}
 ```
 if project dosen't exist
 ```javascript
-"Project dosen't exist"
+"Wrong project_id!"
 ```
 ### Delete Project
 ```
@@ -170,11 +218,11 @@ DELETE /project/<ID>
 ```
 returns if successful
 ```javascript
-succesful delete
+succes
 ```
 if not succesfull
 ```javascript
-'Something went wrong'
+failure
 ```
 ### Add collaborator
 ```
@@ -190,26 +238,94 @@ if not succesfull
 ```
 or
 ```javascript
-'user is already a collaborator'
+'user is already a colaborator'
 ```
 ### Remove collaborator
 ```
 DELETE /project/<ID>/<UserName>
 ```
+Can't remove if it is the last user in colaborators
 returns if successful
+updated project obj
 ```javascript
-Project object
+{
+  "_id": "56efed49de4e9df42329f9b7",
+  "name": "test3",
+  "creator": "56ef023e1c37e4a80538f828",
+  "__v": 0,
+  "colaborators": [
+    "56ef023e1c37e4a80538f828"
+  ],
+  "registred": "2016-03-21T12:47:05.313Z"
+}
 ```
 if not succesfull
 ```javascript
 'Something went wrong'
+'User not in project'
+```
+#Implemented to here
+##CanvasObject
+The actual objects that are added to the canvas
+
+###Add object
+```
+POST  /canvasobject/<PROJECTID>/<TYPE>?param=xx&param=xx
+```
+returns if succesful
+```javascript
+generated canvas object
+```
+if error
+```javascript
+false
+```
+###GET a canvasObject
+```
+GET /canvasObject/<PROJECTID>/<OBJECTID>
+```
+returns if object exists
+```javascript
+Canvas object
+```
+else
+```javascript
+false
 ```
 
-##CanvasObject
-to be written
-
-Add - POST  /canvasobject/:projectID/:type?param=xx&param=xx - returns Generated objectID if succesfull otherwise returns false
-get one object - GET /canvasObject/:projectID/:objectID returns a single object
-get all objects from project - GET /canvasObject/:projectID/ retruns all objects in the project
-update - PUT /canvasObject/:projectID/:objectID?parameter=change(&paraeter=change) - (returns success??)
-delete - DELETE /canvasObject/:projectID/:objectID - (returns succes??)
+### GET all canvasObject within a project
+```
+GET /canvasObject/<PROJECTID>/
+```
+returns
+```javascript
+[
+canvasObj,
+canvasobj,
+...
+]
+```
+### UPDATE canvas object
+```
+PUT /canvasObject/<PROJECTID>/<OBJECTID>?parameter=change(&parameter=change)
+```
+returns new object if succesfull
+```javascript
+canvasObject
+```
+if not succesfull it returns the old object
+```javascript
+canvasObject
+```
+###DELETE canvas object
+```
+DELETE /canvasObject/<PROJECTID>/<OBJECTID>
+```
+returns
+```javascript
+succes
+```
+or
+```
+failure
+```
