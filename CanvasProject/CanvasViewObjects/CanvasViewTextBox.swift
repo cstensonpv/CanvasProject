@@ -9,9 +9,10 @@
 import UIKit
 import SwiftyJSON
 
-class CanvasViewObject: UIView {
+class CanvasViewTextBox: UITextField, CanvasViewObject {
     var dragStartPositionRelativeToCenter: CGPoint?
     var startFrame: CGRect!
+    var mainController: ViewController?
     
     /*
      // Only override drawRect: if you perform custom drawing.
@@ -24,11 +25,10 @@ class CanvasViewObject: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        var panRecognizer = UIPanGestureRecognizer(target: self, action: "detectPan:")
-        self.gestureRecognizers = [panRecognizer]
+        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(detectPan)))
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(wasTapped)))
         
-        self.backgroundColor = UIColor.brownColor()
-        layer.shadowOffset = CGSize(width: 0, height: 10)
+        layer.shadowOffset = CGSize(width: 10, height: 10)
         layer.shadowOpacity = 0.0
         layer.shadowRadius = 6
     }
@@ -36,40 +36,36 @@ class CanvasViewObject: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    func setData(data: JSON) {
-        switch data["type"].stringValue {
-        case "text":
-            print("case text")
-            drawTextBox(data)
-        default:
-            print("Unrecognised canvas object in model")
-        }
-        print(data["dimentions"]["height"].intValue)
-    }
     
-    func drawTextBox(data: JSON) {
-        let rect = CGRectMake(
+    func setData(data: JSON) {
+        self.frame = CGRectMake(
             CGFloat(data["position"]["x"].intValue),
             CGFloat(data["position"]["y"].intValue),
             CGFloat(data["dimentions"]["width"].intValue),
             CGFloat(data["dimentions"]["height"].intValue)
         )
         
-        self.frame = rect
-        
-        var textBox = UITextField()
-        textBox.frame = rect
-        textBox.text = data["text"].stringValue
-        self.addSubview(textBox)
+        self.text = data["text"].stringValue
+//        self.backgroundColor = UIColor.brownColor()
     }
     
+    func wasTapped() {
+        mainController?.selectCanvasViewObject(self)
+    }
     
+    func select() {
+        self.superview?.bringSubviewToFront(self)
+        self.borderStyle = .RoundedRect
+    }
+    
+    func deselect() {
+        self.borderStyle = .None
+    }
     
     func detectPan(recognizer: UIPanGestureRecognizer) {
         switch (recognizer.state) {
         case .Began:
-            self.superview?.bringSubviewToFront(self)
+            mainController!.selectCanvasViewObject(self)
             
             let locationInView = recognizer.locationInView(superview)
             dragStartPositionRelativeToCenter = CGPoint(
