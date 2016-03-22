@@ -1,14 +1,30 @@
-{
-	"id" : "56ec18f4326ee43c15520eb3",
-	"type" : "text",
-	"position" : {
-		"x" : 10,
-		"y" : 10
-	},
-	"dimentions" : {
-		"width" : 500,
-		"height" : 10
-	},
-	"text" : "Test textruta",
-	"style": "Header"
-}
+[
+    {
+        "id" : "56ec18f4326ee43c15520eb3",
+        "type" : "text",
+        "position" : {
+            "x" : 10,
+            "y" : 10
+        },
+        "dimentions" : {
+            "width" : 500,
+            "height" : 10
+        },
+        "text" : "Test textruta",
+        "style": "Header"
+    },
+    {
+        "id" : "asdf4asdf4asdf4asdf4asdf4",
+        "type" : "text",
+        "position" : {
+            "x" : 20,
+            "y" : 10
+        },
+        "dimentions" : {
+            "width" : 500,
+            "height" : 20
+        },
+        "text" : "Ruta 2 ruta 2",
+        "style": "Header"
+    }
+]

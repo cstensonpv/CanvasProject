@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class ViewController: UIViewController {
 	let model = CanvasProjectModel()
 	let notificationCenter = NSNotificationCenter.defaultCenter()
+    var canvasViewObjects = [CanvasViewObject]()
 
 //	required init?(coder aDecoder: NSCoder) {
 //	    fatalError("init(coder:) has not been implemented")
@@ -22,6 +24,7 @@ class ViewController: UIViewController {
 		// Do any additional setup after loading the view, typically from a nib.
 		
 	}
+    @IBOutlet weak var canvas: UIScrollView!
 	@IBOutlet weak var theLabel: UILabel!
 	@IBOutlet weak var textField: UITextField!
 	
@@ -50,14 +53,7 @@ class ViewController: UIViewController {
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
-	}
-	
-	func drawTextBox(textBox: TextBox) {
-		print("Draw text box")
-		var txtField: UITextField = UITextField()
-		txtField.frame = CGRectMake(CGFloat(textBox.position.x), CGFloat(textBox.position.y), CGFloat(textBox.dimentions.width), CGFloat(textBox.dimentions.height))
-		self.view.addSubview(txtField)
-	}
+    }
 
 	func update() {
 		theLabel.text = model.testValue
@@ -65,13 +61,10 @@ class ViewController: UIViewController {
 		
 		if let project = model.currentProject {
 			for var object in project.getObjects() {
-				switch object {
-				case is TextBox:
-					print("case text")
-					drawTextBox(object as! TextBox)
-				default:
-					print("Unrecognised canvas object in model")
-				}
+				let newCanvasViewObject = CanvasViewObject()
+                newCanvasViewObject.setData(object)
+                canvas.addSubview(newCanvasViewObject)
+                canvasViewObjects.append(newCanvasViewObject)
 			}
 		}
 	}

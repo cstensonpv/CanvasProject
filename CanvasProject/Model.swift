@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class CanvasProjectModel {
 	let notificationCenter = NSNotificationCenter.defaultCenter()
@@ -15,12 +16,12 @@ class CanvasProjectModel {
 	let username: String = "Mats"
 	let userID: String = "1"
 	var currentProject: Project?
-	let serverAddress: String = "http://130.229.133.136"
+	let serverAddress: String = "192.168.0.11"
 	let serverPort: String = "8080"
 	let serverURI: String
 	
 	init() {
-		serverURI = serverAddress + ":" + serverPort
+		serverURI = "http://" + serverAddress + ":" + serverPort
 		createNewProject()
 	}
 
@@ -92,7 +93,17 @@ class CanvasProjectModel {
 	}
 	
 	func receiveObjects(response: Response<AnyObject, NSError>) {
-		if let objects = response.result.value {
+        if response.result.value != nil {
+            let objects = JSON(response.result.value!)
+            currentProject?.resetObjects()
+            for (_,object):(String, JSON) in objects {
+                currentProject?.addObject(object)
+            }
+            notificationCenter.postNotificationName("ReceivedData", object: nil)
+        }
+            
+            
+            
 //			for var object in objects as! [[String: NSObject]] {
 //			var object = objects
 //				switch object["type"] as! String {
@@ -113,7 +124,7 @@ class CanvasProjectModel {
 //				}
 //			}
 			
-		}
+		
 	}
 	
 

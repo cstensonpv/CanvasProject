@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import SwiftyJSON
+
 
 class Project {
-	private var objects = [CanvasObject]()
+	private var objects = [JSON]()
 	let id, name, creator: String
 	
 	init(id: String, name: String, creator: String) {
@@ -17,12 +19,16 @@ class Project {
 		self.name = name
 		self.creator = creator		
 	}
+    
+    func resetObjects() {
+        objects.removeAll()
+    }
 	
-	func addObject(object: CanvasObject) {
+	func addObject(object: JSON) {
 		objects.append(object)
 	}
 	
-	func getObjects() -> [CanvasObject] {
+	func getObjects() -> [JSON] {
 		return objects
 	}
 	
