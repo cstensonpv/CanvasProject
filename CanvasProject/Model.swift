@@ -10,14 +10,20 @@ import UIKit
 import Alamofire
 
 class CanvasProjectModel {
-	var observers = [UIViewController]()
 	let notificationCenter = NSNotificationCenter.defaultCenter()
 	var testValue: String = ""
 	let username: String = "Mats"
 	let userID: String = "1"
 	var currentProject: Project?
-	var serverAddress: String = "http://localhost"
-	var serverPort: String = "8080"
+	let serverAddress: String = "http://130.229.133.136"
+	let serverPort: String = "8080"
+	let serverURI: String
+	
+	init() {
+		serverURI = serverAddress + ":" + serverPort
+		createNewProject()
+	}
+
 	
 	func test() {
 		print("test")
@@ -29,7 +35,7 @@ class CanvasProjectModel {
 	}
 	
 	func testStringGet() {
-		Alamofire.request(.GET, serverAddress + serverPort + "/test")
+		Alamofire.request(.GET, serverURI + "/test")
 			.responseString { response in
 				print(response.request)
 				print(response.response)
@@ -43,7 +49,7 @@ class CanvasProjectModel {
 	}
 	
 	func testJSONGet() {
-		Alamofire.request(.GET, serverAddress + serverPort + "get/test")
+		Alamofire.request(.GET, serverURI + "/get/test")
 			.responseJSON { response in
 					print(response.response)
 				
@@ -61,7 +67,7 @@ class CanvasProjectModel {
 			]
 		]
 		
-		Alamofire.request(.POST, serverAddress + serverPort + "post", parameters: parameters, encoding: .JSON)
+		Alamofire.request(.POST, serverURI + "/post", parameters: parameters, encoding: .JSON)
 			.responseString { response in
 				if let str = response.result.value {
 					self.setTestValue(str)
@@ -69,8 +75,46 @@ class CanvasProjectModel {
 			}
 	}
 	
+	func addTextBox() {
+		Alamofire.request(.GET, serverURI + "/testText").responseJSON {
+			response in self.requestObjects(response)
+		}
+	}
+	
 	func createNewProject() {
 		self.currentProject = Project(id: "1", name: "Test project", creator: self.userID)
 	}
 	
+	func requestObjects(response: Response<AnyObject, NSError>) {
+		Alamofire.request(.GET, serverURI + "/testText").responseJSON {
+			response in self.receiveObjects(response)
+		}
+	}
+	
+	func receiveObjects(response: Response<AnyObject, NSError>) {
+		if let objects = response.result.value {
+//			for var object in objects as! [[String: NSObject]] {
+//			var object = objects
+//				switch object["type"] as! String {
+//				case "text":
+//					currentProject?.addObject(
+//						TextBox(
+//							id: object["id"] as! String,
+//							x: (object["position"] as! [String: NSObject])["x"] as! Int,
+//							y: (object["position"] as! [String: NSObject])["y"] as! Int,
+//							width: (object["dimentions"] as! [String: NSObject])["width"] as! Int,
+//							height: (object["dimentions"] as! [String: NSObject])["height"] as! Int,
+//							text: object["text"] as! String,
+//							style: object["style"] as? String
+//						)
+//					)
+//				default:
+//					print("Unrecognised object received")
+//				}
+//			}
+			
+		}
+	}
+	
+
 }

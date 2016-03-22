@@ -5,6 +5,10 @@
 		"x" : 10,
 		"y" : 10
 	},
+	"dimentions" : {
+		"width" : 500,
+		"height" : 10
+	},
 	"text" : "Test textruta",
 	"style": "Header"
 }

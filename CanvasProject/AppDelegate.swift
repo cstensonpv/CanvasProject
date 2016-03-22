@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -45,3 +46,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+ 

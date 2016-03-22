@@ -29,6 +29,10 @@ class ViewController: UIViewController {
 		model.testStringGet()
 	}
 	
+	@IBAction func addTextBox(sender: AnyObject) {
+		model.addTextBox()
+	}
+	
 	@IBAction func helloWorld(sender: UIButton, forEvent event: UIEvent) {
 		model.test()
 		if let text = textField.text {
@@ -47,9 +51,29 @@ class ViewController: UIViewController {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
+	
+	func drawTextBox(textBox: TextBox) {
+		print("Draw text box")
+		var txtField: UITextField = UITextField()
+		txtField.frame = CGRectMake(CGFloat(textBox.position.x), CGFloat(textBox.position.y), CGFloat(textBox.dimentions.width), CGFloat(textBox.dimentions.height))
+		self.view.addSubview(txtField)
+	}
 
 	func update() {
 		theLabel.text = model.testValue
+		print("update")
+		
+		if let project = model.currentProject {
+			for var object in project.getObjects() {
+				switch object {
+				case is TextBox:
+					print("case text")
+					drawTextBox(object as! TextBox)
+				default:
+					print("Unrecognised canvas object in model")
+				}
+			}
+		}
 	}
 }
 

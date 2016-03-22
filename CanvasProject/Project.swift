@@ -9,15 +9,21 @@
 import Foundation
 
 class Project {
-	private var objects = Array<NSObject>()
+	private var objects = [CanvasObject]()
 	let id, name, creator: String
 	
 	init(id: String, name: String, creator: String) {
 		self.id = id
 		self.name = name
-		self.creator = creator
+		self.creator = creator		
 	}
 	
+	func addObject(object: CanvasObject) {
+		objects.append(object)
+	}
 	
-
+	func getObjects() -> [CanvasObject] {
+		return objects
+	}
+	
 }
