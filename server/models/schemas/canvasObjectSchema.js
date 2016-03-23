@@ -51,9 +51,9 @@ function schemaBase(type) {
 
 var CanvasObject = mongoose.model('CanvasObject', schemaBase());
 
-var TextObject = mongoose.model('TextObject', schemaBase("text"));
+var TextObject = mongoose.model('TextObject', schemaBase("text"), 'CanvasObject');
 
-var FileObject = mongoose.model('FileObject', schemaBase("file"));
+var FileObject = mongoose.model('FileObject', schemaBase("file"), 'CanvasObject');
 
 //var TextObject = mongoose.model('TextObject', TextObjectSchema);
 

@@ -72,13 +72,17 @@ exports.delete = function(project_id, object_id, callback){
 }
 
 exports.getAll = function(project_id, callback){
-	CanvasObject.TextObject.find({project_id : project_id}, function (err, objects) {
-		if(objects){
-			callback(err, objects)
-		}else{
-			callback(new Error("objectsID doesn't exists!"), object);
-		}
-	});
+	var objects ={};
+
+	findObjects(project_id, callback);
+
+	// CanvasObject.TextObject.find({project_id : project_id}, function (err, objects) {
+	// 	if(objects){
+	// 		callback(err, objects)
+	// 	}else{
+	// 		callback(new Error("objectsID doesn't exists!"), object);
+	// 	}
+	// });
 } 
 
 function addText(project, params, callback){
@@ -131,5 +135,23 @@ function findObject(object_id, params, callback) {
 		}else{
 			callback(new Error("ObjectID doesn't exists!"), object);
 		}
+	});
+}
+
+function findObjects(project_id, callback) {
+	var objects =[];
+	CanvasObject.FileObject.find({project_id : project_id}, function (err, object) {
+		objects.push.apply(objects, object);
+		CanvasObject.TextObject.find({project_id : project_id}, function (err, object2) {
+			if(object){
+				objects.push.apply(objects, object2);
+			}
+			if(objects.length > 0){
+				callback(err, objects)
+			}else{
+				callback(new Error("Project doesn't have any objects!"), objects);
+			}
+		});
+		
 	});
 }
