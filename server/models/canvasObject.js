@@ -61,7 +61,7 @@ exports.delete = function(project_id, object_id, callback){
 		if(!err){
 			if (object.project_id == project_id) {
 				object.remove(function(err, res) {
-					callback(err, "succesS");
+					callback(err, "success");
 				})
 			}else{
 				callback(new Error("Object not in project"))
