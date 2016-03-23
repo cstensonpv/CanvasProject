@@ -3,6 +3,8 @@ var mongoose = require( 'mongoose' );
 
 var options = { discriminatorKey: 'type' };
 function schemaBase(type) {
+    console.log(type);
+
     var schema = new mongoose.Schema(
     	{ 
     		project_id: {type: mongoose.Schema.Types.ObjectId,
@@ -19,7 +21,7 @@ function schemaBase(type) {
     	}
     ); 
 
-    if(type = "text"){
+    if(type == "text"){
         schema.add({
             text: {type: String, default: "new textBox", require: true}
             , style : {type: String, default: "paragraf", require: true}
@@ -36,13 +38,12 @@ function schemaBase(type) {
                 }
             }
         })
-    }else if(type = "file") {
+    }else if(type == "file") {
         schema.add({
             fileURI : {type: String, require: true}
             , imageURI : {type: String, default: "imageURI", require: true}// will be a foreign key to Style!
         })
     }
-
     return schema;
 }
 
@@ -54,6 +55,7 @@ var CanvasObject = mongoose.model('CanvasObject', schemaBase());
 var TextObject = mongoose.model('TextObject', schemaBase("text"), 'CanvasObject');
 
 var FileObject = mongoose.model('FileObject', schemaBase("file"), 'CanvasObject');
+console.log(FileObject.schema.paths.style);
 
 //var TextObject = mongoose.model('TextObject', TextObjectSchema);
 

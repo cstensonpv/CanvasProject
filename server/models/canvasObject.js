@@ -7,17 +7,19 @@ Project = require('./schemas/projectSchema');
 // User = require('./schemas/userSchema');
 
 exports.addObject = function(project_id, params, callback) {
-	if (params.type = "text"){
-		findProject(project_id, function(err, project) { //ensures that project exists
-			if(project && params.project_id == project._id){
+	findProject(project_id, function(err, project) { //ensures that project exists
+		if(project && params.project_id == project._id){
+			if (params.type == "text"){
 				addText(project, params, callback);
+			}else if(params.type == "file" ){
+				addFile(project, params, callback);
 			}else{
-				callback(new Error("object and project ide dosent match"))
+				callback(new Error("type not supported"));
 			}
-		})
-	}else{
-		callback(new Error("type not supported"));
-	}
+		}else{
+			callback(new Error("object and project ide dosent match"))
+		}
+	})
 }
 
 exports.updateObject = function(project_id, params, callback) {
@@ -59,7 +61,7 @@ exports.delete = function(project_id, object_id, callback){
 		if(!err){
 			if (object.project_id == project_id) {
 				object.remove(function(err, res) {
-					callback(err, "succes");
+					callback(err, "succesS");
 				})
 			}else{
 				callback(new Error("Object not in project"))
@@ -75,14 +77,6 @@ exports.getAll = function(project_id, callback){
 	var objects ={};
 
 	findObjects(project_id, callback);
-
-	// CanvasObject.TextObject.find({project_id : project_id}, function (err, objects) {
-	// 	if(objects){
-	// 		callback(err, objects)
-	// 	}else{
-	// 		callback(new Error("objectsID doesn't exists!"), object);
-	// 	}
-	// });
 } 
 
 function addText(project, params, callback){
@@ -141,18 +135,15 @@ function findObject(object_id, params, callback) {
 
 function findObjects(project_id, callback) {
 	var objects =[];
-	CanvasObject.FileObject.find({project_id : project_id}, function (err, object) {
-		objects.push.apply(objects, object);
-		CanvasObject.TextObject.find({project_id : project_id}, function (err, object2) {
-			if(object){
-				objects.push.apply(objects, object2);
-			}
-			if(objects.length > 0){
-				callback(err, objects)
-			}else{
-				callback(new Error("Project doesn't have any objects!"), objects);
-			}
-		});
-		
+	CanvasObject.TextObject.find({project_id : project_id}, function (err, object) {
+		if(object){
+			objects.push.apply(objects, object);
+		}
+		if(objects.length > 0){
+			callback(err, objects)
+		}else{
+			callback(new Error("Project doesn't have any objects!"), objects);
+		}
 	});
+		
 }

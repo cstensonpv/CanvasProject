@@ -23,7 +23,7 @@ function callback(err, result) {
 function errorHandling(err) {
 	var msg = err.message;
 	if(msg == "type not supported"){
-		return("Typer not supported")
+		return("Type not supported")
 	}else{
 		return(msg);
 	}
