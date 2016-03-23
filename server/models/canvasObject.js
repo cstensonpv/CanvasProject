@@ -125,7 +125,7 @@ function findProject(project_id, callback) {
 }
 
 function findObject(object_id, params, callback) {
-	CanvasObject.CanvasObject.findById(object_id, function (err, object) {
+	CanvasObject.TextObject.findById(object_id, function (err, object) {
 		if(object){
 			callback(err, object)
 		}else{
