@@ -121,6 +121,7 @@ function addFile(project_id, params, callback){
 function findProject(project_id, callback) {
 	Project.findById(project_id, function (err, project) {
 		if(project){
+			console.log("Found project: " + project.name)
 			callback(err, project)
 		}else{
 			callback(new Error("ProjectID doesn't exists!"), project);

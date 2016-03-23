@@ -30,10 +30,10 @@ function errorHandling(err) {
 }
 
 router.post('/:project_id', function(req, res) {
-	var params = req.body;
+	var body = req.body;
 	var project_id = req.params.project_id;
-	console.log("request to add canvasObj with params : "+ params);
-	canvasObjectModel.addObject(project_id, req.body, function(err, result) {
+	console.log("request to add canvasObj with params : "+ body);
+	canvasObjectModel.addObject(project_id, body, function(err, result) {
 		if(err){
 			res.send(errorHandling(err))
 		}else{

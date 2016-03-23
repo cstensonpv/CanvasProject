@@ -12,7 +12,7 @@ var ProjectSchema = new mongoose.Schema(
 			type: mongoose.Schema.Types.ObjectId,
         	ref: 'User' 
         }
-		, registred : { type: Date, default: Date.now } //Timezone is strange
+		, registered : { type: Date, default: Date.now } //Timezone is strange
 		, collaborators : {
 			type :[{
 				type: mongoose.Schema.Types.ObjectId,

@@ -109,7 +109,7 @@ or
 ```
 ### Get user
 ```
-GET /user/<USERNAME>
+GET /user/<USERID>
 ```
 returns if user exists
 ```javascript
