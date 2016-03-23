@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -18,47 +18,53 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dJ9-Eb-s5P">
-                                <rect key="frame" x="0.0" y="20" width="768" height="960"/>
+                                <rect key="frame" x="0.0" y="64" width="768" height="916"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L5W-IA-gVe">
-                                        <rect key="frame" x="13" y="224" width="200" height="30"/>
+                                        <rect key="frame" x="13" y="180" width="200" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UbW-Vc-TXA">
-                                        <rect key="frame" x="120" y="269" width="80" height="30"/>
+                                        <rect key="frame" x="120" y="225" width="80" height="30"/>
                                         <state key="normal" title="Hello World"/>
                                         <connections>
                                             <action selector="helloWorld:forEvent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CP1-Xe-KG5"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aE9-WI-SRc">
-                                        <rect key="frame" x="70" y="329" width="107" height="30"/>
+                                        <rect key="frame" x="70" y="285" width="107" height="30"/>
                                         <state key="normal" title="JSON response"/>
                                         <connections>
                                             <action selector="jsonTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RM7-q1-hwj"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Og3-vM-Co8">
-                                        <rect key="frame" x="94" y="393" width="83" height="30"/>
+                                        <rect key="frame" x="94" y="349" width="83" height="30"/>
                                         <state key="normal" title="JSON POST"/>
                                         <connections>
                                             <action selector="jsonPostTest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eTP-em-cVi"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZJ-fw-px4" userLabel="theLabel">
-                                        <rect key="frame" x="30" y="407" width="316" height="62"/>
+                                        <rect key="frame" x="30" y="363" width="316" height="62"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E7g-tZ-pAr">
-                                        <rect key="frame" x="226" y="315" width="57" height="30"/>
+                                        <rect key="frame" x="226" y="271" width="57" height="30"/>
                                         <state key="normal" title="Request"/>
                                         <connections>
                                             <action selector="requestHelloWorld:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iQQ-mB-ZQe"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Collaborators" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MxW-wn-aWm">
+                                        <rect key="frame" x="8" y="8" width="752" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </scrollView>
@@ -72,18 +78,26 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9I6-Nf-SAG">
+                                <rect key="frame" x="0.0" y="20" width="768" height="44"/>
+                                <items>
+                                    <navigationItem title="Project name" id="Dgb-Yl-17L"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
                         <outlet property="canvas" destination="dJ9-Eb-s5P" id="wHs-94-z0T"/>
+                        <outlet property="collaboratorsLabel" destination="MxW-wn-aWm" id="uqx-c6-fJm"/>
+                        <outlet property="projectNameLabel" destination="Dgb-Yl-17L" id="piW-gX-Zlw"/>
                         <outlet property="textField" destination="L5W-IA-gVe" id="SAZ-Q1-G87"/>
                         <outlet property="theLabel" destination="vZJ-fw-px4" id="PqG-ft-pxc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="101" y="259"/>
+            <point key="canvasLocation" x="95" y="302"/>
         </scene>
     </scenes>
 </document>

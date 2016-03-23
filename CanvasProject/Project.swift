@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class Project {
 	private var objects = [JSON]()
+	var collaborators = [String]()
 	let id, name, creator: String
 	
 	init(id: String, name: String, creator: String) {
@@ -28,8 +29,16 @@ class Project {
 		objects.append(object)
 	}
 	
+	func addCollaborator(collaborator: String) {
+		collaborators.append(collaborator)
+	}
+	
 	func getObjects() -> [JSON] {
 		return objects
+	}
+	
+	func getCollaborators() -> [String] {
+		return collaborators
 	}
 	
 }

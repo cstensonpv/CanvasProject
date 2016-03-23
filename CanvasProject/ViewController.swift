@@ -21,12 +21,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        notificationCenter.addObserver(self, selector: #selector(update), name: "ReceivedData", object: nil)
-
+		notificationCenter.addObserver(self, selector: #selector(updateProject), name: "ReceivedProject", object: nil)
+        notificationCenter.addObserver(self, selector: #selector(updateCanvasObjects), name: "ReceivedCanvasObjects", object: nil)
+		notificationCenter.addObserver(self, selector: #selector(updateUserInfo), name: "ReceivedUserInfo", object: nil)
 		// Do any additional setup after loading the view, typically from a nib.
 		
 	}
+	
     @IBOutlet weak var canvas: UIScrollView!
+	@IBOutlet weak var projectNameLabel: UINavigationItem!
+	@IBOutlet weak var collaboratorsLabel: UILabel!
 	@IBOutlet weak var theLabel: UILabel!
 	@IBOutlet weak var textField: UITextField!
 	
@@ -35,7 +39,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	}
 	
 	@IBAction func addTextBox(sender: AnyObject) {
-		model.addTextBox()
+		model.addCanvasObject(CanvasProjectModel.CanvasObjectType.TextBox)
 	}
 	
 	@IBAction func helloWorld(sender: UIButton, forEvent event: UIEvent) {
@@ -73,10 +77,31 @@ class ViewController: UIViewController, UITextFieldDelegate {
             object.deselect()
         }
     }
+	
+	func updateProject() {
+		print("Update project")
+		if let project = model.currentProject {
+			projectNameLabel.title = project.name
+			
+			model.requestProjectUserInfo()
+			model.requestCanvasObjects()
+		}
+		
+	}
+	
+	func updateUserInfo() {
+		print("Update user info")
+		if let project = model.currentProject {
+			collaboratorsLabel.text = "Collaborators: "
+			for var collaborator in project.getCollaborators() {
+				collaboratorsLabel.text? += model.userNames[collaborator]! + ", "
+			}
+		}
+	}
 
-	func update() {
+	func updateCanvasObjects() {
 		theLabel.text = model.testValue
-		print("update")
+		print("Update canvas objects")
 		
 		if let project = model.currentProject {
 			for var object in project.getObjects() {

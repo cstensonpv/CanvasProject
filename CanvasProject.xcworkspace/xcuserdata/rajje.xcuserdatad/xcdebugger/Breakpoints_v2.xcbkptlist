@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CanvasProject/ViewController.swift"
-            timestampString = "480266773.943726"
+            timestampString = "480434972.934338"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "update()"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "deselectAllCanvasViewObjects()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -65,6 +65,54 @@
             endingLineNumber = "23"
             landmarkName = "init(id:x:y:width:height:text:style:)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CanvasProject/ViewController.swift"
+            timestampString = "480435066.800855"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "updateCanvasObjects()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CanvasProject.ViewController.updateCanvasObjects () -&gt; ()"
+                  moduleName = "CanvasProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rajje/Dropbox/KTH/Internetprogrammering%20-%20DD2390/CanvasProject/CanvasProject/ViewController.swift"
+                  timestampString = "480435080.93355"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
+                  offsetFromSymbolStart = "492">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CanvasProject.ViewController.updateCanvasObjects () -&gt; ()"
+                  moduleName = "CanvasProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rajje/Dropbox/KTH/Internetprogrammering%20-%20DD2390/CanvasProject/CanvasProject/ViewController.swift"
+                  timestampString = "480435080.933967"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
+                  offsetFromSymbolStart = "584">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

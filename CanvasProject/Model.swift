@@ -15,17 +15,23 @@ class CanvasProjectModel {
 	var testValue: String = ""
 	let username: String = "Mats"
 	let userID: String = "1"
+	var userNames = [String: String]()
+	var userInfo = [JSON]()
 	var currentProject: Project?
-	let serverAddress: String = "192.168.0.11"
+	
+	let serverAddress: String = "130.229.155.130"
 	let serverPort: String = "8080"
 	let serverURI: String
 	
 	init() {
 		serverURI = "http://" + serverAddress + ":" + serverPort
-		createNewProject()
+		switchProject(id: "56f29db6451cba0416cf06ee")
+	}
+	
+	enum CanvasObjectType {
+		case TextBox
 	}
 
-	
 	func test() {
 		print("test")
 	}
@@ -76,55 +82,104 @@ class CanvasProjectModel {
 			}
 	}
 	
-	func addTextBox() {
-		Alamofire.request(.GET, serverURI + "/testText").responseJSON {
-			response in self.requestObjects(response)
+	
+	// API request functions
+	func addCanvasObject(type: CanvasObjectType) {
+		if let project = currentProject {
+			let newCanvasObject: [String : NSObject]
+			
+			switch type {
+			case .TextBox:
+				newCanvasObject = CanvasObjectPrototypes.textBox(project.id)
+			}
+			
+			Alamofire.request(.POST, serverURI + "/canvasobject/" + project.id, parameters: newCanvasObject, encoding: .JSON).responseJSON {
+				response in self.requestCanvasObjects()
+			}
 		}
 	}
 	
-	func createNewProject() {
-		self.currentProject = Project(id: "1", name: "Test project", creator: self.userID)
-	}
-	
-	func requestObjects(response: Response<AnyObject, NSError>) {
-		Alamofire.request(.GET, serverURI + "/testText").responseJSON {
-			response in self.receiveObjects(response)
+	func switchProject(id id: String) {
+		print("Switch project")
+		Alamofire.request(.GET, serverURI + "/project/" + id).responseJSON {
+			response in self.receiveProject(response)
 		}
 	}
 	
-	func receiveObjects(response: Response<AnyObject, NSError>) {
-        if response.result.value != nil {
-            let objects = JSON(response.result.value!)
+	func requestCanvasObjects() {
+		if let project = currentProject {
+			Alamofire.request(.GET, serverURI + "/canvasObject/" + project.id).responseJSON {
+				response in self.receiveCanvasObjects(response)
+			}
+		}
+	}
+	
+	func requestProjectUserInfo() {
+		if let project = currentProject {
+			userInfo.removeAll()
+			userNames.removeAll()
+			
+			requestUserInfo(project.creator)
+			
+			for collaborator in project.collaborators {
+				requestUserInfo(collaborator)
+			}
+		}
+	}
+	
+	func requestUserInfo(userID: String) {
+		Alamofire.request(.GET, serverURI + "/user/" + userID).responseJSON {
+			response in self.receiveUserInfo(response)
+		}
+	}
+	
+	
+	// API response functions
+	func receiveProject(response: Response<AnyObject, NSError>) {
+		if let responseValue = response.result.value {
+			print("Project received")
+			let projectData = JSON(responseValue)
+			currentProject = Project(
+				id: projectData["_id"].stringValue,
+				name: projectData["name"].stringValue,
+				creator: projectData["creator"].stringValue
+			)
+			
+			if let collaborators = projectData["collaborators"].array {
+				for collaborator in collaborators {
+					currentProject?.addCollaborator(collaborator.stringValue)
+				}
+			}
+			
+			requestProjectUserInfo()
+			
+			notificationCenter.postNotificationName("ReceivedProject", object: nil)
+		}
+	}
+	
+	func receiveCanvasObjects(response: Response<AnyObject, NSError>) {
+        if let responseValue = response.result.value {
+			print("Canvas objects received")
+            let objects = JSON(responseValue)
             currentProject?.resetObjects()
             for (_,object):(String, JSON) in objects {
                 currentProject?.addObject(object)
             }
-            notificationCenter.postNotificationName("ReceivedData", object: nil)
-        }
-            
-            
-            
-//			for var object in objects as! [[String: NSObject]] {
-//			var object = objects
-//				switch object["type"] as! String {
-//				case "text":
-//					currentProject?.addObject(
-//						TextBox(
-//							id: object["id"] as! String,
-//							x: (object["position"] as! [String: NSObject])["x"] as! Int,
-//							y: (object["position"] as! [String: NSObject])["y"] as! Int,
-//							width: (object["dimentions"] as! [String: NSObject])["width"] as! Int,
-//							height: (object["dimentions"] as! [String: NSObject])["height"] as! Int,
-//							text: object["text"] as! String,
-//							style: object["style"] as? String
-//						)
-//					)
-//				default:
-//					print("Unrecognised object received")
-//				}
-//			}
 			
+            notificationCenter.postNotificationName("ReceivedCanvasObjects", object: nil)
+        }
 		
+	}
+	
+	func receiveUserInfo(response: Response<AnyObject, NSError>) {
+		if let responseValue = response.result.value {
+			print("User info received")
+			let user = JSON(responseValue)
+			userInfo.append(user)
+			userNames[user["_id"].stringValue] = user["UserName"].stringValue
+			
+			notificationCenter.postNotificationName("ReceivedUserInfo", object: nil)
+		}
 	}
 	
 
