@@ -1,4 +1,4 @@
-# Test api-server
+# INteractive canvas api-server
 
 This server is used in the interactiveCanvas project. A project wiuthin the scope of the course DD2390 at the Rotyal Institute of Technology.
 
@@ -9,10 +9,10 @@ It is using a MongoDB on mLab on url:
 
 ## Installation
 
-type 'npm install' in the testserver folder. All the node modules required for this project will automatically be installed.
+type 'npm install' in the server folder. All the node modules required for this project will automatically be installed.
 
 ## Get started
-Start the server by typing 'node app.js' in the server root folder. The server is listening on port 8080.
+Start the server by typing 'npm start' in the server root folder which start the app.js file. The server is listening on port 8080.
 
 # Documentation
 
