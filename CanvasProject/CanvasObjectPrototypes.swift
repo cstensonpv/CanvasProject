@@ -12,14 +12,14 @@ import Alamofire
 import SwiftyJSON
 
 struct CanvasObjectPrototypes {
-	static func textBox(projectID: String) -> [String: NSObject] {
+	static func textBox(projectID: String) -> JSON {
 		return [
 			"project_id": projectID,
 			"position": [
 				"x": 100,
 				"y": 100
 			],
-			"dimentions": [
+			"dimensions": [
 				"width": 100,
 				"height": 50
 			],

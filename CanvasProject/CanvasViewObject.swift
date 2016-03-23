@@ -6,9 +6,13 @@
 //  Copyright © 2016 KTH. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 protocol CanvasViewObject {
+	var id: String { get }
+	var position: Position { get }
     func select()
     func deselect()
+	func removeFromSuperview()
 }

@@ -148,6 +148,7 @@ function findObjects(project_id, callback) {
 				objects.push.apply(objects, object2);
 			}
 			if(objects.length > 0){
+				console.log(objects)
 				callback(err, objects)
 			}else{
 				callback(new Error("Project doesn't have any objects!"), objects);
