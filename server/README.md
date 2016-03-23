@@ -263,8 +263,11 @@ if not succesfull
 ```javascript
 'Something went wrong'
 'User not in project'
+
 ```
 #Implemented to here
+
+
 ##CanvasObject
 The actual objects that are added to the canvas
 

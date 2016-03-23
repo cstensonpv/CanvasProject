@@ -5,7 +5,7 @@ var express = require('express'),
 
 router.use('/user', require('./userCtrl'))
 router.use('/project', require('./projectCtrl'))
-// router.use('/canvasObject', require('./canvasObjectCtrl'))
+router.use('/canvasObject', require('./canvasObjectCtrl'))
 
 
 module.exports = router;

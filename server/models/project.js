@@ -8,8 +8,6 @@ User = require('./schemas/userSchema');
 
 function findUser(UserName, callback) {
 	User.find({'UserName' : UserName}, function (err, user) {
-		// console.log(user);
-		//console.log(creator);
 		if(user.length > 0 ){
 		 	callback(err, user[0]);
 		}else{
@@ -92,7 +90,7 @@ exports.removeColaborator = function(project_id, userName, callback) {
 
 exports.remove = function(project_id, callback) {
 	findProject(project_id, function(err, project){
-		Project.remove(callback);
+		Project.remove(callback(err,project));
 	})
 }
 

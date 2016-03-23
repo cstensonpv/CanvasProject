@@ -91,6 +91,15 @@ app.get('/get/:name', function(req, res){
 	
 })
 
+app.post('/post', function(req, res){
+	console.log(req.body);
+	console.log(req.body.bar);
+	///Can be saved as pure json
+
+
+	res.send("request recived");
+})
+
 
 app.get('/testText', function(req, res){
 	console.log("requested testJSON");
