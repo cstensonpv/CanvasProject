@@ -65,11 +65,11 @@ router.put('/:project_id', function(req, res) {
 	})
 })
 
-router.put('/:project_id/:newColaborator', function(req, res) {
-	var userName = req.params.newColaborator;
+router.put('/:project_id/:newCollaborator', function(req, res) {
+	var userName = req.params.newCollaborator;
 	var id = req.params.project_id;
 	console.log("Request add user to project : " + userName + " project id: " + id );
-	projectModel.addColaborator( id, userName, function (err, project) {
+	projectModel.addCollaborator( id, userName, function (err, project) {
 		if(err){
 			errHandling(err);
 		}else{
@@ -79,11 +79,11 @@ router.put('/:project_id/:newColaborator', function(req, res) {
 	})
 })
 
-router.delete('/:project_id/:newColaborator', function(req, res) {
-	var userName = req.params.newColaborator;
+router.delete('/:project_id/:newCollaborator', function(req, res) {
+	var userName = req.params.newCollaborator;
 	var id = req.params.project_id;
 	console.log("Request delete user from project : " + userName + " project id: " + id );
-	projectModel.removeColaborator( id, userName, function (err, project) {
+	projectModel.removeCollaborator( id, userName, function (err, project) {
 		if(err){
 			errHandling(err);
 		}else{

@@ -44,7 +44,6 @@ router.post('/:project_id', function(req, res) {
 //not working
 router.put('/', function(req, res) {
 	var params = req.body;
-	console.log("new text : " + params.text)
 	var project_id = req.body.project_id;
 	console.log("request to add canvasObj with params : "+ params);
 	canvasObjectModel.updateObject(project_id, req.body, function(err, result) {
@@ -73,6 +72,19 @@ router.get('/:project_id', function(req, res) {
 	var project_id = req.params.project_id;
 	console.log("request to get canvasObj with project_id : "+ project_id);
 	canvasObjectModel.getAll(project_id, function(err, result) {
+		if(err){
+			res.send(errorHandling(err))
+		}else{
+			res.send(result)
+		}
+	});
+})
+
+router.delete('/:project_id/:object_id', function(req, res) {
+	var object_id = req.params.object_id;
+	var project_id = req.params.project_id;
+	console.log("request to delete canvasObj with object_id : "+ object_id);
+	canvasObjectModel.delete(project_id, object_id, function(err, result) {
 		if(err){
 			res.send(errorHandling(err))
 		}else{

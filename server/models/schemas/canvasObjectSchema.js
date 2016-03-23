@@ -2,35 +2,58 @@
 var mongoose = require( 'mongoose' ); 
 
 var options = { discriminatorKey: 'type' };
-var CanvasObjectSchema = new mongoose.Schema(
-	{ 
-		project_id: {type: mongoose.Schema.Types.ObjectId,
-            ref: 'Project' }
-        ,position: 
-            {type: 
-                { x: { type: Number, require: true }
-                , y: { type: Number, require: true }
+function schemaBase(type) {
+    var schema = new mongoose.Schema(
+    	{ 
+    		project_id: {type: mongoose.Schema.Types.ObjectId,
+                ref: 'Project' }
+            ,position: 
+                {type: 
+                    { x: { type: Number, require: true }
+                    , y: { type: Number, require: true }
+                    }
+                , required: true }
+    		, registered : { type: Date, default: Date.now } //Timezone is strange
+            , type: {type: String, require: true}
+
+    	}
+    ); 
+
+    if(type = "text"){
+        schema.add({
+            text: {type: String, default: "new textBox", require: true}
+            , style : {type: String, default: "paragraf", require: true}
+            , position: 
+                {type: 
+                    { x: { type: Number, require: true }
+                    , y: { type: Number, require: true }
                 }
-            , required: true },
-		registred : { type: Date, default: Date.now } //Timezone is strange
-	}, options
-);
+            }
+            , dimensions: 
+                {type: 
+                    { width: { type: Number, require: true }
+                    , height: { type: Number, require: true }
+                }
+            }
+        })
+    }else if(type = "file") {
+        schema.add({
+            fileURI : {type: String, require: true}
+            , imageURI : {type: String, default: "imageURI", require: true}// will be a foreign key to Style!
+        })
+    }
 
-var CanvasObject = mongoose.model('CanvasObject', CanvasObjectSchema);
+    return schema;
+}
 
-var TextObject = CanvasObject.discriminator('Text'
-    , new mongoose.Schema({
-        text : {type: String, require: true}
-        , style : {type: String, default: "paragraf", require: true}// will be a foreign key to Style!
-    }, options)
-)
+// var test = schemaBase();
+// console.log(test);
 
-var FileObject = CanvasObject.discriminator('File'
-    , new mongoose.Schema({
-        fileURI : {type: String, require: true}
-        , imageURI : {type: String, default: "imageURI", require: true}// will be a foreign key to Style!
-    }, options)
-)
+var CanvasObject = mongoose.model('CanvasObject', schemaBase());
+
+var TextObject = mongoose.model('TextObject', schemaBase("text"));
+
+var FileObject = mongoose.model('FileObject', schemaBase("file"));
 
 //var TextObject = mongoose.model('TextObject', TextObjectSchema);
 

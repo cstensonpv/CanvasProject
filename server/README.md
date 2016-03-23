@@ -18,7 +18,7 @@ Start the server by typing 'node app.js' in the server root folder. The server i
 
 This documentation is used of me when implementing the back-end. I will try to go from the top down and mark which features that are implemented.
 
-#Implemented till here!
+
 
 ## Users
 
@@ -273,15 +273,43 @@ The actual objects that are added to the canvas
 
 ###Add object
 ```
-POST  /canvasobject/<PROJECTID>/<TYPE>?param=xx&param=xx
+POST  /canvasobject/<PROJECTID>?param=xx&param=xx
 ```
+send the JSON object in the body of the request
+
 returns if succesful
 ```javascript
-generated canvas object
+{
+  "__v": 0,
+  "project_id": {
+    "_id": "56f0f535d027bbb8081db536",
+    "name": "test4",
+    "creator": "56ef023e1c37e4a80538f828",
+    "colaborators": [
+      "56ef023e1c37e4a80538f828"
+    ],
+    "__v": 0,
+    "collaborators": [],
+    "registred": "2016-03-22T07:33:09.972Z"
+  },
+  "position": {
+    "y": 100,
+    "x": 10
+  },
+  "dimensions": {
+    "height": 10,
+    "width": 100
+  },
+  "type": "text",
+  "style": "Header",
+  "text": "Ny text222!!!",
+  "_id": "56f27e0957b131e818fe92ea",
+  "registered": "2016-03-23T11:29:13.366Z"
+}
 ```
 if error
 ```javascript
-false
+Specified error
 ```
 ###GET a canvasObject
 ```
@@ -289,11 +317,24 @@ GET /canvasObject/<PROJECTID>/<OBJECTID>
 ```
 returns if object exists
 ```javascript
-Canvas object
+{
+  "_id": "56f1984bfd1d65bc208ff685",
+  "project_id": "56f0f535d027bbb8081db536",
+  "position": {
+    "x": 10,
+    "y": 10
+  },
+  "type": "text",
+  "registred": "2016-03-22T19:08:59.045Z",
+  "__v": 0,
+  "style": "Header",
+  "text": "Test textruta333",
+  "registered": "2016-03-23T11:30:28.113Z"
+}
 ```
 else
 ```javascript
-false
+error msg
 ```
 
 ### GET all canvasObject within a project
@@ -303,20 +344,65 @@ GET /canvasObject/<PROJECTID>/
 returns
 ```javascript
 [
-canvasObj,
-canvasobj,
-...
+  {
+    "_id": "56f1984bfd1d65bc208ff685",
+    "project_id": "56f0f535d027bbb8081db536",
+    "position": {
+      "x": 10,
+      "y": 10
+    },
+    "type": "text",
+    "registred": "2016-03-22T19:08:59.045Z",
+    "__v": 0,
+    "style": "Header",
+    "text": "Test textruta333",
+    "registered": "2016-03-23T11:31:01.823Z"
+  },
+  {
+    "_id": "56f1998c6b05643423834b0c",
+    "project_id": "56f0f535d027bbb8081db536",
+    "position": {
+      "x": 10,
+      "y": 10
+    },
+    "type": "text",
+    "registred": "2016-03-22T19:14:20.434Z",
+    "__v": 0,
+    "style": "Header",
+    "text": "Test 33",
+    "registered": "2016-03-23T11:31:01.823Z"
+  },
+  ...
+ 
 ]
 ```
 ### UPDATE canvas object
 ```
-PUT /canvasObject/<PROJECTID>/<OBJECTID>?parameter=change(&parameter=change)
+PUT /canvasObject/?parameter=change(&parameter=change)
 ```
+parameters are included in the body where you add the modified JSON object, or only the fields you want to update;
 returns new object if succesfull
 ```javascript
-canvasObject
+{
+  "dimensions": {
+    "height": 10,
+    "width": 100
+  },
+  "_id": "56f1984bfd1d65bc208ff685",
+  "project_id": "56f0f535d027bbb8081db536",
+  "position": {
+    "x": 1000,
+    "y": 1000
+  },
+  "type": "text",
+  "registred": "2016-03-22T19:08:59.045Z",
+  "__v": 0,
+  "style": "Header",
+  "text": "Ny tehadshkfjsdkjfkjxt222!!!",
+  "registered": "2016-03-23T11:34:08.204Z"
+}
 ```
-if not succesfull it returns the old object
+if not succesfull it returns the old object, without the change or an error.
 ```javascript
 canvasObject
 ```
@@ -330,5 +416,5 @@ succes
 ```
 or
 ```
-failure
+error msg
 ```
