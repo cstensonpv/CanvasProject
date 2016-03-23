@@ -72,7 +72,7 @@ exports.delete = function(project_id, object_id, callback){
 }
 
 exports.getAll = function(project_id, callback){
-	CanvasObject.CanvasObject.find({project_id : project_id}, function (err, objects) {
+	CanvasObject.TextObject.find({project_id : project_id}, function (err, objects) {
 		if(objects){
 			callback(err, objects)
 		}else{
