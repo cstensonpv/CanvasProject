@@ -5,9 +5,10 @@ var express = require('express')
   	, userModel = require('../models/user')
 
 
-router.get('/:UserName', function(req, res) {
-	console.log("Request get user : " + req.params.UserName);
-	userModel.get(req.params.UserName, function (err, user) {
+router.get('/:user_id', function(req, res) {
+	var user_id = req.params.user_id;
+	console.log("Request get user : " + user_id);
+	userModel.get(user_id , function (err, user) {
 		if(err && err.message == "User doesn't exists!"){
 			res.send("'User does not exists'");
 		}else{

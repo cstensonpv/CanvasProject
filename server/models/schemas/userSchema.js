@@ -4,7 +4,7 @@ var mongoose = require( 'mongoose' );
 var UserSchema = new mongoose.Schema(
 	{ 
 		UserName : {type: String, required: true, unique: true},
-		registred : { type: Date, default: Date.now } //Timezone is strange
+		registered : { type: Date, default: Date.now } //Timezone is strange
 	}
 );
 

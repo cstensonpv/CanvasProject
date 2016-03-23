@@ -33,10 +33,10 @@ exports.remove = function(userName, callback) {
 	});
 }
 
-exports.get = function(userName, callback) {
+exports.get = function(user_id, callback) {
 	var err;
-	User.find({'UserName' : userName}, function (err, user) {
-		if(user.length > 0 ){
+	User.findById(user_id, function (err, user) {
+		if(user ){
 			callback(err, user);
 		}else{
 			callback(new Error("User doesn't exists!"),user);

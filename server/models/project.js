@@ -32,7 +32,7 @@ exports.create = function(projectName, creator, callback) {
 	 	var project = new Project({
 		   	'name' : projectName
 		   	, 'creator' : creator
-		   	, 'colaborators' : [creator]
+		   	, 'collaborators' : [creator]
 	 	})
 		project.save(callback);
 	})  	
@@ -50,10 +50,10 @@ exports.updateName = function(project_id, newName, callback) {
 	})
 }
 
-exports.addColaborator = function(project_id, userName, callback) {
+exports.addCollaborator = function(project_id, userName, callback) {
 	findUser(userName, function(err, user) {
 		findProject(project_id, function(err, project) {	
-			Project.update({_id: project_id}, {$addToSet: {"colaborators" : user}}, function(err, status) {
+			Project.update({_id: project_id}, {$addToSet: {"collaborators" : user}}, function(err, status) {
 				if(status.nModified > 0){
 					findProject(project_id, function(err, project) {
 						callback(err,project);
@@ -66,11 +66,11 @@ exports.addColaborator = function(project_id, userName, callback) {
 	});
 }
 
-exports.removeColaborator = function(project_id, userName, callback) {
+exports.removeCollaborator = function(project_id, userName, callback) {
 	findUser(userName, function(err, user) {
 		findProject(project_id, function(err, project) {
-			if(project.colaborators.length > 1){
-				Project.update({_id: project_id}, {$pull: {"colaborators" : user._id}}, function(err, status) {
+			if(project.collaborators.length > 1){
+				Project.update({_id: project_id}, {$pull: {"collaborators" : user._id}}, function(err, status) {
 					if(status.nModified > 0){
 						console.log(status);
 						findProject(project_id, function(err, project) {
