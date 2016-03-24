@@ -49,7 +49,8 @@ exports.authorize = function(folder_name, callback) {
       } else {
         console.log("retrivees token")
         oauth2Client.credentials = JSON.parse(token);
-        listFiles(folder_name, oauth2Client, callback);
+        listFiles(folder_name, oauth2Client,callback);
+
       }
     });
   }else{
@@ -125,11 +126,11 @@ function listFiles(folderName, auth, callback) {
     }, function(err, response) {
       if (err) {
         console.log('The API returned an error: ' + err);
+        callback(err);
         return;
       }
       var files = response.files;
       if (files.length == 0) {
-        console.log('No files found.');
         callback(new Error('No files found'));
       } else {
         loadedFiles = files;       
@@ -151,13 +152,14 @@ function getFolderID(name, auth, callback){
       console.log('The API returned an error: ' + err);
       return;
     }
-    var files = response.files;
-    if (files.length == 0) {
-      console.log('No files found.');
-    } else if (files.length == 1) {
+    var folders = response.files;
+    if (folders.length == 0) {
+      console.log('No folder found.');
+      callback(new Error('No folders found'));
+    } else if (folders.length == 1) {
       console.log("found one folder")
-      var file = files[0];
-      // console.log('%s (%s)', file.name, file.id);
+      var file = folders[0];
+      console.log('%s (%s)', file.name, file.id);
       callback("",file.id);
     } else {
       console.log("found more than one folder one folder")
