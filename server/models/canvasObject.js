@@ -104,10 +104,16 @@ function addFile(project_id, params, callback){
 			x: params.position.x
 			, y: params.position.y
 		}
+		, dimensions: {
+			width: params.dimensions.width
+			, height: params.dimensions.height
+		}
 		, type : "file"
-		, fileURI : params.fileURI
-		, imageURI : params.imageURI
-	})
+		, name: params.name
+        , webViewLink: params.webViewLink
+        , iconLink: params.iconLink
+        , thumbnailLink: params.thumbnailLink
+    })
 
 	file.save(callback);
 }
