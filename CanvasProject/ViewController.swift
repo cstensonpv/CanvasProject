@@ -51,6 +51,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
 			model.deleteCanvasObject(id)
 		}
 	}
+    @IBAction func listFolder(sender: AnyObject) {
+        let folderName = "Projekt - Internetprogrammering"
+        let charset = NSCharacterSet.URLQueryAllowedCharacterSet()
+        print("click")
+        if let escaped = folderName.stringByAddingPercentEncodingWithAllowedCharacters(charset) {
+            model.requestDriveFolder(escaped)
+        }
+    }
 	
 	@IBAction func helloWorld(sender: UIButton, forEvent event: UIEvent) {
 		model.test()
