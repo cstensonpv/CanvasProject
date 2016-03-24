@@ -19,7 +19,7 @@ class CanvasProjectModel {
 	var userInfo = [JSON]()
 	var currentProject: Project?
 	
-	let serverAddress: String = "130.229.155.130"
+	let serverAddress: String = "130.229.153.14"
 	let serverPort: String = "8080"
 	let serverURI: String
 	
@@ -49,7 +49,18 @@ class CanvasProjectModel {
 		}
 	}
 	
+	func registerCanvasObjectResize(id: String, width: Float, height: Float) {
+		if var objectData = currentProject?.getObject(id) {
+			objectData["dimensions"]["width"] = JSON(width)
+			objectData["dimensions"]["height"] = JSON(height)
+			updateCanvasObject(objectData)
+		}
+	}
+	
 	func registerCanvasObjectText(id: String, text: String) {
+		print("Register canvas object text")
+		print(id)
+		print(text)
 		if var objectData = currentProject?.getObject(id) {
 			if objectData["type"].stringValue == "text" {
 				print(objectData)

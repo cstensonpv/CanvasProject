@@ -9,12 +9,19 @@
 import UIKit
 import SwiftyJSON
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController, UITextViewDelegate {
 	let model = CanvasProjectModel()
 	let notificationCenter = NSNotificationCenter.defaultCenter()
 	var canvasViewObjects = [String: CanvasViewObject]()
     var selectedCanvasViewObject: CanvasViewObject?
-    
+	
+	let resizeHandleHeight: CGFloat = 16;
+	let resizeHandleWidth: CGFloat = 26.5
+	
+	var dragStartPositionRelativeToCenter: CGPoint?
+	var dimensionsBeforeResize: CGSize?
+	
+	
 //	required init?(coder aDecoder: NSCoder) {
 //	    fatalError("init(coder:) has not been implemented")
 //	}
@@ -24,6 +31,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 		notificationCenter.addObserver(self, selector: #selector(updateProject), name: "ReceivedProject", object: nil)
         notificationCenter.addObserver(self, selector: #selector(updateCanvasObjects), name: "ReceivedCanvasObjects", object: nil)
 		notificationCenter.addObserver(self, selector: #selector(updateUserInfo), name: "ReceivedUserInfo", object: nil)
+		
 		// Do any additional setup after loading the view, typically from a nib.
 		
 	}
@@ -33,7 +41,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	@IBOutlet weak var projectNameLabel: UINavigationItem!
 	@IBOutlet weak var collaboratorsLabel: UILabel!
 	@IBOutlet weak var theLabel: UILabel!
-	@IBOutlet weak var textField: UITextField!
+	
+	// Test object outlets
+	
+	@IBOutlet weak var testTextBoxView: UIView!
+	@IBOutlet weak var testTextBoxInView: UITextField!
+	@IBOutlet weak var testTextBoxResizeView: UIView!
 	
 	@IBAction func requestHelloWorld(sender: AnyObject) {
 		model.testStringGet()
@@ -52,12 +65,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
 		}
 	}
 	
-	@IBAction func helloWorld(sender: UIButton, forEvent event: UIEvent) {
-		model.test()
-		if let text = textField.text {
-			model.setTestValue(text)
-		}
-	}
 
 	@IBAction func jsonTest(sender: AnyObject) {
 		model.testJSONGet()
@@ -65,20 +72,28 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	@IBAction func jsonPostTest(sender: AnyObject) {
 		model.testJSONPost()
 	}
+
     
-    func textFieldDidBeginEditing(textField: UITextField) {
-        selectCanvasViewObject(textField as! CanvasViewObject)
+    func textViewDidBeginEditing(textView: UITextView) {
+		if textView.superview! is CanvasViewTextBox {
+			let object = textView.superview! as! CanvasViewTextBox
+			selectCanvasViewObject(object)
+		}
     }
 	
-	func textFieldDidEndEditing(textField: UITextField) {
-		if textField is CanvasViewObject && textField.text != nil {
-			let changedObject = textField as! CanvasViewObject
-			self.model.registerCanvasObjectText(changedObject.id, text: textField.text!)
+	func textViewDidEndEditing(textView: UITextView) {
+		if textView.superview! is CanvasViewTextBox && textView.text != nil {
+			let changedObject = textView.superview! as! CanvasViewTextBox
+			self.model.registerCanvasObjectText(changedObject.id, text: changedObject.text)
 		}
 	}
 	
 	func registerObjectMovement(changedObject: CanvasViewObject) {
 		model.registerCanvasObjectMovement(changedObject.id, x: changedObject.position.x, y: changedObject.position.y)
+	}
+	
+	func registerObjectResize(changedObject: CanvasViewObject) {
+		model.registerCanvasObjectResize(changedObject.id, width: changedObject.dimensions.width, height: changedObject.dimensions.height)
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -111,7 +126,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	}
 	
 	func updateUserInfo() {
-		print("Update user info")
 		if let project = model.currentProject {
 			collaboratorsLabel.text = "Collaborators: "
 			for var collaborator in project.getCollaborators() {
@@ -144,7 +158,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 				let newCanvasViewObject = CanvasViewTextBox()
                 newCanvasViewObject.mainController = self
                 newCanvasViewObject.setData(object)
-                newCanvasViewObject.delegate = self
+                newCanvasViewObject.setTextFieldDelegate(self)
                 canvas.addSubview(newCanvasViewObject)
                 canvasViewObjects[newCanvasViewObject.id] = newCanvasViewObject
 			}
