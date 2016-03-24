@@ -71,9 +71,14 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tzu-KO-TkJ">
                                 <rect key="frame" x="0.0" y="980" width="768" height="44"/>
                                 <items>
-                                    <barButtonItem title="Item" id="KmV-xu-2Jw">
+                                    <barButtonItem title="[T]" id="KmV-xu-2Jw">
                                         <connections>
                                             <action selector="addTextBox:" destination="BYZ-38-t0r" id="b1y-FL-VSu"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Delete" id="P4g-3s-xNY">
+                                        <connections>
+                                            <action selector="deleteObject:" destination="BYZ-38-t0r" id="ozi-wV-Kgc"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -97,7 +102,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="95" y="302"/>
+            <point key="canvasLocation" x="71" y="312"/>
         </scene>
     </scenes>
 </document>

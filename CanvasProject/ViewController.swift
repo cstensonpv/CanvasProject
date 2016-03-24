@@ -12,7 +12,7 @@ import SwiftyJSON
 class ViewController: UIViewController, UITextFieldDelegate {
 	let model = CanvasProjectModel()
 	let notificationCenter = NSNotificationCenter.defaultCenter()
-    var canvasViewObjects = [CanvasViewObject]()
+	var canvasViewObjects = [String: CanvasViewObject]()
     var selectedCanvasViewObject: CanvasViewObject?
     
 //	required init?(coder aDecoder: NSCoder) {
@@ -28,6 +28,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 		
 	}
 	
+	// View object outlets
     @IBOutlet weak var canvas: UIScrollView!
 	@IBOutlet weak var projectNameLabel: UINavigationItem!
 	@IBOutlet weak var collaboratorsLabel: UILabel!
@@ -36,10 +37,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	
 	@IBAction func requestHelloWorld(sender: AnyObject) {
 		model.testStringGet()
-	}
+	}	
 	
+	// Toolbar functions
 	@IBAction func addTextBox(sender: AnyObject) {
 		model.addCanvasObject(CanvasProjectModel.CanvasObjectType.TextBox)
+	}
+	
+	@IBAction func deleteObject(sender: AnyObject) {
+		if let object = selectedCanvasViewObject {
+			let id = object.id
+			object.removeFromSuperview()
+			model.deleteCanvasObject(id)
+		}
 	}
 	
 	@IBAction func helloWorld(sender: UIButton, forEvent event: UIEvent) {
@@ -60,6 +70,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
         selectCanvasViewObject(textField as! CanvasViewObject)
     }
 	
+	func textFieldDidEndEditing(textField: UITextField) {
+		if textField is CanvasViewObject && textField.text != nil {
+			let changedObject = textField as! CanvasViewObject
+			self.model.registerCanvasObjectText(changedObject.id, text: textField.text!)
+		}
+	}
+	
+	func registerObjectMovement(changedObject: CanvasViewObject) {
+		model.registerCanvasObjectMovement(changedObject.id, x: changedObject.position.x, y: changedObject.position.y)
+	}
+	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
@@ -73,7 +94,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func deselectAllCanvasViewObjects() {
         selectedCanvasViewObject = nil
-        for var object in canvasViewObjects {
+        for (_, object) in canvasViewObjects {
             object.deselect()
         }
     }
@@ -94,25 +115,49 @@ class ViewController: UIViewController, UITextFieldDelegate {
 		if let project = model.currentProject {
 			collaboratorsLabel.text = "Collaborators: "
 			for var collaborator in project.getCollaborators() {
-				collaboratorsLabel.text? += model.userNames[collaborator]! + ", "
+				if let userName = model.userNames[collaborator] {
+					collaboratorsLabel.text? += userName + ", "
+				} else {
+					collaboratorsLabel.text? += collaborator + ", "
+				}
 			}
 		}
 	}
+	
+	func resetCanvas() {
+		for (_, view) in canvasViewObjects {
+			view.removeFromSuperview()
+		}
+		
+		canvasViewObjects.removeAll()
+	}
 
 	func updateCanvasObjects() {
+		let shouldBeSelected = selectedCanvasViewObject?.id
 		theLabel.text = model.testValue
 		print("Update canvas objects")
 		
 		if let project = model.currentProject {
+			resetCanvas()
+			
 			for var object in project.getObjects() {
 				let newCanvasViewObject = CanvasViewTextBox()
                 newCanvasViewObject.mainController = self
                 newCanvasViewObject.setData(object)
                 newCanvasViewObject.delegate = self
                 canvas.addSubview(newCanvasViewObject)
-                canvasViewObjects.append(newCanvasViewObject)
+                canvasViewObjects[newCanvasViewObject.id] = newCanvasViewObject
+			}
+			
+			if let id = shouldBeSelected {
+				if (canvasViewObjects[id]) != nil {
+					selectCanvasViewObject(canvasViewObjects[id]!)
+				}
+				
 			}
 		}
+		
+		
     }
 }
 

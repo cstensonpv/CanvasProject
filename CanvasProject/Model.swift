@@ -41,6 +41,24 @@ class CanvasProjectModel {
 		notificationCenter.postNotificationName("ReceivedData", object: nil)
 	}
 	
+	func registerCanvasObjectMovement(id: String, x: Float, y: Float) {
+		if var objectData = currentProject?.getObject(id) {
+			objectData["position"]["x"] = JSON(x)
+			objectData["position"]["y"] = JSON(y)
+			updateCanvasObject(objectData)
+		}
+	}
+	
+	func registerCanvasObjectText(id: String, text: String) {
+		if var objectData = currentProject?.getObject(id) {
+			if objectData["type"].stringValue == "text" {
+				print(objectData)
+				objectData["text"] = JSON(text)
+				updateCanvasObject(objectData)
+			}
+		}
+	}
+	
 	func testStringGet() {
 		Alamofire.request(.GET, serverURI + "/test")
 			.responseString { response in
@@ -86,15 +104,34 @@ class CanvasProjectModel {
 	// API request functions
 	func addCanvasObject(type: CanvasObjectType) {
 		if let project = currentProject {
-			let newCanvasObject: [String : NSObject]
+			let newCanvasObject: JSON
 			
 			switch type {
 			case .TextBox:
 				newCanvasObject = CanvasObjectPrototypes.textBox(project.id)
 			}
 			
-			Alamofire.request(.POST, serverURI + "/canvasobject/" + project.id, parameters: newCanvasObject, encoding: .JSON).responseJSON {
+			Alamofire.request(.POST, serverURI + "/canvasobject/" + project.id, parameters: newCanvasObject.dictionaryObject, encoding: .JSON).responseJSON {
 				response in self.requestCanvasObjects()
+			}
+		}
+	}
+	
+	func updateCanvasObject(objectData: JSON) {
+		Alamofire.request(.PUT, serverURI + "/canvasObject/", parameters: objectData.dictionaryObject, encoding: .JSON).responseJSON {
+			response in self.requestCanvasObjects()
+		}
+	}
+	
+	func deleteCanvasObject(id: String) {
+		if let project = currentProject {
+			print("Delete canvas object \(id)")
+			Alamofire.request(.DELETE, serverURI + "/canvasObject/\(project.id)/\(id)").responseString { response in
+				if let responseValue = response.result.value {
+					if responseValue == "succes" { print("Successfully deleted"); self.requestCanvasObjects() }
+					else { print("Couldn't delete"); print(responseValue) }
+				}
+				
 			}
 		}
 	}
@@ -122,6 +159,7 @@ class CanvasProjectModel {
 			requestUserInfo(project.creator)
 			
 			for collaborator in project.collaborators {
+				print("Requesting user info for collaborator " + collaborator)
 				requestUserInfo(collaborator)
 			}
 		}
@@ -150,8 +188,6 @@ class CanvasProjectModel {
 					currentProject?.addCollaborator(collaborator.stringValue)
 				}
 			}
-			
-			requestProjectUserInfo()
 			
 			notificationCenter.postNotificationName("ReceivedProject", object: nil)
 		}

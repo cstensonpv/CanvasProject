@@ -13,7 +13,9 @@ class CanvasViewTextBox: UITextField, CanvasViewObject {
     var dragStartPositionRelativeToCenter: CGPoint?
     var startFrame: CGRect!
     var mainController: ViewController?
-    
+	var id = ""
+	var position = Position(x: Float(0), y: Float(0))
+	
     /*
      // Only override drawRect: if you perform custom drawing.
      // An empty implementation adversely affects performance during animation.
@@ -23,8 +25,9 @@ class CanvasViewTextBox: UITextField, CanvasViewObject {
      */
     
     override init(frame: CGRect) {
-        super.init(frame: frame)
-        
+		super.init(frame: frame)
+		self.position = Position(x: Float(self.center.x), y: Float(self.center.y))
+		
         addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(detectPan)))
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(wasTapped)))
         
@@ -39,13 +42,16 @@ class CanvasViewTextBox: UITextField, CanvasViewObject {
     
     func setData(data: JSON) {
         self.frame = CGRectMake(
-            CGFloat(data["position"]["x"].intValue),
-            CGFloat(data["position"]["y"].intValue),
-            CGFloat(data["dimentions"]["width"].intValue),
-            CGFloat(data["dimentions"]["height"].intValue)
+            CGFloat(data["position"]["x"].floatValue),
+            CGFloat(data["position"]["y"].floatValue),
+            CGFloat(data["dimensions"]["width"].intValue),
+            CGFloat(data["dimensions"]["height"].intValue)
         )
-        
+		
+		print("Received position: \(data["position"]["x"]) \(data["position"]["y"])")
+		
         self.text = data["text"].stringValue
+		self.id = data["_id"].stringValue
 //        self.backgroundColor = UIColor.brownColor()
     }
     
@@ -81,9 +87,14 @@ class CanvasViewTextBox: UITextField, CanvasViewObject {
                 x: locationInView.x - self.dragStartPositionRelativeToCenter!.x,
                 y: locationInView.y - self.dragStartPositionRelativeToCenter!.y
             )
+			self.position = Position(
+				x: Float(self.frame.origin.x),
+				y: Float(self.frame.origin.y)
+			)
         case .Ended:
             dragStartPositionRelativeToCenter = nil
             self.layer.shadowOpacity = 0
+			mainController!.registerObjectMovement(self)
         default:
             print("Bad drag case")
         }
