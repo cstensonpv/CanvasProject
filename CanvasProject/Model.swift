@@ -121,6 +121,31 @@ class CanvasProjectModel {
 		}
 	}
 	
+	func requestFolderImages() {
+		if let project = currentProject {
+			for file in project.getFiles() {
+				requestImage(file["thumbnailLink"].stringValue, forFileID: file["id"].stringValue)
+			}
+		}
+	}
+	
+	func requestImage(imageURL: String, forFileID fileID: String) {
+		Alamofire.request(.GET, imageURL).responseImage { response in
+				switch response.result {
+				case .Success: self.receiveImage(response, forFileID: fileID)
+				case .Failure: self.requestThumbnail(forFileID: fileID)
+			}
+		}
+	}
+	
+	func requestThumbnail(forFileID fileID: String) {
+		if let file = currentProject?.getFile(fileID) {
+			Alamofire.request(.GET, file["iconLink"].stringValue).responseImage {
+				response in self.receiveImage(response, forFileID: fileID)
+			}
+		}
+	}
+	
 	func requestDriveFolder() {
 		if let project = currentProject {
 			if let folderID = project.driveFolderID {
@@ -249,16 +274,29 @@ class CanvasProjectModel {
 			notificationCenter.postNotificationName("ReceivedUserInfo", object: nil)
 		}
 	}
-    
+	
+	func receiveImage(response: Response<Image, NSError>, forFileID fileID: String) {
+		if let image = response.result.value {
+			currentProject?.addImage(image, forFileID: fileID)
+			print("image downloaded: \(image)")
+			print("For fileID \(fileID)")
+			
+			notificationCenter.postNotificationName("ReceivedImage", object: nil)
+		}
+	}
+	
     func receiveDriveFolder(response: Response<AnyObject, NSError>) {
         if let responseValue = response.result.value {
             print("Drive folder info received")
             let folder = JSON(responseValue)
+//			print("Received files:")
+//			print(folder)
 			for (_, file) in folder {
 				currentProject?.addFile(file)
 			}
-			
+
 			notificationCenter.postNotificationName("ReceivedFiles", object: nil)
+			requestFolderImages()
         }
     }
 	

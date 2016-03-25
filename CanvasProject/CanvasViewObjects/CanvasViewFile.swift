@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import AlamofireImage
 
 class CanvasViewFile: UIView, CanvasViewObject {
 	var id = ""
@@ -17,7 +18,9 @@ class CanvasViewFile: UIView, CanvasViewObject {
 	var link: String?
 	
 	var fileName = UIButton()
-	var fileImage = UIImageView()
+	var fileImage = UIImage()
+	var fullFileImageAvailable = false
+	var fileImageView = UIImageView()
 	var resizeHandleImage = UIImageView(image: UIImage(named: "resizeLines")!)
 	var resizeHandle = UIView()
 	
@@ -48,6 +51,9 @@ class CanvasViewFile: UIView, CanvasViewObject {
 		
 		self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(detectPan)))
 		self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(wasTapped)))
+		let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(openFile))
+		doubleTapRecognizer.numberOfTapsRequired = 2
+		self.addGestureRecognizer(doubleTapRecognizer)
 		
 		layer.shadowOpacity = 0.0
 		layer.shadowRadius = 6
@@ -62,7 +68,11 @@ class CanvasViewFile: UIView, CanvasViewObject {
 		fileName.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
 		fileName.contentVerticalAlignment = UIControlContentVerticalAlignment.Center
 		fileName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-
+		
+		fileName.addTarget(self, action: #selector(fileNameTouchDown), forControlEvents: UIControlEvents.TouchDown)
+		fileName.addTarget(self, action: #selector(fileNameTouchUpInside), forControlEvents: UIControlEvents.TouchUpInside)
+		fileName.addTarget(self, action: #selector(fileNameTouchCancel), forControlEvents: UIControlEvents.TouchUpOutside)
+		fileName.addTarget(self, action: #selector(fileNameTouchCancel), forControlEvents: UIControlEvents.TouchCancel)
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -113,10 +123,32 @@ class CanvasViewFile: UIView, CanvasViewObject {
 	
 	func setFileInfo(data: JSON) {
 		link = data["webViewLink"].stringValue
-		fileName.addTarget(self, action: #selector(fileNameTouchDown), forControlEvents: UIControlEvents.TouchDown)
-		fileName.addTarget(self, action: #selector(fileNameTouchUpInside), forControlEvents: UIControlEvents.TouchUpInside)
-		fileName.addTarget(self, action: #selector(fileNameTouchCancel), forControlEvents: UIControlEvents.TouchUpOutside)
-		fileName.addTarget(self, action: #selector(fileNameTouchCancel), forControlEvents: UIControlEvents.TouchCancel)
+	}
+	
+	func setImage(image: UIImage, isFullImage: Bool) {
+		fileImage = image
+		fileImageView.image = image
+		fileImageView.contentMode = UIViewContentMode.Center
+		
+		fileImageView.frame = CGRect(
+			x: CGFloat(0),
+			y: CGFloat(0),
+			width: frame.size.width,
+			height: frame.size.height - fileNameHeight
+		)
+		
+		if isFullImage {
+			fullFileImageAvailable = true
+			fileImageView.image = fileImage.af_imageAspectScaledToFitSize(CGSize(
+				width: fileImageView.frame.size.width,
+				height: fileImageView.frame.size.height
+			))
+			print("image scaled")
+		} else {
+			fullFileImageAvailable = false
+		}
+		
+		addSubview(fileImageView)
 	}
 	
 	func select() {
@@ -140,15 +172,19 @@ class CanvasViewFile: UIView, CanvasViewObject {
 	
 	func fileNameTouchUpInside(sender: UIButton!) {
 		fileName.backgroundColor = fileNameBackgroundNormal
+		openFile()
+	}
+	
+	func fileNameTouchCancel(sender: UIButton!) {
+		fileName.backgroundColor = fileNameBackgroundNormal
+	}
+	
+	func openFile() {
 		if link != nil {
 			if let url = NSURL(string: link!) {
 				UIApplication.sharedApplication().openURL(url)
 			}
 		}
-	}
-	
-	func fileNameTouchCancel(sender: UIButton!) {
-		fileName.backgroundColor = fileNameBackgroundNormal
 	}
 	
 	func detectPan(recognizer: UIPanGestureRecognizer) {
@@ -203,6 +239,20 @@ class CanvasViewFile: UIView, CanvasViewObject {
 				width: CGFloat(frame.width),
 				height: CGFloat(fileNameHeight)
 			)
+			
+			fileImageView.frame = CGRect(
+				x: CGFloat(0),
+				y: CGFloat(0),
+				width: frame.size.width,
+				height: frame.size.height - fileNameHeight
+			)
+			
+			if fullFileImageAvailable {
+				fileImageView.image = fileImage.af_imageAspectScaledToFitSize(CGSize(
+					width: fileImageView.frame.size.width,
+					height: fileImageView.frame.size.height
+				))
+			}
 			
 			resizeHandle.frame = CGRect(
 				x: CGFloat(locationInView.x - frameBeforeResize!.origin.x) - resizeHandleSize,

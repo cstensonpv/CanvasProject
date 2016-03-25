@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import AlamofireImage
 
 class ViewController: UIViewController, UITextViewDelegate {
 	let model = CanvasProjectModel()
@@ -32,6 +33,8 @@ class ViewController: UIViewController, UITextViewDelegate {
         notificationCenter.addObserver(self, selector: #selector(updateCanvasObjects), name: "ReceivedCanvasObjects", object: nil)
 		notificationCenter.addObserver(self, selector: #selector(updateUserInfo), name: "ReceivedUserInfo", object: nil)
 		notificationCenter.addObserver(self, selector: #selector(updateFileInfo), name: "ReceivedFiles", object: nil)
+		notificationCenter.addObserver(self, selector: #selector(updateImages), name: "ReceivedImage", object: nil)
+
 		
 		canvas.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deselectAllCanvasViewObjects)))
 		// Do any additional setup after loading the view, typically from a nib.
@@ -160,6 +163,19 @@ class ViewController: UIViewController, UITextViewDelegate {
 	func updateFileInfo() {
 		updateCanvasObjects()
 	}
+	
+	func updateImages() {
+//		if let project = model.currentProject {
+//			for (_, object) in canvasViewObjects {
+//				if object is CanvasViewFile {
+//					if 
+//						(object as! CanvasViewFile).setImage(UIImage(image))
+//				}
+//			}
+//		}
+		print("Update images")
+		updateCanvasObjects()
+	}
 
 	func updateCanvasObjects() {
 		let shouldBeSelected = selectedCanvasViewObject?.id
@@ -182,10 +198,13 @@ class ViewController: UIViewController, UITextViewDelegate {
 //					print(object)
 					let newCanvasViewObject = CanvasViewFile()
 					newCanvasViewObject.mainController = self
-					print("Drawing file. File id:")
 					newCanvasViewObject.setData(object)
 					if let fileInfo = project.getFile(object["driveFileID"].stringValue) {
 						newCanvasViewObject.setFileInfo(fileInfo)
+						
+						if let fileImage = project.getImage(object["driveFileID"].stringValue) {
+							newCanvasViewObject.setImage(fileImage, isFullImage: true)
+						}
 					}
 					canvas.addSubview(newCanvasViewObject)
 					canvasViewObjects[newCanvasViewObject.id] = newCanvasViewObject

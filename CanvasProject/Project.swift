@@ -6,13 +6,13 @@
 //  Copyright © 2016 KTH. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import SwiftyJSON
-
 
 class Project {
 	private var objects = [String: JSON]()
-	private var files = [String: JSON]() 
+	private var files = [String: JSON]()
+	var fileImages = [String: UIImage]()
 	var driveFolderID: String?
 	var driveFolderName: String?
 	var collaborators = [String]()
@@ -36,9 +36,9 @@ class Project {
 		files[file["id"].stringValue] = file
 	}
 	
-//	func addFile(file: JSON) {
-//		files[file["name"].stringValue] = file
-//	}
+	func addImage(image: UIImage, forFileID fileID: String) {
+		fileImages[fileID] = image
+	}
 	
 	func addCollaborator(collaborator: String) {
 		collaborators.append(collaborator)
@@ -70,6 +70,10 @@ class Project {
 	
 	func getFile(name: String) -> JSON? {
 		return files[name]
+	}
+	
+	func getImage(id: String) -> UIImage? {
+		return fileImages[id]
 	}
 	
 	func getCollaborators() -> [String] {
