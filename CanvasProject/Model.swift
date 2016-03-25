@@ -41,35 +41,6 @@ class CanvasProjectModel {
 		notificationCenter.postNotificationName("ReceivedData", object: nil)
 	}
 	
-	func registerCanvasObjectMovement(id: String, x: Float, y: Float) {
-		if var objectData = currentProject?.getObject(id) {
-			objectData["position"]["x"] = JSON(x)
-			objectData["position"]["y"] = JSON(y)
-			updateCanvasObject(objectData)
-		}
-	}
-	
-	func registerCanvasObjectResize(id: String, width: Float, height: Float) {
-		if var objectData = currentProject?.getObject(id) {
-			objectData["dimensions"]["width"] = JSON(width)
-			objectData["dimensions"]["height"] = JSON(height)
-			updateCanvasObject(objectData)
-		}
-	}
-	
-	func registerCanvasObjectText(id: String, text: String) {
-		print("Register canvas object text")
-		print(id)
-		print(text)
-		if var objectData = currentProject?.getObject(id) {
-			if objectData["type"].stringValue == "text" {
-				print(objectData)
-				objectData["text"] = JSON(text)
-				updateCanvasObject(objectData)
-			}
-		}
-	}
-	
 	func testStringGet() {
 		Alamofire.request(.GET, serverURI + "/test")
 			.responseString { response in
@@ -113,39 +84,6 @@ class CanvasProjectModel {
 	
 	
 	// API request functions
-	func addCanvasObject(type: CanvasObjectType) {
-		if let project = currentProject {
-			let newCanvasObject: JSON
-			
-			switch type {
-			case .TextBox:
-				newCanvasObject = CanvasObjectPrototypes.textBox(project.id)
-			}
-			
-			Alamofire.request(.POST, serverURI + "/canvasobject/" + project.id, parameters: newCanvasObject.dictionaryObject, encoding: .JSON).responseJSON {
-				response in self.requestCanvasObjects()
-			}
-		}
-	}
-	
-	func updateCanvasObject(objectData: JSON) {
-		Alamofire.request(.PUT, serverURI + "/canvasObject/", parameters: objectData.dictionaryObject, encoding: .JSON).responseJSON {
-			response in self.requestCanvasObjects()
-		}
-	}
-	
-	func deleteCanvasObject(id: String) {
-		if let project = currentProject {
-			print("Delete canvas object \(id)")
-			Alamofire.request(.DELETE, serverURI + "/canvasObject/\(project.id)/\(id)").responseString { response in
-				if let responseValue = response.result.value {
-					if responseValue == "succes" { print("Successfully deleted"); self.requestCanvasObjects() }
-					else { print("Couldn't delete"); print(responseValue) }
-				}
-				
-			}
-		}
-	}
 	
 	func switchProject(id id: String) {
 		print("Switch project")
@@ -181,15 +119,86 @@ class CanvasProjectModel {
 			response in self.receiveUserInfo(response)
 		}
 	}
-    
-    func requestDriveFolder(folderName: String) {
-        Alamofire.request(.GET, serverURI + "/files/" + folderName).responseJSON {
-        response in self.receiveDriveFolder(response)
-        }
-    }
+	
+	func requestDriveFolder() {
+		if let project = currentProject {
+			if let folderID = project.driveFolderID {
+				Alamofire.request(.GET, serverURI + "/files/" + folderID).responseJSON {
+					response in self.receiveDriveFolder(response)
+				}
+			}
+		}
+	}
+	
+	
+	// API upload functions
+
+	func addCanvasObject(type: CanvasObjectType) {
+		if let project = currentProject {
+			let newCanvasObject: JSON
+			
+			switch type {
+			case .TextBox:
+				newCanvasObject = CanvasObjectPrototypes.textBox(project.id)
+			}
+			
+			Alamofire.request(.POST, serverURI + "/canvasobject/" + project.id, parameters: newCanvasObject.dictionaryObject, encoding: .JSON).responseJSON {
+				response in self.requestCanvasObjects()
+			}
+		}
+	}
+	
+	func updateCanvasObject(objectData: JSON) {
+		Alamofire.request(.PUT, serverURI + "/canvasObject/", parameters: objectData.dictionaryObject, encoding: .JSON).responseJSON {
+			response in self.requestCanvasObjects()
+		}
+	}
+	
+	func deleteCanvasObject(id: String) {
+		if let project = currentProject {
+			print("Delete canvas object \(id)")
+			Alamofire.request(.DELETE, serverURI + "/canvasObject/\(project.id)/\(id)").responseString { response in
+				if let responseValue = response.result.value {
+					if responseValue == "succes" { print("Successfully deleted"); self.requestCanvasObjects() }
+					else { print("Couldn't delete"); print(responseValue) }
+				}
+				
+			}
+		}
+	}
+	
+	func registerCanvasObjectMovement(id: String, x: Float, y: Float) {
+		if var objectData = currentProject?.getObject(id) {
+			objectData["position"]["x"] = JSON(x)
+			objectData["position"]["y"] = JSON(y)
+			updateCanvasObject(objectData)
+		}
+	}
+	
+	func registerCanvasObjectResize(id: String, width: Float, height: Float) {
+		if var objectData = currentProject?.getObject(id) {
+			objectData["dimensions"]["width"] = JSON(width)
+			objectData["dimensions"]["height"] = JSON(height)
+			updateCanvasObject(objectData)
+		}
+	}
+	
+	func registerCanvasObjectText(id: String, text: String) {
+		print("Register canvas object text")
+		print(id)
+		print(text)
+		if var objectData = currentProject?.getObject(id) {
+			if objectData["type"].stringValue == "text" {
+				print(objectData)
+				objectData["text"] = JSON(text)
+				updateCanvasObject(objectData)
+			}
+		}
+	}
 	
 	
 	// API response functions
+	
 	func receiveProject(response: Response<AnyObject, NSError>) {
 		if let responseValue = response.result.value {
 			print("Project received")
@@ -199,6 +208,9 @@ class CanvasProjectModel {
 				name: projectData["name"].stringValue,
 				creator: projectData["creator"].stringValue
 			)
+//			currentProject?.driveFolderName = projectData["DriveFolderName"].stringValue
+			currentProject?.driveFolderID = projectData["driveFolderID"].stringValue
+			requestDriveFolder()
 			
 			if let collaborators = projectData["collaborators"].array {
 				for collaborator in collaborators {
@@ -239,7 +251,11 @@ class CanvasProjectModel {
         if let responseValue = response.result.value {
             print("Drive folder info received")
             let folder = JSON(responseValue)
-            print(folder)
+			for (_, file) in folder {
+				currentProject?.addFile(file)
+			}
+			
+			notificationCenter.postNotificationName("ReceivedFiles", object: nil)
         }
     }
 	

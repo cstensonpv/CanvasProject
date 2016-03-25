@@ -99,7 +99,7 @@
                                     </barButtonItem>
                                     <barButtonItem title="folder" id="xq6-4h-zEM">
                                         <connections>
-                                            <action selector="listFolder:" destination="BYZ-38-t0r" id="dHE-GQ-Qdk"/>
+                                            <action selector="ShowListFolder:" destination="BYZ-38-t0r" id="thN-NL-ckd"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>

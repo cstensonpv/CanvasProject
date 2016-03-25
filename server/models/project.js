@@ -50,6 +50,20 @@ exports.updateName = function(project_id, newName, callback) {
 	})
 }
 
+// exports.updateFolder = function(project_id, folderName, callback) {
+// 	findProject(project_id, function(err, project) {
+// 		if(project){
+// 			project.name = newName;
+// 			project.save(callback);
+// 		}else{
+// 			callback(err, project);
+// 		}
+		
+// 	})
+// }
+
+//UpdateDriveFolder
+
 exports.addCollaborator = function(project_id, userName, callback) {
 	findUser(userName, function(err, user) {
 		findProject(project_id, function(err, project) {	

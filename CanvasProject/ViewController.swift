@@ -33,11 +33,14 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 		notificationCenter.addObserver(self, selector: #selector(updateProject), name: "ReceivedProject", object: nil)
         notificationCenter.addObserver(self, selector: #selector(updateCanvasObjects), name: "ReceivedCanvasObjects", object: nil)
 		notificationCenter.addObserver(self, selector: #selector(updateUserInfo), name: "ReceivedUserInfo", object: nil)
-
+        notificationCenter.addObserver(self, selector: #selector(updateFileInfo), name: "ReceivedFiles", object: nil)
+        
         //dataSource for the table
         folderTableView.dataSource = self
-        
+        //initial is hide on show folder
         hideContainerView()
+		
+
 		
 		// Do any additional setup after loading the view, typically from a nib.
 		
@@ -56,6 +59,10 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 	@IBOutlet weak var testTextBoxView: UIView!
 	@IBOutlet weak var testTextBoxInView: UITextField!
 	@IBOutlet weak var testTextBoxResizeView: UIView!
+    
+    @IBAction func ShowListFolder(sender: AnyObject) {
+        hideContainerView()
+    }
 	
 	@IBAction func requestHelloWorld(sender: AnyObject) {
 		model.testStringGet()
@@ -73,20 +80,12 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 			model.deleteCanvasObject(id)
 		}
 	}
-    @IBAction func listFolder(sender: AnyObject) {
-        let folderName = "Projekt - Internetprogrammering"
-        let charset = NSCharacterSet.URLQueryAllowedCharacterSet()
-        print("click")
-        hideContainerView()
-        if let escaped = folderName.stringByAddingPercentEncodingWithAllowedCharacters(charset) {
-            model.requestDriveFolder(escaped)
-        }
-    }
 	
 
 	@IBAction func jsonTest(sender: AnyObject) {
 		model.testJSONGet()
 	}
+	
 	@IBAction func jsonPostTest(sender: AnyObject) {
 		model.testJSONPost()
 	}
@@ -203,6 +202,10 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 		
 		canvasViewObjects.removeAll()
 	}
+	
+	func updateFileInfo() {
+		updateCanvasObjects()
+	}
 
 	func updateCanvasObjects() {
 		let shouldBeSelected = selectedCanvasViewObject?.id
@@ -213,12 +216,30 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 			resetCanvas()
 			
 			for var object in project.getObjects() {
-				let newCanvasViewObject = CanvasViewTextBox()
-                newCanvasViewObject.mainController = self
-                newCanvasViewObject.setData(object)
-                newCanvasViewObject.setTextFieldDelegate(self)
-                canvas.addSubview(newCanvasViewObject)
-                canvasViewObjects[newCanvasViewObject.id] = newCanvasViewObject
+				switch (object["type"]) {
+				case "text":
+					let newCanvasViewObject = CanvasViewTextBox()
+					newCanvasViewObject.setTextFieldDelegate(self)
+					newCanvasViewObject.mainController = self
+					newCanvasViewObject.setData(object)
+					canvas.addSubview(newCanvasViewObject)
+					canvasViewObjects[newCanvasViewObject.id] = newCanvasViewObject
+				case "file":
+//					print(object)
+					let newCanvasViewObject = CanvasViewFile()
+					newCanvasViewObject.mainController = self
+					newCanvasViewObject.setData(object)
+					if let fileInfo = project.getFile(object["driveID"].stringValue) {
+						newCanvasViewObject.setFileInfo(fileInfo)
+					}
+					canvas.addSubview(newCanvasViewObject)
+					canvasViewObjects[newCanvasViewObject.id] = newCanvasViewObject
+				default:
+					print("Unrecognized canvas object")
+					print(object)
+				}
+				
+
 			}
 			
 			if let id = shouldBeSelected {
