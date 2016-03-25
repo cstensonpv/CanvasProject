@@ -33,7 +33,7 @@ fs.readFile('./helpers/client_secret.json', function processClientSecrets(err, c
  * @param {Object} credentials The authorization client credentials.
  * @param {function} callback The callback to call with the authorized client.
  */
-exports.authorize = function(folder_name, callback) {
+exports.authorize = function(folder_id, callback) {
   if(client_secret){
     var clientSecret = client_secret.installed.client_secret;
     var clientId = client_secret.installed.client_id;
@@ -49,7 +49,7 @@ exports.authorize = function(folder_name, callback) {
       } else {
         console.log("retrivees token")
         oauth2Client.credentials = JSON.parse(token);
-        listFiles(folder_name, oauth2Client,callback);
+        listFiles(folder_id, oauth2Client,callback);
 
       }
     });
@@ -114,13 +114,13 @@ function storeToken(token) {
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 
-function listFiles(folderName, auth, callback) {
-  console.log(folderName);
-  var id = getFolderID(folderName, auth, function(err, id) {
+function listFiles(folder_id, auth, callback) {
+  console.log(folder_id)
+  // var id = getFolderID(folderName, auth, function(err, id) {
     var loadedFiles = [];
     service.files.list({
       auth: auth,
-      q: "'"+id+"' in parents",
+      q: "'"+folder_id+"' in parents",
       fields: "files(iconLink,id,name,thumbnailLink,webViewLink)" //files(name ,id ,iconLink,thumbnailLink ,webContentLink, webViewLink)"
 
     }, function(err, response) {
@@ -137,15 +137,16 @@ function listFiles(folderName, auth, callback) {
       }
       callback(err,loadedFiles);
     });
-  });
+  // });
 }
 
 function getFolderID(name, auth, callback){
-  //var service = google.drive('v3');
-  service.files.list({
+  //var service = google.drive('v3
+  console.log(name);
+    service.files.list({
     auth: auth,
     q: "mimeType = 'application/vnd.google-apps.folder' and name = '" + name + "'",
-    fields: "nextPageToken, files(id)"
+    fields: "files(id)"
 
   }, function(err, response) {
     if (err) {

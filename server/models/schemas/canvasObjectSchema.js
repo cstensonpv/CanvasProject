@@ -3,7 +3,6 @@ var mongoose = require( 'mongoose' );
 
 var options = { discriminatorKey: 'type' };
 function schemaBase(type) {
-    console.log(type);
 
     var schema = new mongoose.Schema(
     	{ 
@@ -44,6 +43,7 @@ function schemaBase(type) {
             ,webViewLink: {type: String, require: true}
             ,iconLink: {type: String, require: true}
             ,thumbnailLink: {type: String, require: true}
+            ,driveId: {type: String, require:true}
         })
     }
     return schema;
