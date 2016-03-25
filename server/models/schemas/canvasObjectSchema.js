@@ -17,7 +17,12 @@ function schemaBase(type) {
                 , required: true }
     		, registered : { type: Date, default: Date.now } //Timezone is strange
             , type: {type: String, require: true}
-
+            , dimensions: 
+                {type: 
+                    { width: { type: Number, require: true }
+                    , height: { type: Number, require: true }
+                }
+            }
     	}
     ); 
 
@@ -31,17 +36,14 @@ function schemaBase(type) {
                     , y: { type: Number, require: true }
                 }
             }
-            , dimensions: 
-                {type: 
-                    { width: { type: Number, require: true }
-                    , height: { type: Number, require: true }
-                }
-            }
+            
         })
     }else if(type == "file") {
         schema.add({
-            fileURI : {type: String, require: true}
-            , imageURI : {type: String, default: "imageURI", require: true}// will be a foreign key to Style!
+            name: {type: String, require: true}
+            ,webViewLink: {type: String, require: true}
+            ,iconLink: {type: String, require: true}
+            ,thumbnailLink: {type: String, require: true}
         })
     }
     return schema;
@@ -55,7 +57,6 @@ var CanvasObject = mongoose.model('CanvasObject', schemaBase());
 var TextObject = mongoose.model('TextObject', schemaBase("text"), 'CanvasObject');
 
 var FileObject = mongoose.model('FileObject', schemaBase("file"), 'CanvasObject');
-console.log(FileObject.schema.paths.style);
 
 //var TextObject = mongoose.model('TextObject', TextObjectSchema);
 

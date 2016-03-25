@@ -181,6 +181,12 @@ class CanvasProjectModel {
 			response in self.receiveUserInfo(response)
 		}
 	}
+    
+    func requestDriveFolder(folderName: String) {
+        Alamofire.request(.GET, serverURI + "/files/" + folderName).responseJSON {
+        response in self.receiveDriveFolder(response)
+        }
+    }
 	
 	
 	// API response functions
@@ -228,6 +234,14 @@ class CanvasProjectModel {
 			notificationCenter.postNotificationName("ReceivedUserInfo", object: nil)
 		}
 	}
+    
+    func receiveDriveFolder(response: Response<AnyObject, NSError>) {
+        if let responseValue = response.result.value {
+            print("Drive folder info received")
+            let folder = JSON(responseValue)
+            print(folder)
+        }
+    }
 	
 
 }

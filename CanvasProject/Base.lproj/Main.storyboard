@@ -97,6 +97,11 @@
                                             <action selector="deleteObject:" destination="BYZ-38-t0r" id="ozi-wV-Kgc"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="folder" id="xq6-4h-zEM">
+                                        <connections>
+                                            <action selector="listFolder:" destination="BYZ-38-t0r" id="dHE-GQ-Qdk"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9I6-Nf-SAG">
