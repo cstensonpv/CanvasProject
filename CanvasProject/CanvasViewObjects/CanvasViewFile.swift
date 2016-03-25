@@ -1,60 +1,51 @@
 //
-//  TextBox.swift
+//  CanvasViewFile.swift
 //  CanvasProject
 //
-//  Created by Carl Sténson on 2016-03-22.
+//  Created by Rasmus Berggrén on 2016-03-25.
 //  Copyright © 2016 KTH. All rights reserved.
 //
 
 import UIKit
 import SwiftyJSON
 
-class CanvasViewTextBox: UIView, CanvasViewObject {
-	var dragStartPositionRelativeToCenter: CGPoint?
-	var frameBeforeResize: CGRect?
-	var startFrame: CGRect!
-	var mainController: ViewController?
+class CanvasViewFile: UIView, CanvasViewObject {
 	var id = ""
 	var position = Position(x: Float(0), y: Float(0))
 	var dimensions = Dimensions(width: Float(0), height: Float(0))
+	var mainController: ViewController?
+	var link: String?
 	
-	var textField = UITextView()
+	var fileName = UITextView()
 	var resizeHandleImage = UIImageView(image: UIImage(named: "resizeLines")!)
 	var resizeHandle = UIView()
+	
+	var dragStartPositionRelativeToCenter: CGPoint?
+	var frameBeforeResize: CGRect?
 	
 	let resizeHandleSize: CGFloat = 20
 	let marginForResizeHandle: CGFloat = 5
 	let resizeHandleImageHeight: CGFloat = 16; let resizeHandleImageWidth: CGFloat = 26.5
 	let resizeHandleImageXDisplacement: CGFloat = 16.5; let resizeHandleImageYDisplacement: CGFloat = 15;
-
-	var text: String {
-		get {
-			return textField.text ?? ""
-		}
-		set(newText) {
-			textField.text = newText
-		}
-	}
+	let fileNameHeight = CGFloat(40)
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		self.position = Position(x: Float(self.center.x), y: Float(self.center.y))
-		self.backgroundColor = UIColor.clearColor()
-
-		textField.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(detectPan)))
-		textField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(wasTapped)))
 		
-//		textField.layer.shadowOffset = CGSize(width: 0, height: 0)
-		textField.layer.shadowOpacity = 0.0
-		textField.layer.shadowRadius = 6
-		textField.layer.borderColor = UIColor.grayColor().CGColor
-		textField.layer.backgroundColor = UIColor.clearColor().CGColor
-		textField.font = UIFont(name: "Helvetica", size: 16)
+		self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(detectPan)))
+		self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(wasTapped)))
 		
-		textField.editable = true
-		textField.scrollEnabled = false
+		layer.shadowOpacity = 0.0
+		layer.shadowRadius = 6
+		layer.borderColor = UIColor.grayColor().CGColor
+		layer.backgroundColor = UIColor.clearColor().CGColor
+		layer.cornerRadius = CGFloat(5)
+		self.clipsToBounds = true
 		
-		resizeHandle = UIView()
+		fileName.editable = false
+		fileName.backgroundColor = UIColor.clearColor()
+		fileName.textAlignment = NSTextAlignment.Center
+		fileName.font = UIFont.systemFontOfSize(16)
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -66,32 +57,30 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 		frame = CGRect(
 			x: CGFloat(data["position"]["x"].floatValue),
 			y: CGFloat(data["position"]["y"].floatValue),
-			width: CGFloat(data["dimensions"]["width"].intValue) + marginForResizeHandle,
-			height: CGFloat(data["dimensions"]["height"].intValue) + marginForResizeHandle
-		)
-		id = data["_id"].stringValue
-		
-		// Text box
-		textField.frame = CGRect(
-			x: CGFloat(0),
-			y: CGFloat(0),
 			width: CGFloat(data["dimensions"]["width"].intValue),
 			height: CGFloat(data["dimensions"]["height"].intValue)
 		)
-		textField.text = data["text"].stringValue
-		addSubview(textField)
-
+		id = data["_id"].stringValue
+		
+		// File name
+		fileName.frame = CGRect(
+			x: CGFloat(0),
+			y: CGFloat(frame.height) - fileNameHeight,
+			width: CGFloat(frame.width),
+			height: CGFloat(fileNameHeight)
+		)
+		fileName.text = data["name"].stringValue
+		addSubview(fileName)
 		
 		// Resize handle image
 		resizeHandleImage.frame = CGRect(
-			x: CGFloat(textField.frame.width) - resizeHandleImageXDisplacement,
-			y: CGFloat(textField.frame.height) - resizeHandleImageYDisplacement,
+			x: CGFloat(frame.width) - resizeHandleImageXDisplacement,
+			y: CGFloat(frame.height) - resizeHandleImageYDisplacement,
 			width: CGFloat(resizeHandleImageWidth),
 			height: CGFloat(resizeHandleImageHeight)
 		)
 		resizeHandleImage.hidden = true
-		textField.addSubview(resizeHandleImage)
-		
+		addSubview(resizeHandleImage)
 		
 		// Resize handle
 		resizeHandle.frame = CGRect(
@@ -100,28 +89,30 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 			width: resizeHandleSize,
 			height: resizeHandleSize
 		)
-//		resizeHandle.backgroundColor = UIColor.redColor()
+		//		resizeHandle.backgroundColor = UIColor.redColor()
 		resizeHandle.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(detectResize)))
 		addSubview(resizeHandle)
 	}
 	
-	func setTextFieldDelegate(delegate: UITextViewDelegate) {
-		textField.delegate = delegate
-	}
-	
-	func wasTapped(recognizer: UITapGestureRecognizer) {
-		mainController?.selectCanvasViewObject(self)
+	func setFileInfo(data: JSON) {
+		link = data["webViewLink"].stringValue
+		
+		
 	}
 	
 	func select() {
 		self.superview?.bringSubviewToFront(self)
-		textField.layer.borderWidth = 0.5
+		layer.borderWidth = 0.5
 		resizeHandleImage.hidden = false
 	}
 	
 	func deselect() {
-		textField.layer.borderWidth = 0.0
+		layer.borderWidth = 0.0
 		resizeHandleImage.hidden = true
+	}
+	
+	func wasTapped(recognizer: UITapGestureRecognizer) {
+		mainController?.selectCanvasViewObject(self)
 	}
 	
 	func detectPan(recognizer: UIPanGestureRecognizer) {
@@ -162,12 +153,19 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 			frameBeforeResize = frame
 		case .Changed:
 			let locationInView = recognizer.locationInView(superview)
-
+			
 			frame = CGRect(
 				x: frameBeforeResize!.origin.x,
 				y: frameBeforeResize!.origin.y,
 				width: CGFloat(locationInView.x - frameBeforeResize!.origin.x),
 				height: CGFloat(locationInView.y - frameBeforeResize!.origin.y)
+			)
+			
+			fileName.frame = CGRect(
+				x: CGFloat(0),
+				y: CGFloat(frame.height) - fileNameHeight,
+				width: CGFloat(frame.width),
+				height: CGFloat(fileNameHeight)
 			)
 			
 			resizeHandle.frame = CGRect(
@@ -177,23 +175,16 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 				height: CGFloat(resizeHandleSize)
 			)
 			
-			textField.frame = CGRect(
-				x: CGFloat(0),
-				y: CGFloat(0),
-				width: frame.size.width - marginForResizeHandle,
-				height: frame.size.height - marginForResizeHandle
-			)
-			
 			resizeHandleImage.frame = CGRect(
-				x: CGFloat(textField.frame.width) - resizeHandleImageXDisplacement,
-				y: CGFloat(textField.frame.height) - resizeHandleImageYDisplacement,
+				x: CGFloat(frame.width) - resizeHandleImageXDisplacement,
+				y: CGFloat(frame.height) - resizeHandleImageYDisplacement,
 				width: CGFloat(resizeHandleImageWidth),
 				height: CGFloat(resizeHandleImageHeight)
 			)
 			
 			dimensions = Dimensions(
-				width: Float(textField.frame.size.width),
-				height: Float(textField.frame.size.height)
+				width: Float(frame.size.width),
+				height: Float(frame.size.height)
 			)
 		case .Ended:
 			mainController!.registerObjectResize(self)
@@ -201,7 +192,12 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 			()
 		}
 	}
-	
-	
-	
+    /*
+    // Only override drawRect: if you perform custom drawing.
+    // An empty implementation adversely affects performance during animation.
+    override func drawRect(rect: CGRect) {
+        // Drawing code
+    }
+    */
+
 }

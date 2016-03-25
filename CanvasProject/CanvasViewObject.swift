@@ -8,11 +8,16 @@
 
 import UIKit
 import Foundation
+import SwiftyJSON
 
 protocol CanvasViewObject {
 	var id: String { get }
 	var position: Position { get }
 	var dimensions: Dimensions { get }
+	var mainController: ViewController? { get set }
+	func setData(data: JSON)
+	func wasTapped(recognizer: UITapGestureRecognizer)
+	func detectPan(recognizer: UIPanGestureRecognizer)
     func select()
     func deselect()
 	func removeFromSuperview()
