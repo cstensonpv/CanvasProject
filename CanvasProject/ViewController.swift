@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class ViewController: UIViewController, UITextViewDelegate {
+class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSource {
 	let model = CanvasProjectModel()
 	let notificationCenter = NSNotificationCenter.defaultCenter()
 	var canvasViewObjects = [String: CanvasViewObject]()
@@ -20,6 +20,8 @@ class ViewController: UIViewController, UITextViewDelegate {
 	
 	var dragStartPositionRelativeToCenter: CGPoint?
 	var dimensionsBeforeResize: CGSize?
+    
+    let tableData = ["item1", "item2", "item3"]
 	
 	
 //	required init?(coder aDecoder: NSCoder) {
@@ -31,17 +33,24 @@ class ViewController: UIViewController, UITextViewDelegate {
 		notificationCenter.addObserver(self, selector: #selector(updateProject), name: "ReceivedProject", object: nil)
         notificationCenter.addObserver(self, selector: #selector(updateCanvasObjects), name: "ReceivedCanvasObjects", object: nil)
 		notificationCenter.addObserver(self, selector: #selector(updateUserInfo), name: "ReceivedUserInfo", object: nil)
+
+        //dataSource for the table
+        folderTableView.dataSource = self
+        
+        hideContainerView()
 		
 		// Do any additional setup after loading the view, typically from a nib.
 		
 	}
+    
 	
 	// View object outlets
     @IBOutlet weak var canvas: UIScrollView!
 	@IBOutlet weak var projectNameLabel: UINavigationItem!
 	@IBOutlet weak var collaboratorsLabel: UILabel!
 	@IBOutlet weak var theLabel: UILabel!
-	
+    @IBOutlet weak var FolderScrollView: UIScrollView!
+    @IBOutlet weak var folderTableView: UITableView!
 	// Test object outlets
 	
 	@IBOutlet weak var testTextBoxView: UIView!
@@ -68,6 +77,7 @@ class ViewController: UIViewController, UITextViewDelegate {
         let folderName = "Projekt - Internetprogrammering"
         let charset = NSCharacterSet.URLQueryAllowedCharacterSet()
         print("click")
+        hideContainerView()
         if let escaped = folderName.stringByAddingPercentEncodingWithAllowedCharacters(charset) {
             model.requestDriveFolder(escaped)
         }
@@ -80,6 +90,46 @@ class ViewController: UIViewController, UITextViewDelegate {
 	@IBAction func jsonPostTest(sender: AnyObject) {
 		model.testJSONPost()
 	}
+    
+    func hideContainerView() {
+        if(self.FolderScrollView.hidden) {
+            self.FolderScrollView.hidden = false
+            print("showes scrollview")
+            
+        } else {
+            self.FolderScrollView.hidden = true
+            print("hides scrollview")
+        }
+    }
+    
+    func updateTable() {
+        print("reloads tabledata")
+        folderTableView.reloadData()
+        
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableData.count //length of aray in model
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) ->   UITableViewCell {
+        let cell = UITableViewCell()
+        let label = UILabel(frame:CGRect(x:20, y:0, width:200, height:50))
+        label.text = tableData[indexPath.row] //" Man Future file"
+        cell.addSubview(label)
+        cell.accessoryView = UIImageView(image:UIImage(named:"plusIcon")!)
+        return cell
+    }
+    
+    /*func tableView(foldertableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = folderTableView.dequeueReusableCellWithIdentifier("customcell", forIndexPath: indexPath) as! UITableViewCell
+        cell.textLabel?.text = "hej"
+        print("sets table data")
+        return cell
+    }*/
+    
+    
+    
 
     
     func textViewDidBeginEditing(textView: UITextView) {
