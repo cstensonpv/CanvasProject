@@ -42,23 +42,19 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
         hideContainerView()
 		
 		canvas.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deselectAllCanvasViewObjects)))
+		canvasScrollView.contentSize = canvas.frame.size
 		// Do any additional setup after loading the view, typically from a nib.
 		
 	}
     
 	
 	// View object outlets
-    @IBOutlet weak var canvas: UIScrollView!
 	@IBOutlet weak var projectNameLabel: UINavigationItem!
+	@IBOutlet weak var canvasScrollView: UIScrollView!
+	@IBOutlet weak var canvas: UIView!
 	@IBOutlet weak var collaboratorsLabel: UILabel!
-	@IBOutlet weak var theLabel: UILabel!
     @IBOutlet weak var FolderScrollView: UIScrollView!
     @IBOutlet weak var folderTableView: UITableView!
-	// Test object outlets
-	
-	@IBOutlet weak var testTextBoxView: UIView!
-	@IBOutlet weak var testTextBoxInView: UITextField!
-	@IBOutlet weak var testTextBoxResizeView: UIView!
     
     @IBAction func ShowListFolder(sender: AnyObject) {
         hideContainerView()
@@ -94,7 +90,7 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
         if(self.FolderScrollView.hidden) {
             self.FolderScrollView.hidden = false
             print("showes scrollview")
-            
+			
         } else {
             self.FolderScrollView.hidden = true
             print("hides scrollview")
@@ -222,7 +218,6 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 
 	func updateCanvasObjects() {
 		let shouldBeSelected = selectedCanvasViewObject?.id
-		theLabel.text = model.testValue
 		print("Update canvas objects")
 		
 		if let project = model.currentProject {
