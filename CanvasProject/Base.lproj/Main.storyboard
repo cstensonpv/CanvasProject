@@ -102,6 +102,7 @@
                                 <color key="backgroundColor" red="0.35220381960870417" green="0.92259080497382195" blue="0.23990270444810474" alpha="0.0" colorSpace="calibratedRGB"/>
                             </scrollView>
                         </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
