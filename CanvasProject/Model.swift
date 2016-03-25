@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import AlamofireImage
 import SwiftyJSON
 
 class CanvasProjectModel {
@@ -210,6 +211,8 @@ class CanvasProjectModel {
 			)
 //			currentProject?.driveFolderName = projectData["DriveFolderName"].stringValue
 			currentProject?.driveFolderID = projectData["driveFolderID"].stringValue
+			print("Project drive folder ID:")
+			print(projectData["driveFolderID"])
 			requestDriveFolder()
 			
 			if let collaborators = projectData["collaborators"].array {

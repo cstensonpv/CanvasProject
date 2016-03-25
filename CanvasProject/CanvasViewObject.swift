@@ -16,7 +16,7 @@ protocol CanvasViewObject {
 	var dimensions: Dimensions { get }
 	var mainController: ViewController? { get set }
 	func setData(data: JSON)
-	func wasTapped(recognizer: UITapGestureRecognizer)
+	func wasTapped()
 	func detectPan(recognizer: UIPanGestureRecognizer)
     func select()
     func deselect()

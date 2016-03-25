@@ -33,6 +33,7 @@ class ViewController: UIViewController, UITextViewDelegate {
 		notificationCenter.addObserver(self, selector: #selector(updateUserInfo), name: "ReceivedUserInfo", object: nil)
 		notificationCenter.addObserver(self, selector: #selector(updateFileInfo), name: "ReceivedFiles", object: nil)
 		
+		canvas.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deselectAllCanvasViewObjects)))
 		// Do any additional setup after loading the view, typically from a nib.
 		
 	}
@@ -181,8 +182,9 @@ class ViewController: UIViewController, UITextViewDelegate {
 //					print(object)
 					let newCanvasViewObject = CanvasViewFile()
 					newCanvasViewObject.mainController = self
+					print("Drawing file. File id:")
 					newCanvasViewObject.setData(object)
-					if let fileInfo = project.getFile(object["driveID"].stringValue) {
+					if let fileInfo = project.getFile(object["driveFileID"].stringValue) {
 						newCanvasViewObject.setFileInfo(fileInfo)
 					}
 					canvas.addSubview(newCanvasViewObject)

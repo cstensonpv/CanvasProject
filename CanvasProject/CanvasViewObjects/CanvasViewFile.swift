@@ -16,7 +16,8 @@ class CanvasViewFile: UIView, CanvasViewObject {
 	var mainController: ViewController?
 	var link: String?
 	
-	var fileName = UITextView()
+	var fileName = UIButton()
+	var fileImage = UIImageView()
 	var resizeHandleImage = UIImageView(image: UIImage(named: "resizeLines")!)
 	var resizeHandle = UIView()
 	
@@ -27,7 +28,20 @@ class CanvasViewFile: UIView, CanvasViewObject {
 	let marginForResizeHandle: CGFloat = 5
 	let resizeHandleImageHeight: CGFloat = 16; let resizeHandleImageWidth: CGFloat = 26.5
 	let resizeHandleImageXDisplacement: CGFloat = 16.5; let resizeHandleImageYDisplacement: CGFloat = 15;
-	let fileNameHeight = CGFloat(40)
+	let fileNameHeight = CGFloat(35)
+	
+	let fileNameBackgroundNormal = UIColor(
+		red: CGFloat(0.5),
+		green: CGFloat(0.5),
+		blue: CGFloat(0.5),
+		alpha: CGFloat(0.2)
+	)
+	let fileNameBackgroundPressed = UIColor(
+		red: CGFloat(0.5),
+		green: CGFloat(0.5),
+		blue: CGFloat(0.5),
+		alpha: CGFloat(0.5)
+	)
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -42,10 +56,13 @@ class CanvasViewFile: UIView, CanvasViewObject {
 		layer.cornerRadius = CGFloat(5)
 		self.clipsToBounds = true
 		
-		fileName.editable = false
-		fileName.backgroundColor = UIColor.clearColor()
-		fileName.textAlignment = NSTextAlignment.Center
-		fileName.font = UIFont.systemFontOfSize(16)
+		fileName.backgroundColor = fileNameBackgroundNormal
+		fileName.layer.cornerRadius = CGFloat(5)
+		fileName.clipsToBounds = true
+		fileName.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+		fileName.contentVerticalAlignment = UIControlContentVerticalAlignment.Center
+		fileName.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -69,7 +86,7 @@ class CanvasViewFile: UIView, CanvasViewObject {
 			width: CGFloat(frame.width),
 			height: CGFloat(fileNameHeight)
 		)
-		fileName.text = data["name"].stringValue
+		fileName.setTitle(data["name"].stringValue, forState: UIControlState.Normal)
 		addSubview(fileName)
 		
 		// Resize handle image
@@ -96,8 +113,10 @@ class CanvasViewFile: UIView, CanvasViewObject {
 	
 	func setFileInfo(data: JSON) {
 		link = data["webViewLink"].stringValue
-		
-		
+		fileName.addTarget(self, action: #selector(fileNameTouchDown), forControlEvents: UIControlEvents.TouchDown)
+		fileName.addTarget(self, action: #selector(fileNameTouchUpInside), forControlEvents: UIControlEvents.TouchUpInside)
+		fileName.addTarget(self, action: #selector(fileNameTouchCancel), forControlEvents: UIControlEvents.TouchUpOutside)
+		fileName.addTarget(self, action: #selector(fileNameTouchCancel), forControlEvents: UIControlEvents.TouchCancel)
 	}
 	
 	func select() {
@@ -111,8 +130,25 @@ class CanvasViewFile: UIView, CanvasViewObject {
 		resizeHandleImage.hidden = true
 	}
 	
-	func wasTapped(recognizer: UITapGestureRecognizer) {
+	func wasTapped() {
 		mainController?.selectCanvasViewObject(self)
+	}
+	
+	func fileNameTouchDown(sender: UIButton!) {
+		fileName.backgroundColor = fileNameBackgroundPressed
+	}
+	
+	func fileNameTouchUpInside(sender: UIButton!) {
+		fileName.backgroundColor = fileNameBackgroundNormal
+		if link != nil {
+			if let url = NSURL(string: link!) {
+				UIApplication.sharedApplication().openURL(url)
+			}
+		}
+	}
+	
+	func fileNameTouchCancel(sender: UIButton!) {
+		fileName.backgroundColor = fileNameBackgroundNormal
 	}
 	
 	func detectPan(recognizer: UIPanGestureRecognizer) {

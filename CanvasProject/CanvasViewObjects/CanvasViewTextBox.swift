@@ -109,7 +109,7 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 		textField.delegate = delegate
 	}
 	
-	func wasTapped(recognizer: UITapGestureRecognizer) {
+	func wasTapped() {
 		mainController?.selectCanvasViewObject(self)
 	}
 	
