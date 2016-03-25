@@ -12,3 +12,8 @@ struct Position {
 	var x: Float
 	var y: Float
 }
+
+struct Dimensions {
+	var width: Float
+	var height: Float
+}

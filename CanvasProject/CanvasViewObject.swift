@@ -12,6 +12,7 @@ import Foundation
 protocol CanvasViewObject {
 	var id: String { get }
 	var position: Position { get }
+	var dimensions: Dimensions { get }
     func select()
     func deselect()
 	func removeFromSuperview()
