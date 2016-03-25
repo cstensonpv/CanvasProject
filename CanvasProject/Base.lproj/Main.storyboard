@@ -99,7 +99,7 @@
                                     </barButtonItem>
                                     <barButtonItem title="folder" id="xq6-4h-zEM">
                                         <connections>
-                                            <action selector="listFolder:" destination="BYZ-38-t0r" id="dHE-GQ-Qdk"/>
+                                            <action selector="ShowListFolder:" destination="BYZ-38-t0r" id="thN-NL-ckd"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -110,12 +110,54 @@
                                     <navigationItem title="Project name" id="Dgb-Yl-17L"/>
                                 </items>
                             </navigationBar>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ueQ-Q7-abd">
+                                <rect key="frame" x="0.0" y="491" width="236" height="489"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="58W-dR-RdV">
+                                        <rect key="frame" x="-2" y="0.0" width="240" height="489"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="sectionIndexBackgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fileInFolderCell" id="kn8-CS-oIa">
+                                                <rect key="frame" x="0.0" y="28" width="240" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kn8-CS-oIa" id="tAH-4d-AiL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" red="0.92259080497382195" green="0.92259080497382195" blue="0.92259080497382195" alpha="0.0" colorSpace="calibratedRGB"/>
+                                            </tableViewCell>
+                                            <tableViewCell clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fileInFolderCell2" id="dyq-i3-qwH">
+                                                <rect key="frame" x="0.0" y="72" width="240" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dyq-i3-qwH" id="ioP-8K-fEg">
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" red="0.92259080500000001" green="0.92259080500000001" blue="0.92259080500000001" alpha="0.0" colorSpace="calibratedRGB"/>
+                                            </tableViewCell>
+                                            <tableViewCell clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fileInFolderCell3" id="Z2G-Qc-yPH">
+                                                <rect key="frame" x="0.0" y="116" width="240" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z2G-Qc-yPH" id="1n2-b0-Vhs">
+                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" red="0.92259080500000001" green="0.92259080500000001" blue="0.92259080500000001" alpha="0.0" colorSpace="calibratedRGB"/>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.35220381960870417" green="0.92259080497382195" blue="0.23990270444810474" alpha="0.0" colorSpace="calibratedRGB"/>
+                            </scrollView>
                         </subviews>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="FolderScrollView" destination="ueQ-Q7-abd" id="8sX-W4-UA4"/>
                         <outlet property="canvas" destination="dJ9-Eb-s5P" id="wHs-94-z0T"/>
                         <outlet property="collaboratorsLabel" destination="MxW-wn-aWm" id="uqx-c6-fJm"/>
+                        <outlet property="folderTableView" destination="58W-dR-RdV" id="Fr8-AZ-9Tx"/>
                         <outlet property="projectNameLabel" destination="Dgb-Yl-17L" id="piW-gX-Zlw"/>
                         <outlet property="testTextBoxInView" destination="Jjl-af-qy9" id="ao6-jp-pJi"/>
                         <outlet property="testTextBoxResizeView" destination="hQ2-af-Hwq" id="DEa-wl-bpw"/>
@@ -125,7 +167,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="71" y="312"/>
+            <point key="canvasLocation" x="71" y="348"/>
         </scene>
     </scenes>
 </document>
