@@ -143,7 +143,6 @@ class CanvasViewFile: UIView, CanvasViewObject {
 				width: fileImageView.frame.size.width,
 				height: fileImageView.frame.size.height
 			))
-			print("image scaled")
 		} else {
 			fullFileImageAvailable = false
 		}

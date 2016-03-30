@@ -1,8 +1,9 @@
 //user controller
 
-var express = require('express')
-  	, router = express.Router()
-  	, projectModel = require('../models/project')
+var express = require('express'),
+	router = express.Router(),
+	projectModel = require('../models/project'),
+	socketCtrl = require('./socketCtrl');
 
 function errHandling(err){
 	var msg = err.message;
@@ -23,6 +24,7 @@ function errHandling(err){
 	}
 }
 
+// Get specified project data
 router.get('/:project_id', function(req, res) {
 	var project_id = req.params.project_id;
 	console.log("Request get project : " + project_id);
@@ -35,8 +37,9 @@ router.get('/:project_id', function(req, res) {
     		res.send(project);
 		}
   	});
-})
+});
 
+// Post new project
 router.post('/', function(req, res) {
 	var name = req.headers.name;
 	var creator = req.headers.creator;
@@ -49,8 +52,9 @@ router.post('/', function(req, res) {
     		res.send(project);
 		}
   	});
-})
+});
 
+// Change name for specified project
 router.put('/:project_id', function(req, res) {
 	var name = req.headers.name;
 	var id = req.params.project_id;
@@ -60,11 +64,13 @@ router.put('/:project_id', function(req, res) {
 			res.send(errHandling(err));
 		}else{
 			res.send(project);
+			socketCtrl.notifyProjectSubscribers(id, socketCtrl.PROJECT_UPDATE_MESSAGE);
 		}
 
-	})
-})
+	});
+});
 
+// Add new collaborator to specified project
 router.put('/:project_id/:newCollaborator', function(req, res) {
 	var userName = req.params.newCollaborator;
 	var id = req.params.project_id;
@@ -74,11 +80,12 @@ router.put('/:project_id/:newCollaborator', function(req, res) {
 			errHandling(err);
 		}else{
 			res.send(project);
+			socketCtrl.notifyProjectSubscribers(id, socketCtrl.PROJECT_UPDATE_MESSAGE);
 		}
+	});
+});
 
-	})
-})
-
+// Delete specified collaborator from specified project
 router.delete('/:project_id/:newCollaborator', function(req, res) {
 	var userName = req.params.newCollaborator;
 	var id = req.params.project_id;
@@ -88,11 +95,12 @@ router.delete('/:project_id/:newCollaborator', function(req, res) {
 			errHandling(err);
 		}else{
 			res.send(project);
+			socketCtrl.notifyProjectSubscribers(id, socketCtrl.PROJECT_UPDATE_MESSAGE);
 		}
+	});
+});
 
-	})
-})
-
+// Delete specified project
 router.delete('/:project_id', function(req, res) {
 	var project_id = req.params.project_id;
 	console.log("Request delete of project : " + project_id);
@@ -102,7 +110,7 @@ router.delete('/:project_id', function(req, res) {
 		}else{
 			res.send("success");
 		}
-	})
-})
+	});
+});
 
 module.exports = router;

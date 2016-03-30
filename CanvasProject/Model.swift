@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import AlamofireImage
 import SwiftyJSON
+import SocketIOClientSwift
 
 class CanvasProjectModel {
 	let notificationCenter = NSNotificationCenter.defaultCenter()
@@ -19,13 +20,17 @@ class CanvasProjectModel {
 	var userNames = [String: String]()
 	var userInfo = [JSON]()
 	var currentProject: Project?
+	var socket: SocketIOClient?
 	
-	let serverAddress: String = "130.229.153.14"
-	let serverPort: String = "8080"
+	let serverAddress: String = "192.168.0.10"
+	let serverHTTPPort: String = "8080"
+	let serverSocketPort: String = "8081"
 	let serverURI: String
+	let serverSocketURI: String
 	
 	init() {
-		serverURI = "http://" + serverAddress + ":" + serverPort
+		serverURI = "http://" + serverAddress + ":" + serverHTTPPort
+		serverSocketURI = "http://" + serverAddress + ":" + serverSocketPort
 		switchProject(id: "56f29db6451cba0416cf06ee")
 	}
 	
@@ -81,6 +86,25 @@ class CanvasProjectModel {
 					self.setTestValue(str)
 				}
 			}
+	}
+	
+	func setupSocket() {
+		socket = SocketIOClient(socketURL: NSURL(string: serverSocketURI)!)
+		socket?.on("connect") {data, ack in
+			print("Socket connected")
+			self.socket?.emit("subscribeToProject", self.currentProject!.id)
+		}
+		
+		socket?.on("canvasObjectUpdate") { data, ack in
+			print("Received notification of canvas object update")
+			self.requestCanvasObjects()
+		}
+		
+		socket?.on("projectUpdate") { data, ack in
+			self.switchProject(id: self.currentProject!.id)
+		}
+		
+		socket?.connect()
 	}
 	
 	
@@ -168,16 +192,12 @@ class CanvasProjectModel {
 				newCanvasObject = CanvasObjectPrototypes.textBox(project.id)
 			}
 			
-			Alamofire.request(.POST, serverURI + "/canvasobject/" + project.id, parameters: newCanvasObject.dictionaryObject, encoding: .JSON).responseJSON {
-				response in self.requestCanvasObjects()
-			}
+			Alamofire.request(.POST, serverURI + "/canvasobject/" + project.id, parameters: newCanvasObject.dictionaryObject, encoding: .JSON)
 		}
 	}
 	
 	func updateCanvasObject(objectData: JSON) {
-		Alamofire.request(.PUT, serverURI + "/canvasObject/", parameters: objectData.dictionaryObject, encoding: .JSON).responseJSON {
-			response in self.requestCanvasObjects()
-		}
+		Alamofire.request(.PUT, serverURI + "/canvasObject/", parameters: objectData.dictionaryObject, encoding: .JSON)
 	}
 	
 	func deleteCanvasObject(id: String) {
@@ -185,8 +205,7 @@ class CanvasProjectModel {
 			print("Delete canvas object \(id)")
 			Alamofire.request(.DELETE, serverURI + "/canvasObject/\(project.id)/\(id)").responseString { response in
 				if let responseValue = response.result.value {
-					if responseValue == "succes" { print("Successfully deleted"); self.requestCanvasObjects() }
-					else { print("Couldn't delete"); print(responseValue) }
+					if responseValue != "success" { print("Couldn't delete"); print(responseValue) }
 				}
 				
 			}
@@ -234,7 +253,6 @@ class CanvasProjectModel {
 				name: projectData["name"].stringValue,
 				creator: projectData["creator"].stringValue
 			)
-//			currentProject?.driveFolderName = projectData["DriveFolderName"].stringValue
 			currentProject?.driveFolderID = projectData["driveFolderID"].stringValue
 			print("Project drive folder ID:")
 			print(projectData["driveFolderID"])
@@ -246,6 +264,7 @@ class CanvasProjectModel {
 				}
 			}
 			
+			setupSocket()
 			notificationCenter.postNotificationName("ReceivedProject", object: nil)
 		}
 	}

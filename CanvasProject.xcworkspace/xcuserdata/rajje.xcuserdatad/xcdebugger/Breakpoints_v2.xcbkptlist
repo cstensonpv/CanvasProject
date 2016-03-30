@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CanvasProject/Model.swift"
-            timestampString = "480613901.088185"
+            timestampString = "481072794.887223"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "addCanvasObject(_:)"
             landmarkType = "5">
          </BreakpointContent>
