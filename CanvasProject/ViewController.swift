@@ -268,7 +268,7 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 
 	func updateCanvasObjects() {
 		let shouldBeSelected = selectedCanvasViewObject?.id
-		print("Update canvas objects")
+		print("ViewController updating canvas objects")
 		
 		if let project = model.currentProject {
 			resetCanvas()

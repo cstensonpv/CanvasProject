@@ -2,9 +2,7 @@
 
 var express = require('express'),
 	router = express.Router(),
-	drive = require('../helpers/googleDrive'),
-	http = require('http').Server(express),
-	io = require('socket.io')(http);
+	drive = require('../helpers/googleDrive');
 
 router.use('/user', require('./userCtrl'))
 router.use('/project', require('./projectCtrl'))
@@ -22,10 +20,5 @@ router.get('/files/:folder_id', function(req, res){
 	})
 
 })
-
-io.on('connection', function(socket){
-  console.log('a user connected');
-});
-
 
 module.exports = router;
