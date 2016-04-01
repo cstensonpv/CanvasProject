@@ -37,7 +37,7 @@ function schemaBase(type) {
 			webViewLink: { type: String, require: true },
 			iconLink: { type: String, require: true },
 			thumbnailLink: { type: String, require: true },
-			driveFolderID: { type: String, require:true }
+			driveFileID: { type: String, require:true }
 		});
 	} else if (type == "rectangle") {
 		schema.add({
