@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import AlamofireImage
 
-class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
 	let model = CanvasProjectModel()
 	let notificationCenter = NSNotificationCenter.defaultCenter()
 	var canvasViewObjects = [String: CanvasViewObject]()
@@ -22,7 +22,8 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 	var dragStartPositionRelativeToCenter: CGPoint?
 	var dimensionsBeforeResize: CGSize?
     
-    let tableData = ["item1", "item2", "item3"]
+    
+    var tableData = [JSON]()//["item1", "item2", "item3"]
 	
 	
 //	required init?(coder aDecoder: NSCoder) {
@@ -38,12 +39,20 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 		notificationCenter.addObserver(self, selector: #selector(updateImages), name: "ReceivedImage", object: nil)
 
         folderTableView.dataSource = self
+        folderTableView.delegate = self
         //initial is hide on show folder
         hideContainerView()
+        
+        
+        //tableController = storyBoard.instantiateViewControllerWithIdentifier("TableViewController") as? TableViewController
+        
+//        tableController?.hello()
+        //self.navigationController?.pushViewController(tableController!, animated: true)
 		
 		canvas.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deselectAllCanvasViewObjects)))
 		canvasScrollView.contentSize = canvas.frame.size
 		// Do any additional setup after loading the view, typically from a nib.
+    
 		
 	}
     
@@ -56,8 +65,10 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
     @IBOutlet weak var FolderScrollView: UIScrollView!
     @IBOutlet weak var folderTableView: UITableView!
     
+    
     @IBAction func ShowListFolder(sender: AnyObject) {
         hideContainerView()
+        updateTable()
     }
 	
 	@IBAction func requestHelloWorld(sender: AnyObject) {
@@ -66,7 +77,7 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 	
 	// Toolbar functions
 	@IBAction func addTextBox(sender: AnyObject) {
-		model.addCanvasObject(CanvasProjectModel.CanvasObjectType.TextBox)
+        model.addCanvasObject(CanvasProjectModel.CanvasObjectType.TextBox)
 	}
 	
 	@IBAction func deleteObject(sender: AnyObject) {
@@ -98,23 +109,61 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
     }
     
     func updateTable() {
+        if let project = model.currentProject {
+            tableData = project.getFiles()
+            //print(tableData[0]["name"]);
+        }
         print("reloads tabledata")
         folderTableView.reloadData()
         
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("You selected cell #\(indexPath.row)!")
+        model.addCanvasObject(CanvasProjectModel.CanvasObjectType.File, data: tableData[indexPath.row])
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //print("Called tableview count")
         return tableData.count //length of aray in model
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) ->   UITableViewCell {
+    func tableView(folderTableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) ->   UITableViewCell {
+        print("Called tableview write")
+        let margin = CGFloat(7)
         let cell = UITableViewCell()
-        let label = UILabel(frame:CGRect(x:20, y:0, width:200, height:50))
-        label.text = tableData[indexPath.row] //" Man Future file"
+        
+        let label = UILabel(frame:CGRect(x:cell.bounds.height, y:0, width:200, height:50))
+        label.text = tableData[indexPath.row]["name"].stringValue
         cell.addSubview(label)
-        cell.accessoryView = UIImageView(image:UIImage(named:"plusIcon")!)
+        //cell.tag = indexPath.row
+        if let project = model.currentProject {
+            if var image = project.getImage(tableData[indexPath.row]["id"].stringValue){
+                //print(image)
+                image = image.af_imageAspectScaledToFitSize(CGSize(
+                    width: cell.bounds.height - margin,
+                    height: cell.bounds.height - margin
+                ))
+                let imageView = UIImageView(image:image)
+                imageView.frame = CGRect(
+                    x: margin/2,
+                    y: margin/2,
+                    width: cell.bounds.height - margin,
+                    height: cell.bounds.height - margin
+                )
+                cell.addSubview(imageView)
+                
+            }
+        }
+
+        cell.accessoryView = UIImageView(image:UIImage(named:"plusIcon")!)        
+    
         return cell
     }
+    
+    
+    
+    
     
     /*func tableView(foldertableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = folderTableView.dequeueReusableCellWithIdentifier("customcell", forIndexPath: indexPath) as! UITableViewCell
@@ -214,6 +263,7 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 //		}
 		print("Update images")
 		updateCanvasObjects()
+        updateTable();
 	}
 
 	func updateCanvasObjects() {

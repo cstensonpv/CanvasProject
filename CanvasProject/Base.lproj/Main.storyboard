@@ -67,34 +67,36 @@
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="58W-dR-RdV">
                                         <rect key="frame" x="-2" y="0.0" width="240" height="489"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="sectionIndexBackgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fileInFolderCell" id="kn8-CS-oIa">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CanvasFileTableViewCell" rowHeight="44" id="emN-I1-PEN" customClass="CanvasFileTableViewCell" customModule="CanvasProject" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="240" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kn8-CS-oIa" id="tAH-4d-AiL">
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="emN-I1-PEN" id="pUv-gM-q32">
                                                     <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xoI-vb-ckP">
+                                                            <rect key="frame" x="65" y="11" width="117" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hM9-7n-zme">
+                                                            <rect key="frame" x="190" y="1" width="42" height="42"/>
+                                                            <state key="normal" image="plusIcon"/>
+                                                        </button>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="defaultPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="VrT-nI-Vxn">
+                                                            <rect key="frame" x="8" y="1" width="41" height="41"/>
+                                                        </imageView>
+                                                    </subviews>
                                                 </tableViewCellContentView>
-                                                <color key="backgroundColor" red="0.92259080497382195" green="0.92259080497382195" blue="0.92259080497382195" alpha="0.0" colorSpace="calibratedRGB"/>
-                                            </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fileInFolderCell2" id="dyq-i3-qwH">
-                                                <rect key="frame" x="0.0" y="72" width="240" height="44"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dyq-i3-qwH" id="ioP-8K-fEg">
-                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </tableViewCellContentView>
-                                                <color key="backgroundColor" red="0.92259080500000001" green="0.92259080500000001" blue="0.92259080500000001" alpha="0.0" colorSpace="calibratedRGB"/>
-                                            </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fileInFolderCell3" id="Z2G-Qc-yPH">
-                                                <rect key="frame" x="0.0" y="116" width="240" height="44"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z2G-Qc-yPH" id="1n2-b0-Vhs">
-                                                    <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </tableViewCellContentView>
-                                                <color key="backgroundColor" red="0.92259080500000001" green="0.92259080500000001" blue="0.92259080500000001" alpha="0.0" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <outlet property="addFileToCanvas" destination="hM9-7n-zme" id="CMq-S2-qDf"/>
+                                                    <outlet property="tableLabel" destination="xoI-vb-ckP" id="LjT-cA-GjN"/>
+                                                    <outlet property="tableThumbNail" destination="VrT-nI-Vxn" id="rsC-AM-jkO"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -119,4 +121,8 @@
             <point key="canvasLocation" x="71" y="348"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="defaultPhoto" width="16" height="16"/>
+        <image name="plusIcon" width="42" height="42"/>
+    </resources>
 </document>
