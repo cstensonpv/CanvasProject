@@ -28,4 +28,23 @@ struct CanvasObjectPrototypes {
 			"text": "Text box"
 		]
 	}
+    static func file(projectID: String, data: JSON) -> JSON {
+        return [
+            "project_id": projectID,
+            "position": [
+                "x": 100,
+                "y": 100
+            ],
+            "dimensions": [
+                "width": 100,
+                "height": 100
+            ],
+            "type": "file",
+            "name": data["name"].stringValue,
+            "webViewLink": data["webViewLink"].stringValue,
+            "iconLink": data["iconLink"].stringValue,
+            "thumbnailLink": data["thumbnailLink"].stringValue,
+            "driveFileID": data["id"].stringValue
+        ]
+    }
 }

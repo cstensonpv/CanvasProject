@@ -1,1396 +1,672 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>15EA9F16B8707D87825B7304</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>Pods.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>16F4AB81E8E9E464F7706160</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods.release.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods/Pods.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>190D7AE2BBC40901D4A69912</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Copy Pods Resources</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-CanvasProject/Pods-CanvasProject-resources.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>2A2243F0E7A22C26243332C8</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F1AB278E1C9F436300A9CE0F</string>
-				<string>15EA9F16B8707D87825B7304</string>
-				<string>AF4A4B9077D44427B4BC90C1</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>3B2796707E3CFD57889B5D36</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Embed Pods Frameworks</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-CanvasProject/Pods-CanvasProject-frameworks.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>474478A787B2A1EE0853566C</key>
-		<dict>
-			<key>fileRef</key>
-			<string>15EA9F16B8707D87825B7304</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>4A4C5B021CA1C119008A4907</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CanvasViewObject.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4A4C5B031CA1C119008A4907</key>
-		<dict>
-			<key>fileRef</key>
-			<string>4A4C5B021CA1C119008A4907</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>70FA84C8B3FAC2C903FCBF6C</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Check Pods Manifest.lock</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
-if [[ $? != 0 ]] ; then
-    cat &lt;&lt; EOM
-error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
-EOM
-    exit 1
-fi
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>7892EC535791938AEE74AFEA</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods.debug.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods/Pods.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>A856F07D5C655E2EB2870CBF</key>
-		<dict>
-			<key>fileRef</key>
-			<string>AF4A4B9077D44427B4BC90C1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>AF4A4B9077D44427B4BC90C1</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>Pods_CanvasProject.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>B36A2208ADB620D3E30E60DC</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>7892EC535791938AEE74AFEA</string>
-				<string>16F4AB81E8E9E464F7706160</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F10525401C96E61B004EAE1A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F105254B1C96E61B004EAE1A</string>
-				<string>F10525601C96E61C004EAE1A</string>
-				<string>F105256B1C96E61C004EAE1A</string>
-				<string>F105254A1C96E61B004EAE1A</string>
-				<string>B36A2208ADB620D3E30E60DC</string>
-				<string>2A2243F0E7A22C26243332C8</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F10525411C96E61B004EAE1A</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastSwiftUpdateCheck</key>
-				<string>0710</string>
-				<key>LastUpgradeCheck</key>
-				<string>0710</string>
-				<key>ORGANIZATIONNAME</key>
-				<string>KTH</string>
-				<key>TargetAttributes</key>
-				<dict>
-					<key>F10525481C96E61B004EAE1A</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.1.1</string>
-						<key>DevelopmentTeam</key>
-						<string>TV6829DVA9</string>
-					</dict>
-					<key>F105255C1C96E61C004EAE1A</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.1.1</string>
-						<key>TestTargetID</key>
-						<string>F10525481C96E61B004EAE1A</string>
-					</dict>
-					<key>F10525671C96E61C004EAE1A</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.1.1</string>
-						<key>TestTargetID</key>
-						<string>F10525481C96E61B004EAE1A</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>F10525441C96E61B004EAE1A</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-				<string>Base</string>
-			</array>
-			<key>mainGroup</key>
-			<string>F10525401C96E61B004EAE1A</string>
-			<key>productRefGroup</key>
-			<string>F105254A1C96E61B004EAE1A</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>F10525481C96E61B004EAE1A</string>
-				<string>F105255C1C96E61C004EAE1A</string>
-				<string>F10525671C96E61C004EAE1A</string>
-			</array>
-		</dict>
-		<key>F10525441C96E61B004EAE1A</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>F105256F1C96E61C004EAE1A</string>
-				<string>F10525701C96E61C004EAE1A</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>F10525451C96E61B004EAE1A</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>F105254F1C96E61B004EAE1A</string>
-				<string>F187E2E21CA4009800D751D1</string>
-				<string>F1E857C01C96F7E600E30EC7</string>
-				<string>F105254D1C96E61B004EAE1A</string>
-				<string>4A4C5B031CA1C119008A4907</string>
-				<string>F11C92D11C9C59C100483023</string>
-				<string>F187E2E41CA52E8C00D751D1</string>
-				<string>F13DD4941CA2BDA000020389</string>
-				<string>F13DD4991CA2F92400020389</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>F10525461C96E61B004EAE1A</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>474478A787B2A1EE0853566C</string>
-				<string>A856F07D5C655E2EB2870CBF</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>F10525471C96E61B004EAE1A</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>F10525571C96E61B004EAE1A</string>
-				<string>F1AB278F1C9F436300A9CE0F</string>
-				<string>F10525541C96E61B004EAE1A</string>
-				<string>F10525521C96E61B004EAE1A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>F10525481C96E61B004EAE1A</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>F10525711C96E61C004EAE1A</string>
-			<key>buildPhases</key>
-			<array>
-				<string>70FA84C8B3FAC2C903FCBF6C</string>
-				<string>F10525451C96E61B004EAE1A</string>
-				<string>F10525461C96E61B004EAE1A</string>
-				<string>F10525471C96E61B004EAE1A</string>
-				<string>3B2796707E3CFD57889B5D36</string>
-				<string>190D7AE2BBC40901D4A69912</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>CanvasProject</string>
-			<key>productName</key>
-			<string>CanvasProject</string>
-			<key>productReference</key>
-			<string>F10525491C96E61B004EAE1A</string>
-			<key>productType</key>
-			<string>com.apple.product-type.application</string>
-		</dict>
-		<key>F10525491C96E61B004EAE1A</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.application</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>CanvasProject.app</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>F105254A1C96E61B004EAE1A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F10525491C96E61B004EAE1A</string>
-				<string>F105255D1C96E61C004EAE1A</string>
-				<string>F10525681C96E61C004EAE1A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F105254B1C96E61B004EAE1A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F13DD4951CA2E46F00020389</string>
-				<string>F13DD4961CA2E50400020389</string>
-				<string>F13DD4971CA2E50B00020389</string>
-				<string>F10525531C96E61B004EAE1A</string>
-				<string>F10525551C96E61B004EAE1A</string>
-				<string>F10525581C96E61B004EAE1A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>CanvasProject</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F105254C1C96E61B004EAE1A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>AppDelegate.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F105254D1C96E61B004EAE1A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F105254C1C96E61B004EAE1A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F105254E1C96E61B004EAE1A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>ViewController.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F105254F1C96E61B004EAE1A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F105254E1C96E61B004EAE1A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F10525501C96E61B004EAE1A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F10525511C96E61B004EAE1A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>Main.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F10525511C96E61B004EAE1A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.storyboard</string>
-			<key>name</key>
-			<string>Base</string>
-			<key>path</key>
-			<string>Base.lproj/Main.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F10525521C96E61B004EAE1A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F10525501C96E61B004EAE1A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F10525531C96E61B004EAE1A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder.assetcatalog</string>
-			<key>path</key>
-			<string>Assets.xcassets</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F10525541C96E61B004EAE1A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F10525531C96E61B004EAE1A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F10525551C96E61B004EAE1A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F10525561C96E61B004EAE1A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>LaunchScreen.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F10525561C96E61B004EAE1A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.storyboard</string>
-			<key>name</key>
-			<string>Base</string>
-			<key>path</key>
-			<string>Base.lproj/LaunchScreen.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F10525571C96E61B004EAE1A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F10525551C96E61B004EAE1A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F10525581C96E61B004EAE1A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F10525591C96E61C004EAE1A</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>F10525621C96E61C004EAE1A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>F105255A1C96E61C004EAE1A</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>F105255B1C96E61C004EAE1A</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>F105255C1C96E61C004EAE1A</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>F10525741C96E61C004EAE1A</string>
-			<key>buildPhases</key>
-			<array>
-				<string>F10525591C96E61C004EAE1A</string>
-				<string>F105255A1C96E61C004EAE1A</string>
-				<string>F105255B1C96E61C004EAE1A</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>F105255F1C96E61C004EAE1A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>CanvasProjectTests</string>
-			<key>productName</key>
-			<string>CanvasProjectTests</string>
-			<key>productReference</key>
-			<string>F105255D1C96E61C004EAE1A</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-		</dict>
-		<key>F105255D1C96E61C004EAE1A</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>CanvasProjectTests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>F105255E1C96E61C004EAE1A</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>F10525411C96E61B004EAE1A</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>F10525481C96E61B004EAE1A</string>
-			<key>remoteInfo</key>
-			<string>CanvasProject</string>
-		</dict>
-		<key>F105255F1C96E61C004EAE1A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>F10525481C96E61B004EAE1A</string>
-			<key>targetProxy</key>
-			<string>F105255E1C96E61C004EAE1A</string>
-		</dict>
-		<key>F10525601C96E61C004EAE1A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F10525611C96E61C004EAE1A</string>
-				<string>F10525631C96E61C004EAE1A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>CanvasProjectTests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F10525611C96E61C004EAE1A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CanvasProjectTests.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F10525621C96E61C004EAE1A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F10525611C96E61C004EAE1A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F10525631C96E61C004EAE1A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F10525641C96E61C004EAE1A</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>F105256D1C96E61C004EAE1A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>F10525651C96E61C004EAE1A</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>F10525661C96E61C004EAE1A</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>F10525671C96E61C004EAE1A</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>F10525771C96E61C004EAE1A</string>
-			<key>buildPhases</key>
-			<array>
-				<string>F10525641C96E61C004EAE1A</string>
-				<string>F10525651C96E61C004EAE1A</string>
-				<string>F10525661C96E61C004EAE1A</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>F105256A1C96E61C004EAE1A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>CanvasProjectUITests</string>
-			<key>productName</key>
-			<string>CanvasProjectUITests</string>
-			<key>productReference</key>
-			<string>F10525681C96E61C004EAE1A</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.ui-testing</string>
-		</dict>
-		<key>F10525681C96E61C004EAE1A</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>CanvasProjectUITests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>F10525691C96E61C004EAE1A</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>F10525411C96E61B004EAE1A</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>F10525481C96E61B004EAE1A</string>
-			<key>remoteInfo</key>
-			<string>CanvasProject</string>
-		</dict>
-		<key>F105256A1C96E61C004EAE1A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>F10525481C96E61B004EAE1A</string>
-			<key>targetProxy</key>
-			<string>F10525691C96E61C004EAE1A</string>
-		</dict>
-		<key>F105256B1C96E61C004EAE1A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F105256C1C96E61C004EAE1A</string>
-				<string>F105256E1C96E61C004EAE1A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>CanvasProjectUITests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F105256C1C96E61C004EAE1A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CanvasProjectUITests.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F105256D1C96E61C004EAE1A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F105256C1C96E61C004EAE1A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F105256E1C96E61C004EAE1A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F105256F1C96E61C004EAE1A</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_NO_COMMON_BLOCKS</key>
-				<string>YES</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>9.1</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>F10525701C96E61C004EAE1A</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_NO_COMMON_BLOCKS</key>
-				<string>YES</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>9.1</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>F10525711C96E61C004EAE1A</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>F10525721C96E61C004EAE1A</string>
-				<string>F10525731C96E61C004EAE1A</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>F10525721C96E61C004EAE1A</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>7892EC535791938AEE74AFEA</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>CODE_SIGN_IDENTITY</key>
-				<string>iPhone Developer</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>INFOPLIST_FILE</key>
-				<string>CanvasProject/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>org.berggrenstenson.CanvasProject1</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PROVISIONING_PROFILE</key>
-				<string></string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>F10525731C96E61C004EAE1A</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>16F4AB81E8E9E464F7706160</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>CODE_SIGN_IDENTITY</key>
-				<string>iPhone Developer</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>INFOPLIST_FILE</key>
-				<string>CanvasProject/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>org.berggrenstenson.CanvasProject1</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>PROVISIONING_PROFILE</key>
-				<string></string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>F10525741C96E61C004EAE1A</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>F10525751C96E61C004EAE1A</string>
-				<string>F10525761C96E61C004EAE1A</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>F10525751C96E61C004EAE1A</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(TEST_HOST)</string>
-				<key>INFOPLIST_FILE</key>
-				<string>CanvasProjectTests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>org.berggrenstenson.CanvasProjectTests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUILT_PRODUCTS_DIR)/CanvasProject.app/CanvasProject</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>F10525761C96E61C004EAE1A</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(TEST_HOST)</string>
-				<key>INFOPLIST_FILE</key>
-				<string>CanvasProjectTests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>org.berggrenstenson.CanvasProjectTests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUILT_PRODUCTS_DIR)/CanvasProject.app/CanvasProject</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>F10525771C96E61C004EAE1A</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>F10525781C96E61C004EAE1A</string>
-				<string>F10525791C96E61C004EAE1A</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>F10525781C96E61C004EAE1A</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>INFOPLIST_FILE</key>
-				<string>CanvasProjectUITests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>org.berggrenstenson.CanvasProjectUITests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_TARGET_NAME</key>
-				<string>CanvasProject</string>
-				<key>USES_XCTRUNNER</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>F10525791C96E61C004EAE1A</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>INFOPLIST_FILE</key>
-				<string>CanvasProjectUITests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>org.berggrenstenson.CanvasProjectUITests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_TARGET_NAME</key>
-				<string>CanvasProject</string>
-				<key>USES_XCTRUNNER</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>F11C92D01C9C59C100483023</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>Project.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F11C92D11C9C59C100483023</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F11C92D01C9C59C100483023</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F12BBF0F1CA3E96500424D29</key>
-		<dict>
-			<key>children</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>Images</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F13DD4931CA2BDA000020389</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CanvasObjectPrototypes.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F13DD4941CA2BDA000020389</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F13DD4931CA2BDA000020389</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F13DD4951CA2E46F00020389</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F105254C1C96E61B004EAE1A</string>
-				<string>F1E857BF1C96F7E600E30EC7</string>
-				<string>F11C92D01C9C59C100483023</string>
-				<string>F13DD4931CA2BDA000020389</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Model</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F13DD4961CA2E50400020389</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F105254E1C96E61B004EAE1A</string>
-				<string>F187E2E11CA4009800D751D1</string>
-				<string>F187E2E31CA52E8C00D751D1</string>
-				<string>4A4C5B021CA1C119008A4907</string>
-				<string>F13DD4981CA2F92400020389</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Controllers</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F13DD4971CA2E50B00020389</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>F12BBF0F1CA3E96500424D29</string>
-				<string>F10525501C96E61B004EAE1A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Views</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F13DD4981CA2F92400020389</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>CanvasViewObjectStucts.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F13DD4991CA2F92400020389</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F13DD4981CA2F92400020389</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F187E2E11CA4009800D751D1</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>CanvasViewTextBox.swift</string>
-			<key>path</key>
-			<string>CanvasViewObjects/CanvasViewTextBox.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F187E2E21CA4009800D751D1</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F187E2E11CA4009800D751D1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F187E2E31CA52E8C00D751D1</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>CanvasViewFile.swift</string>
-			<key>path</key>
-			<string>CanvasViewObjects/CanvasViewFile.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F187E2E41CA52E8C00D751D1</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F187E2E31CA52E8C00D751D1</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F1AB278E1C9F436300A9CE0F</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder</string>
-			<key>path</key>
-			<string>testserver</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F1AB278F1C9F436300A9CE0F</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F1AB278E1C9F436300A9CE0F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>F1E857BF1C96F7E600E30EC7</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.swift</string>
-			<key>path</key>
-			<string>Model.swift</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>F1E857C01C96F7E600E30EC7</key>
-		<dict>
-			<key>fileRef</key>
-			<string>F1E857BF1C96F7E600E30EC7</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>F10525411C96E61B004EAE1A</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		111B13471CAABBAF003A37FD /* CanvasFileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B13461CAABBAF003A37FD /* CanvasFileTableViewCell.swift */; };
+		111B13491CAAC128003A37FD /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B13481CAAC128003A37FD /* TableViewController.swift */; };
+		474478A787B2A1EE0853566C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15EA9F16B8707D87825B7304 /* Pods.framework */; };
+		4A4C5B031CA1C119008A4907 /* CanvasViewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4C5B021CA1C119008A4907 /* CanvasViewObject.swift */; };
+		A856F07D5C655E2EB2870CBF /* Pods_CanvasProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF4A4B9077D44427B4BC90C1 /* Pods_CanvasProject.framework */; };
+		F105254D1C96E61B004EAE1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F105254C1C96E61B004EAE1A /* AppDelegate.swift */; };
+		F105254F1C96E61B004EAE1A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F105254E1C96E61B004EAE1A /* ViewController.swift */; };
+		F10525521C96E61B004EAE1A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F10525501C96E61B004EAE1A /* Main.storyboard */; };
+		F10525541C96E61B004EAE1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F10525531C96E61B004EAE1A /* Assets.xcassets */; };
+		F10525571C96E61B004EAE1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F10525551C96E61B004EAE1A /* LaunchScreen.storyboard */; };
+		F10525621C96E61C004EAE1A /* CanvasProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10525611C96E61C004EAE1A /* CanvasProjectTests.swift */; };
+		F105256D1C96E61C004EAE1A /* CanvasProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F105256C1C96E61C004EAE1A /* CanvasProjectUITests.swift */; };
+		F11C92D11C9C59C100483023 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11C92D01C9C59C100483023 /* Project.swift */; };
+		F13DD4941CA2BDA000020389 /* CanvasObjectPrototypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DD4931CA2BDA000020389 /* CanvasObjectPrototypes.swift */; };
+		F13DD4991CA2F92400020389 /* CanvasViewObjectStucts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DD4981CA2F92400020389 /* CanvasViewObjectStucts.swift */; };
+		F187E2E21CA4009800D751D1 /* CanvasViewTextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F187E2E11CA4009800D751D1 /* CanvasViewTextBox.swift */; };
+		F187E2E41CA52E8C00D751D1 /* CanvasViewFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F187E2E31CA52E8C00D751D1 /* CanvasViewFile.swift */; };
+		F1AB278F1C9F436300A9CE0F /* testserver in Resources */ = {isa = PBXBuildFile; fileRef = F1AB278E1C9F436300A9CE0F /* testserver */; };
+		F1E857C01C96F7E600E30EC7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E857BF1C96F7E600E30EC7 /* Model.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F105255E1C96E61C004EAE1A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F10525411C96E61B004EAE1A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F10525481C96E61B004EAE1A;
+			remoteInfo = CanvasProject;
+		};
+		F10525691C96E61C004EAE1A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F10525411C96E61B004EAE1A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F10525481C96E61B004EAE1A;
+			remoteInfo = CanvasProject;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		111B13461CAABBAF003A37FD /* CanvasFileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CanvasFileTableViewCell.swift; path = CanvasViewObjects/CanvasFileTableViewCell.swift; sourceTree = "<group>"; };
+		111B13481CAAC128003A37FD /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		15EA9F16B8707D87825B7304 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		16F4AB81E8E9E464F7706160 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		4A4C5B021CA1C119008A4907 /* CanvasViewObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasViewObject.swift; sourceTree = "<group>"; };
+		7892EC535791938AEE74AFEA /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		AF4A4B9077D44427B4BC90C1 /* Pods_CanvasProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CanvasProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F10525491C96E61B004EAE1A /* CanvasProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CanvasProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F105254C1C96E61B004EAE1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F105254E1C96E61B004EAE1A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F10525511C96E61B004EAE1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F10525531C96E61B004EAE1A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F10525561C96E61B004EAE1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F10525581C96E61B004EAE1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F105255D1C96E61C004EAE1A /* CanvasProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CanvasProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F10525611C96E61C004EAE1A /* CanvasProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasProjectTests.swift; sourceTree = "<group>"; };
+		F10525631C96E61C004EAE1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F10525681C96E61C004EAE1A /* CanvasProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CanvasProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F105256C1C96E61C004EAE1A /* CanvasProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasProjectUITests.swift; sourceTree = "<group>"; };
+		F105256E1C96E61C004EAE1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F11C92D01C9C59C100483023 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		F13DD4931CA2BDA000020389 /* CanvasObjectPrototypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasObjectPrototypes.swift; sourceTree = "<group>"; };
+		F13DD4981CA2F92400020389 /* CanvasViewObjectStucts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasViewObjectStucts.swift; sourceTree = "<group>"; };
+		F187E2E11CA4009800D751D1 /* CanvasViewTextBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CanvasViewTextBox.swift; path = CanvasViewObjects/CanvasViewTextBox.swift; sourceTree = "<group>"; };
+		F187E2E31CA52E8C00D751D1 /* CanvasViewFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CanvasViewFile.swift; path = CanvasViewObjects/CanvasViewFile.swift; sourceTree = "<group>"; };
+		F1AB278E1C9F436300A9CE0F /* testserver */ = {isa = PBXFileReference; lastKnownFileType = folder; path = testserver; sourceTree = "<group>"; };
+		F1E857BF1C96F7E600E30EC7 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F10525461C96E61B004EAE1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				474478A787B2A1EE0853566C /* Pods.framework in Frameworks */,
+				A856F07D5C655E2EB2870CBF /* Pods_CanvasProject.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F105255A1C96E61C004EAE1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F10525651C96E61C004EAE1A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2A2243F0E7A22C26243332C8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F1AB278E1C9F436300A9CE0F /* testserver */,
+				15EA9F16B8707D87825B7304 /* Pods.framework */,
+				AF4A4B9077D44427B4BC90C1 /* Pods_CanvasProject.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B36A2208ADB620D3E30E60DC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7892EC535791938AEE74AFEA /* Pods.debug.xcconfig */,
+				16F4AB81E8E9E464F7706160 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F10525401C96E61B004EAE1A = {
+			isa = PBXGroup;
+			children = (
+				F105254B1C96E61B004EAE1A /* CanvasProject */,
+				F10525601C96E61C004EAE1A /* CanvasProjectTests */,
+				F105256B1C96E61C004EAE1A /* CanvasProjectUITests */,
+				F105254A1C96E61B004EAE1A /* Products */,
+				B36A2208ADB620D3E30E60DC /* Pods */,
+				2A2243F0E7A22C26243332C8 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F105254A1C96E61B004EAE1A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F10525491C96E61B004EAE1A /* CanvasProject.app */,
+				F105255D1C96E61C004EAE1A /* CanvasProjectTests.xctest */,
+				F10525681C96E61C004EAE1A /* CanvasProjectUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F105254B1C96E61B004EAE1A /* CanvasProject */ = {
+			isa = PBXGroup;
+			children = (
+				F13DD4951CA2E46F00020389 /* Model */,
+				F13DD4961CA2E50400020389 /* Controllers */,
+				F13DD4971CA2E50B00020389 /* Views */,
+				F10525531C96E61B004EAE1A /* Assets.xcassets */,
+				F10525551C96E61B004EAE1A /* LaunchScreen.storyboard */,
+				F10525581C96E61B004EAE1A /* Info.plist */,
+			);
+			path = CanvasProject;
+			sourceTree = "<group>";
+		};
+		F10525601C96E61C004EAE1A /* CanvasProjectTests */ = {
+			isa = PBXGroup;
+			children = (
+				F10525611C96E61C004EAE1A /* CanvasProjectTests.swift */,
+				F10525631C96E61C004EAE1A /* Info.plist */,
+			);
+			path = CanvasProjectTests;
+			sourceTree = "<group>";
+		};
+		F105256B1C96E61C004EAE1A /* CanvasProjectUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F105256C1C96E61C004EAE1A /* CanvasProjectUITests.swift */,
+				F105256E1C96E61C004EAE1A /* Info.plist */,
+			);
+			path = CanvasProjectUITests;
+			sourceTree = "<group>";
+		};
+		F12BBF0F1CA3E96500424D29 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		F13DD4951CA2E46F00020389 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F105254C1C96E61B004EAE1A /* AppDelegate.swift */,
+				F1E857BF1C96F7E600E30EC7 /* Model.swift */,
+				F11C92D01C9C59C100483023 /* Project.swift */,
+				F13DD4931CA2BDA000020389 /* CanvasObjectPrototypes.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		F13DD4961CA2E50400020389 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F105254E1C96E61B004EAE1A /* ViewController.swift */,
+				F187E2E11CA4009800D751D1 /* CanvasViewTextBox.swift */,
+				111B13461CAABBAF003A37FD /* CanvasFileTableViewCell.swift */,
+				F187E2E31CA52E8C00D751D1 /* CanvasViewFile.swift */,
+				4A4C5B021CA1C119008A4907 /* CanvasViewObject.swift */,
+				F13DD4981CA2F92400020389 /* CanvasViewObjectStucts.swift */,
+				111B13481CAAC128003A37FD /* TableViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		F13DD4971CA2E50B00020389 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F12BBF0F1CA3E96500424D29 /* Images */,
+				F10525501C96E61B004EAE1A /* Main.storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F10525481C96E61B004EAE1A /* CanvasProject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F10525711C96E61C004EAE1A /* Build configuration list for PBXNativeTarget "CanvasProject" */;
+			buildPhases = (
+				70FA84C8B3FAC2C903FCBF6C /* Check Pods Manifest.lock */,
+				F10525451C96E61B004EAE1A /* Sources */,
+				F10525461C96E61B004EAE1A /* Frameworks */,
+				F10525471C96E61B004EAE1A /* Resources */,
+				3B2796707E3CFD57889B5D36 /* Embed Pods Frameworks */,
+				190D7AE2BBC40901D4A69912 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CanvasProject;
+			productName = CanvasProject;
+			productReference = F10525491C96E61B004EAE1A /* CanvasProject.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F105255C1C96E61C004EAE1A /* CanvasProjectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F10525741C96E61C004EAE1A /* Build configuration list for PBXNativeTarget "CanvasProjectTests" */;
+			buildPhases = (
+				F10525591C96E61C004EAE1A /* Sources */,
+				F105255A1C96E61C004EAE1A /* Frameworks */,
+				F105255B1C96E61C004EAE1A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F105255F1C96E61C004EAE1A /* PBXTargetDependency */,
+			);
+			name = CanvasProjectTests;
+			productName = CanvasProjectTests;
+			productReference = F105255D1C96E61C004EAE1A /* CanvasProjectTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F10525671C96E61C004EAE1A /* CanvasProjectUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F10525771C96E61C004EAE1A /* Build configuration list for PBXNativeTarget "CanvasProjectUITests" */;
+			buildPhases = (
+				F10525641C96E61C004EAE1A /* Sources */,
+				F10525651C96E61C004EAE1A /* Frameworks */,
+				F10525661C96E61C004EAE1A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F105256A1C96E61C004EAE1A /* PBXTargetDependency */,
+			);
+			name = CanvasProjectUITests;
+			productName = CanvasProjectUITests;
+			productReference = F10525681C96E61C004EAE1A /* CanvasProjectUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F10525411C96E61B004EAE1A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = KTH;
+				TargetAttributes = {
+					F10525481C96E61B004EAE1A = {
+						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = TV6829DVA9;
+					};
+					F105255C1C96E61C004EAE1A = {
+						CreatedOnToolsVersion = 7.1.1;
+						TestTargetID = F10525481C96E61B004EAE1A;
+					};
+					F10525671C96E61C004EAE1A = {
+						CreatedOnToolsVersion = 7.1.1;
+						TestTargetID = F10525481C96E61B004EAE1A;
+					};
+				};
+			};
+			buildConfigurationList = F10525441C96E61B004EAE1A /* Build configuration list for PBXProject "CanvasProject" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F10525401C96E61B004EAE1A;
+			productRefGroup = F105254A1C96E61B004EAE1A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F10525481C96E61B004EAE1A /* CanvasProject */,
+				F105255C1C96E61C004EAE1A /* CanvasProjectTests */,
+				F10525671C96E61C004EAE1A /* CanvasProjectUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F10525471C96E61B004EAE1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F10525571C96E61B004EAE1A /* LaunchScreen.storyboard in Resources */,
+				F1AB278F1C9F436300A9CE0F /* testserver in Resources */,
+				F10525541C96E61B004EAE1A /* Assets.xcassets in Resources */,
+				F10525521C96E61B004EAE1A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F105255B1C96E61C004EAE1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F10525661C96E61C004EAE1A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		190D7AE2BBC40901D4A69912 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CanvasProject/Pods-CanvasProject-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3B2796707E3CFD57889B5D36 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CanvasProject/Pods-CanvasProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		70FA84C8B3FAC2C903FCBF6C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F10525451C96E61B004EAE1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F105254F1C96E61B004EAE1A /* ViewController.swift in Sources */,
+				F187E2E21CA4009800D751D1 /* CanvasViewTextBox.swift in Sources */,
+				F1E857C01C96F7E600E30EC7 /* Model.swift in Sources */,
+				F105254D1C96E61B004EAE1A /* AppDelegate.swift in Sources */,
+				4A4C5B031CA1C119008A4907 /* CanvasViewObject.swift in Sources */,
+				F11C92D11C9C59C100483023 /* Project.swift in Sources */,
+				111B13491CAAC128003A37FD /* TableViewController.swift in Sources */,
+				111B13471CAABBAF003A37FD /* CanvasFileTableViewCell.swift in Sources */,
+				F187E2E41CA52E8C00D751D1 /* CanvasViewFile.swift in Sources */,
+				F13DD4941CA2BDA000020389 /* CanvasObjectPrototypes.swift in Sources */,
+				F13DD4991CA2F92400020389 /* CanvasViewObjectStucts.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F10525591C96E61C004EAE1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F10525621C96E61C004EAE1A /* CanvasProjectTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F10525641C96E61C004EAE1A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F105256D1C96E61C004EAE1A /* CanvasProjectUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F105255F1C96E61C004EAE1A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F10525481C96E61B004EAE1A /* CanvasProject */;
+			targetProxy = F105255E1C96E61C004EAE1A /* PBXContainerItemProxy */;
+		};
+		F105256A1C96E61C004EAE1A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F10525481C96E61B004EAE1A /* CanvasProject */;
+			targetProxy = F10525691C96E61C004EAE1A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F10525501C96E61B004EAE1A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F10525511C96E61B004EAE1A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F10525551C96E61B004EAE1A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F10525561C96E61B004EAE1A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F105256F1C96E61C004EAE1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F10525701C96E61C004EAE1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F10525721C96E61C004EAE1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7892EC535791938AEE74AFEA /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = CanvasProject/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.berggrenstenson.CanvasProject1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F10525731C96E61C004EAE1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16F4AB81E8E9E464F7706160 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = CanvasProject/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.berggrenstenson.CanvasProject1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F10525751C96E61C004EAE1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = CanvasProjectTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.berggrenstenson.CanvasProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CanvasProject.app/CanvasProject";
+			};
+			name = Debug;
+		};
+		F10525761C96E61C004EAE1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = CanvasProjectTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.berggrenstenson.CanvasProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CanvasProject.app/CanvasProject";
+			};
+			name = Release;
+		};
+		F10525781C96E61C004EAE1A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = CanvasProjectUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.berggrenstenson.CanvasProjectUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = CanvasProject;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		F10525791C96E61C004EAE1A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = CanvasProjectUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.berggrenstenson.CanvasProjectUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = CanvasProject;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F10525441C96E61B004EAE1A /* Build configuration list for PBXProject "CanvasProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F105256F1C96E61C004EAE1A /* Debug */,
+				F10525701C96E61C004EAE1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F10525711C96E61C004EAE1A /* Build configuration list for PBXNativeTarget "CanvasProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F10525721C96E61C004EAE1A /* Debug */,
+				F10525731C96E61C004EAE1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F10525741C96E61C004EAE1A /* Build configuration list for PBXNativeTarget "CanvasProjectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F10525751C96E61C004EAE1A /* Debug */,
+				F10525761C96E61C004EAE1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F10525771C96E61C004EAE1A /* Build configuration list for PBXNativeTarget "CanvasProjectUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F10525781C96E61C004EAE1A /* Debug */,
+				F10525791C96E61C004EAE1A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F10525411C96E61B004EAE1A /* Project object */;
+}

@@ -31,6 +31,7 @@ class CanvasProjectModel {
 	
 	enum CanvasObjectType {
 		case TextBox
+        case File
 	}
 
 	func test() {
@@ -159,18 +160,25 @@ class CanvasProjectModel {
 	
 	// API upload functions
 
-	func addCanvasObject(type: CanvasObjectType) {
+    func addCanvasObject(type: CanvasObjectType, data: JSON? = nil) {
 		if let project = currentProject {
-			let newCanvasObject: JSON
+			var newCanvasObject: JSON?
 			
 			switch type {
 			case .TextBox:
 				newCanvasObject = CanvasObjectPrototypes.textBox(project.id)
+            case .File:
+                if let data = data {
+                    print(data);
+                    newCanvasObject = CanvasObjectPrototypes.file(project.id, data: data)
+                    
+                }
 			}
-			
-			Alamofire.request(.POST, serverURI + "/canvasobject/" + project.id, parameters: newCanvasObject.dictionaryObject, encoding: .JSON).responseJSON {
-				response in self.requestCanvasObjects()
-			}
+            if (newCanvasObject != nil){
+                Alamofire.request(.POST, serverURI + "/canvasobject/" + project.id, parameters: newCanvasObject!.dictionaryObject, encoding: .JSON).responseJSON {
+                    response in self.requestCanvasObjects()
+                }
+            }
 		}
 	}
 	
