@@ -46,6 +46,8 @@ class CanvasViewFile: UIView, CanvasViewObject {
 		alpha: CGFloat(0.5)
 	)
 	
+	let minimumSize: CGFloat = 40
+	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
@@ -228,8 +230,8 @@ class CanvasViewFile: UIView, CanvasViewObject {
 			frame = CGRect(
 				x: frameBeforeResize!.origin.x,
 				y: frameBeforeResize!.origin.y,
-				width: CGFloat(locationInView.x - frameBeforeResize!.origin.x),
-				height: CGFloat(locationInView.y - frameBeforeResize!.origin.y)
+				width: max(CGFloat(locationInView.x - frameBeforeResize!.origin.x), minimumSize),
+				height: max(CGFloat(locationInView.y - frameBeforeResize!.origin.y), minimumSize)
 			)
 			
 			fileName.frame = CGRect(

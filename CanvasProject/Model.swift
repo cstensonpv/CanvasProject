@@ -193,7 +193,7 @@ class CanvasProjectModel {
 			case .TextBox:
 				newCanvasObject = CanvasObjectPrototypes.textBox(project.id)
 			case .Rectangle:
-				()
+				newCanvasObject = CanvasObjectPrototypes.rectangle(project.id)
             case .File:
                 if let data = data {
                     print(data);

@@ -26,6 +26,8 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 	let marginForResizeHandle: CGFloat = 5
 	let resizeHandleImageHeight: CGFloat = 16; let resizeHandleImageWidth: CGFloat = 26.5
 	let resizeHandleImageXDisplacement: CGFloat = 16.5; let resizeHandleImageYDisplacement: CGFloat = 15;
+	
+	let minimumSize: CGFloat = 20
 
 	var text: String {
 		get {
@@ -166,8 +168,8 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 			frame = CGRect(
 				x: frameBeforeResize!.origin.x,
 				y: frameBeforeResize!.origin.y,
-				width: CGFloat(locationInView.x - frameBeforeResize!.origin.x),
-				height: CGFloat(locationInView.y - frameBeforeResize!.origin.y)
+				width: max(CGFloat(locationInView.x - frameBeforeResize!.origin.x), minimumSize + marginForResizeHandle),
+				height: max(CGFloat(locationInView.y - frameBeforeResize!.origin.y), minimumSize + marginForResizeHandle)
 			)
 			
 			resizeHandle.frame = CGRect(
@@ -180,8 +182,8 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 			textField.frame = CGRect(
 				x: CGFloat(0),
 				y: CGFloat(0),
-				width: frame.size.width - marginForResizeHandle,
-				height: frame.size.height - marginForResizeHandle
+				width: max(frame.size.width - marginForResizeHandle, minimumSize),
+				height: max(frame.size.height - marginForResizeHandle, minimumSize)
 			)
 			
 			resizeHandleImage.frame = CGRect(

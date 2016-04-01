@@ -51,6 +51,7 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 		
 		canvas.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deselectAllCanvasViewObjects)))
 		canvasScrollView.contentSize = canvas.frame.size
+		
 		// Do any additional setup after loading the view, typically from a nib.
     
 		
@@ -80,6 +81,10 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
         model.addCanvasObject(CanvasProjectModel.CanvasObjectType.TextBox)
 	}
 	
+	@IBAction func addRectangle(sender: AnyObject) {
+		model.addCanvasObject(CanvasProjectModel.CanvasObjectType.Rectangle)
+	}
+
 	@IBAction func deleteObject(sender: AnyObject) {
 		if let object = selectedCanvasViewObject {
 			let id = object.id
@@ -100,11 +105,9 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
     func hideContainerView() {
         if(self.FolderScrollView.hidden) {
             self.FolderScrollView.hidden = false
-            print("showes scrollview")
 			
         } else {
             self.FolderScrollView.hidden = true
-            print("hides scrollview")
         }
     }
     
@@ -113,7 +116,6 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
             tableData = project.getFiles()
             //print(tableData[0]["name"]);
         }
-        print("reloads tabledata")
         folderTableView.reloadData()
         
     }
@@ -129,7 +131,6 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
     }
     
     func tableView(folderTableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) ->   UITableViewCell {
-        print("Called tableview write")
         let margin = CGFloat(7)
         let cell = UITableViewCell()
         
@@ -294,6 +295,13 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 							newCanvasViewObject.setImage(fileImage, isFullImage: true)
 						}
 					}
+					canvas.addSubview(newCanvasViewObject)
+					canvasViewObjects[newCanvasViewObject.id] = newCanvasViewObject
+				case "rectangle":
+					print("Rectangle")
+					let newCanvasViewObject = CanvasViewRectangle()
+					newCanvasViewObject.mainController = self
+					newCanvasViewObject.setData(object)
 					canvas.addSubview(newCanvasViewObject)
 					canvasViewObjects[newCanvasViewObject.id] = newCanvasViewObject
 				default:
