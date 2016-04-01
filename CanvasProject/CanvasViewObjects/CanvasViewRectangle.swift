@@ -1,26 +1,29 @@
 //
-//  TextBox.swift
+//  CanvasViewRectangle.swift
 //  CanvasProject
 //
-//  Created by Carl Sténson on 2016-03-22.
+//  Created by Rasmus Berggrén on 2016-04-01.
 //  Copyright © 2016 KTH. All rights reserved.
 //
 
 import UIKit
 import SwiftyJSON
 
-class CanvasViewTextBox: UIView, CanvasViewObject {
-	var dragStartPositionRelativeToCenter: CGPoint?
-	var frameBeforeResize: CGRect?
-	var startFrame: CGRect!
-	var mainController: ViewController?
+class CanvasViewRectangle: UIView, CanvasViewObject {
 	var id = ""
 	var position = Position(x: Float(0), y: Float(0))
 	var dimensions = Dimensions(width: Float(0), height: Float(0))
 	
-	var textField = UITextView()
+	var dragStartPositionRelativeToCenter: CGPoint?
+	var frameBeforeResize: CGRect?
+	
+	var mainController: ViewController?
+	
+	var rectangle = UIView()
 	var resizeHandleImage = UIImageView(image: UIImage(named: "resizeLines")!)
 	var resizeHandle = UIView()
+	var stroke = CGFloat(1)
+	let strokeAdditionWhenSelected = CGFloat(2)
 	
 	let resizeHandleSize: CGFloat = 20
 	let marginForResizeHandle: CGFloat = 5
@@ -28,35 +31,13 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 	let resizeHandleImageXDisplacement: CGFloat = 16.5; let resizeHandleImageYDisplacement: CGFloat = 15;
 	
 	let minimumSize: CGFloat = 20
-
-	var text: String {
-		get {
-			return textField.text ?? ""
-		}
-		set(newText) {
-			textField.text = newText
-		}
-	}
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		self.position = Position(x: Float(self.center.x), y: Float(self.center.y))
 		self.backgroundColor = UIColor.clearColor()
-
-		textField.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(detectPan)))
-		textField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(wasTapped)))
 		
-//		textField.layer.shadowOffset = CGSize(width: 0, height: 0)
-		textField.layer.shadowOpacity = 0.0
-		textField.layer.shadowRadius = 6
-		textField.layer.borderColor = UIColor.grayColor().CGColor
-		textField.layer.backgroundColor = UIColor.clearColor().CGColor
-		textField.font = UIFont(name: "Helvetica", size: 16)
-		
-		textField.editable = true
-		textField.scrollEnabled = false
-		
-		resizeHandle = UIView()
+		rectangle.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(detectPan)))
+		rectangle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(wasTapped)))
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -73,27 +54,26 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 		)
 		id = data["_id"].stringValue
 		
-		// Text box
-		textField.frame = CGRect(
-			x: CGFloat(0),
-			y: CGFloat(0),
+		// Rectangle
+		rectangle.frame = CGRect(
+			x: CGFloat(data["position"]["x"].floatValue),
+			y: CGFloat(data["position"]["y"].floatValue),
 			width: CGFloat(data["dimensions"]["width"].intValue),
 			height: CGFloat(data["dimensions"]["height"].intValue)
 		)
-		textField.text = data["text"].stringValue
-		addSubview(textField)
-
+		stroke = CGFloat(data["stroke"].floatValue)
+		rectangle.layer.borderWidth = CGFloat(data["stroke"].floatValue)
+		addSubview(rectangle)
 		
 		// Resize handle image
 		resizeHandleImage.frame = CGRect(
-			x: CGFloat(textField.frame.width) - resizeHandleImageXDisplacement,
-			y: CGFloat(textField.frame.height) - resizeHandleImageYDisplacement,
+			x: CGFloat(rectangle.frame.width) - resizeHandleImageXDisplacement,
+			y: CGFloat(rectangle.frame.height) - resizeHandleImageYDisplacement,
 			width: CGFloat(resizeHandleImageWidth),
 			height: CGFloat(resizeHandleImageHeight)
 		)
 		resizeHandleImage.hidden = true
-		textField.addSubview(resizeHandleImage)
-		
+		rectangle.addSubview(resizeHandleImage)
 		
 		// Resize handle
 		resizeHandle.frame = CGRect(
@@ -102,13 +82,10 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 			width: resizeHandleSize,
 			height: resizeHandleSize
 		)
-//		resizeHandle.backgroundColor = UIColor.redColor()
+		//		resizeHandle.backgroundColor = UIColor.redColor()
 		resizeHandle.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(detectResize)))
 		addSubview(resizeHandle)
-	}
-	
-	func setTextFieldDelegate(delegate: UITextViewDelegate) {
-		textField.delegate = delegate
+		
 	}
 	
 	func wasTapped() {
@@ -116,14 +93,11 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 	}
 	
 	func select() {
-		self.superview?.bringSubviewToFront(self)
-		textField.layer.borderWidth = 0.5
-		resizeHandleImage.hidden = false
+		
 	}
 	
 	func deselect() {
-		textField.layer.borderWidth = 0.0
-		resizeHandleImage.hidden = true
+		
 	}
 	
 	func detectPan(recognizer: UIPanGestureRecognizer) {
@@ -164,12 +138,12 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 			frameBeforeResize = frame
 		case .Changed:
 			let locationInView = recognizer.locationInView(superview)
-
+			
 			frame = CGRect(
 				x: frameBeforeResize!.origin.x,
 				y: frameBeforeResize!.origin.y,
-				width: max(CGFloat(locationInView.x - frameBeforeResize!.origin.x), minimumSize + marginForResizeHandle),
-				height: max(CGFloat(locationInView.y - frameBeforeResize!.origin.y), minimumSize + marginForResizeHandle)
+				width: CGFloat(locationInView.x - frameBeforeResize!.origin.x),
+				height: CGFloat(locationInView.y - frameBeforeResize!.origin.y)
 			)
 			
 			resizeHandle.frame = CGRect(
@@ -179,23 +153,23 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 				height: CGFloat(resizeHandleSize)
 			)
 			
-			textField.frame = CGRect(
+			rectangle.frame = CGRect(
 				x: CGFloat(0),
 				y: CGFloat(0),
-				width: max(frame.size.width - marginForResizeHandle, minimumSize),
-				height: max(frame.size.height - marginForResizeHandle, minimumSize)
+				width: frame.size.width - marginForResizeHandle,
+				height: frame.size.height - marginForResizeHandle
 			)
 			
 			resizeHandleImage.frame = CGRect(
-				x: CGFloat(textField.frame.width) - resizeHandleImageXDisplacement,
-				y: CGFloat(textField.frame.height) - resizeHandleImageYDisplacement,
+				x: CGFloat(rectangle.frame.width) - resizeHandleImageXDisplacement,
+				y: CGFloat(rectangle.frame.height) - resizeHandleImageYDisplacement,
 				width: CGFloat(resizeHandleImageWidth),
 				height: CGFloat(resizeHandleImageHeight)
 			)
 			
 			dimensions = Dimensions(
-				width: Float(textField.frame.size.width),
-				height: Float(textField.frame.size.height)
+				width: Float(rectangle.frame.size.width),
+				height: Float(rectangle.frame.size.height)
 			)
 		case .Ended:
 			mainController!.registerObjectResize(self)
@@ -203,7 +177,5 @@ class CanvasViewTextBox: UIView, CanvasViewObject {
 			()
 		}
 	}
-	
-	
-	
+
 }

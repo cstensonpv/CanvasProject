@@ -28,6 +28,23 @@ struct CanvasObjectPrototypes {
 			"text": "Text box"
 		]
 	}
+	
+	static func rectangle(projectID: String) -> JSON {
+		return [
+			"project_id": projectID,
+			"position": [
+				"x": 200,
+				"y": 200
+			],
+			"dimensions": [
+				"width": 200,
+				"height": 150
+			],
+			"type": "rectangle",
+			"stroke": 1
+		]
+	}
+
     static func file(projectID: String, data: JSON) -> JSON {
         return [
             "project_id": projectID,

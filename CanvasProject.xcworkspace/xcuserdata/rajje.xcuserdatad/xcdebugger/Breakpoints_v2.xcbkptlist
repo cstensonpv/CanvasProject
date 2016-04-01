@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CanvasProject/CanvasViewObjects/CanvasViewTextBox.swift"
-            timestampString = "480531363.738611"
+            timestampString = "481197397.442375"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
             landmarkName = "CanvasViewTextBox"
             landmarkType = "3">
          </BreakpointContent>
@@ -73,13 +73,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CanvasProject/Model.swift"
-            timestampString = "481072794.887223"
+            filePath = "CanvasProject/ViewController.swift"
+            timestampString = "481198084.104771"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
-            landmarkName = "addCanvasObject(_:)"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "updateUserInfo()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
