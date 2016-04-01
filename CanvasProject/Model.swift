@@ -22,7 +22,7 @@ class CanvasProjectModel {
 	var currentProject: Project?
 	var socket: SocketIOClient?
 	
-	let serverAddress: String = "192.168.0.10"
+	let serverAddress: String = "130.229.137.95"
 	let serverHTTPPort: String = "8080"
 	let serverSocketPort: String = "8081"
 	let serverURI: String
@@ -36,6 +36,7 @@ class CanvasProjectModel {
 	
 	enum CanvasObjectType {
 		case TextBox
+		case Rectangle
 	}
 
 	func test() {
@@ -148,21 +149,21 @@ class CanvasProjectModel {
 	func requestFolderImages() {
 		if let project = currentProject {
 			for file in project.getFiles() {
-				requestImage(file["thumbnailLink"].stringValue, forFileID: file["id"].stringValue)
+				requestThumbnail(file["thumbnailLink"].stringValue, forFileID: file["id"].stringValue)
 			}
 		}
 	}
 	
-	func requestImage(imageURL: String, forFileID fileID: String) {
+	func requestThumbnail(imageURL: String, forFileID fileID: String) {
 		Alamofire.request(.GET, imageURL).responseImage { response in
 				switch response.result {
 				case .Success: self.receiveImage(response, forFileID: fileID)
-				case .Failure: self.requestThumbnail(forFileID: fileID)
+				case .Failure: self.requestIcon(forFileID: fileID)
 			}
 		}
 	}
 	
-	func requestThumbnail(forFileID fileID: String) {
+	func requestIcon(forFileID fileID: String) {
 		if let file = currentProject?.getFile(fileID) {
 			Alamofire.request(.GET, file["iconLink"].stringValue).responseImage {
 				response in self.receiveImage(response, forFileID: fileID)
@@ -189,6 +190,8 @@ class CanvasProjectModel {
 			
 			switch type {
 			case .TextBox:
+				newCanvasObject = CanvasObjectPrototypes.textBox(project.id)
+			default:
 				newCanvasObject = CanvasObjectPrototypes.textBox(project.id)
 			}
 			

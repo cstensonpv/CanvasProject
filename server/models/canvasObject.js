@@ -118,6 +118,13 @@ function addFile(project_id, params, callback){
 	file.save(callback);
 }
 
+function addRectangle(project_id, params, callback) {
+	var rectangle = new CanvasObject.RectangleObject({
+		project_id: project_id,
+													 position:
+	});
+}
+
 function findProject(project_id, callback) {
 	Project.findById(project_id, function (err, project) {
 		if(project){
