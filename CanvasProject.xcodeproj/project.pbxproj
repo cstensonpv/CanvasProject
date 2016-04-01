@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		111B13471CAABBAF003A37FD /* CanvasFileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B13461CAABBAF003A37FD /* CanvasFileTableViewCell.swift */; };
-		111B13491CAAC128003A37FD /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B13481CAAC128003A37FD /* TableViewController.swift */; };
 		474478A787B2A1EE0853566C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15EA9F16B8707D87825B7304 /* Pods.framework */; };
 		4A4C5B031CA1C119008A4907 /* CanvasViewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4C5B021CA1C119008A4907 /* CanvasViewObject.swift */; };
 		A856F07D5C655E2EB2870CBF /* Pods_CanvasProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF4A4B9077D44427B4BC90C1 /* Pods_CanvasProject.framework */; };
@@ -46,8 +44,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		111B13461CAABBAF003A37FD /* CanvasFileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CanvasFileTableViewCell.swift; path = CanvasViewObjects/CanvasFileTableViewCell.swift; sourceTree = "<group>"; };
-		111B13481CAAC128003A37FD /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		15EA9F16B8707D87825B7304 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F4AB81E8E9E464F7706160 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		4A4C5B021CA1C119008A4907 /* CanvasViewObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasViewObject.swift; sourceTree = "<group>"; };
@@ -197,11 +193,9 @@
 			children = (
 				F105254E1C96E61B004EAE1A /* ViewController.swift */,
 				F187E2E11CA4009800D751D1 /* CanvasViewTextBox.swift */,
-				111B13461CAABBAF003A37FD /* CanvasFileTableViewCell.swift */,
 				F187E2E31CA52E8C00D751D1 /* CanvasViewFile.swift */,
 				4A4C5B021CA1C119008A4907 /* CanvasViewObject.swift */,
 				F13DD4981CA2F92400020389 /* CanvasViewObjectStucts.swift */,
-				111B13481CAAC128003A37FD /* TableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -405,8 +399,6 @@
 				F105254D1C96E61B004EAE1A /* AppDelegate.swift in Sources */,
 				4A4C5B031CA1C119008A4907 /* CanvasViewObject.swift in Sources */,
 				F11C92D11C9C59C100483023 /* Project.swift in Sources */,
-				111B13491CAAC128003A37FD /* TableViewController.swift in Sources */,
-				111B13471CAABBAF003A37FD /* CanvasFileTableViewCell.swift in Sources */,
 				F187E2E41CA52E8C00D751D1 /* CanvasViewFile.swift in Sources */,
 				F13DD4941CA2BDA000020389 /* CanvasObjectPrototypes.swift in Sources */,
 				F13DD4991CA2F92400020389 /* CanvasViewObjectStucts.swift in Sources */,
@@ -570,6 +562,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_TESTABILITY = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = CanvasProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.berggrenstenson.CanvasProject1;
