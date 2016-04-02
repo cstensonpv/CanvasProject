@@ -143,21 +143,6 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
         return cell
     }
     
-    
-    
-    
-    
-    /*func tableView(foldertableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = folderTableView.dequeueReusableCellWithIdentifier("customcell", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = "hej"
-        print("sets table data")
-        return cell
-    }*/
-    
-    
-    
-
-    
     func textViewDidBeginEditing(textView: UITextView) {
 		if textView.superview! is CanvasViewTextBox {
 			let object = textView.superview! as! CanvasViewTextBox

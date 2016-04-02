@@ -8,41 +8,31 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>AlamofireImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>Pods-CanvasProject.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>Socket.IO-Client-Swift.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>6</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -57,11 +47,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>48EC455E388E4BB0E44C03086B4DCF38</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>6647021A83457781D6BC1D10861069C6</key>
 		<dict>
 			<key>primary</key>
@@ -72,17 +57,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7F7488358D10D4B2FEF4C228C4383AE0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>87A2CC130C8CC51AA022E3A903BAE23C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>933DF9FB9AE41EF7C7DC741E8D417348</key>
 		<dict>
 			<key>primary</key>
 			<true/>

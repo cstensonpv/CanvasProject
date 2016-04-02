@@ -22,7 +22,7 @@ class CanvasProjectModel {
 	var allProjects = [JSON]()
 	var currentProject: Project?
 	var socket: SocketIOClient?
-	
+
 	let serverAddress: String = "192.168.0.10"
 	let serverHTTPPort: String = "8080"
 	let serverSocketPort: String = "8081"
