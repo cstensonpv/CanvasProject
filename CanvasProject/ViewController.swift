@@ -11,7 +11,7 @@ import SwiftyJSON
 import AlamofireImage
 
 class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSource, UITableViewDelegate {
-	let model = CanvasProjectModel()
+//	let model = CanvasProjectModel()
 	let notificationCenter = NSNotificationCenter.defaultCenter()
 	var canvasViewObjects = [String: CanvasViewObject]()
     var selectedCanvasViewObject: CanvasViewObject?
@@ -22,17 +22,24 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 	var dragStartPositionRelativeToCenter: CGPoint?
 	var dimensionsBeforeResize: CGSize?
     
-    
     var tableData = [JSON]()//["item1", "item2", "item3"]
-	
 	
 //	required init?(coder aDecoder: NSCoder) {
 //	    fatalError("init(coder:) has not been implemented")
 //	}
+	
+	// View object outlets
+	
+	@IBOutlet weak var canvasScrollView: UIScrollView!
+	@IBOutlet weak var canvas: UIView!
+	@IBOutlet weak var collaboratorsLabel: UILabel!
+	@IBOutlet weak var FolderScrollView: UIScrollView!
+	@IBOutlet weak var folderTableView: UITableView!
+	@IBOutlet weak var projectNameLabel: UINavigationItem!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		notificationCenter.addObserver(self, selector: #selector(updateProject), name: "ReceivedProject", object: nil)
+		notificationCenter.addObserver(self, selector: #selector(updateWholeProject), name: "ReceivedProject", object: nil)
         notificationCenter.addObserver(self, selector: #selector(updateCanvasObjects), name: "ReceivedCanvasObjects", object: nil)
 		notificationCenter.addObserver(self, selector: #selector(updateUserInfo), name: "ReceivedUserInfo", object: nil)
 		notificationCenter.addObserver(self, selector: #selector(updateFileInfo), name: "ReceivedFiles", object: nil)
@@ -42,32 +49,15 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
         folderTableView.delegate = self
         //initial is hide on show folder
         hideContainerView()
-        
-        
-        //tableController = storyBoard.instantiateViewControllerWithIdentifier("TableViewController") as? TableViewController
-        
-//        tableController?.hello()
-        //self.navigationController?.pushViewController(tableController!, animated: true)
 		
 		canvas.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deselectAllCanvasViewObjects)))
 		canvasScrollView.contentSize = canvas.frame.size
 		
-		// Do any additional setup after loading the view, typically from a nib.
-    
-		
+		print("ViewController did load")
 	}
-    
 	
-	// View object outlets
-	@IBOutlet weak var projectNameLabel: UINavigationItem!
-	@IBOutlet weak var canvasScrollView: UIScrollView!
-	@IBOutlet weak var canvas: UIView!
-	@IBOutlet weak var collaboratorsLabel: UILabel!
-    @IBOutlet weak var FolderScrollView: UIScrollView!
-    @IBOutlet weak var folderTableView: UITableView!
-    
-    
     @IBAction func ShowListFolder(sender: AnyObject) {
+		model.requestDriveFolder()
         hideContainerView()
         updateTable()
     }
@@ -91,15 +81,6 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 			object.removeFromSuperview()
 			model.deleteCanvasObject(id)
 		}
-	}
-	
-
-	@IBAction func jsonTest(sender: AnyObject) {
-		model.testJSONGet()
-	}
-	
-	@IBAction func jsonPostTest(sender: AnyObject) {
-		model.testJSONPost()
 	}
     
     func hideContainerView() {
@@ -187,15 +168,17 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 	func textViewDidEndEditing(textView: UITextView) {
 		if textView.superview! is CanvasViewTextBox && textView.text != nil {
 			let changedObject = textView.superview! as! CanvasViewTextBox
-			self.model.registerCanvasObjectText(changedObject.id, text: changedObject.text)
+			model.registerCanvasObjectText(changedObject.id, text: changedObject.text)
 		}
 	}
 	
 	func registerObjectMovement(changedObject: CanvasViewObject) {
+		print("register movement")
 		model.registerCanvasObjectMovement(changedObject.id, x: changedObject.position.x, y: changedObject.position.y)
 	}
 	
 	func registerObjectResize(changedObject: CanvasViewObject) {
+		print("register resize")
 		model.registerCanvasObjectResize(changedObject.id, width: changedObject.dimensions.width, height: changedObject.dimensions.height)
 	}
 	
@@ -217,7 +200,7 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
         }
     }
 	
-	func updateProject() {
+	func updateWholeProject() {
 		print("Update project")
 		if let project = model.currentProject {
 			projectNameLabel.title = project.name
@@ -231,11 +214,18 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 	func updateUserInfo() {
 		if let project = model.currentProject {
 			collaboratorsLabel.text = "Collaborators: "
-			for collaborator in project.getCollaborators() {
-				if let userName = model.userNames[collaborator] {
-					collaboratorsLabel.text? += userName + ", "
+			
+			let collaborators = project.getCollaborators()
+			
+			for i in 0..<collaborators.count {
+				if let userName = model.userNames[collaborators[i]] {
+					if i < collaborators.count-1 {
+						collaboratorsLabel.text? += userName + ", "
+					} else {
+						collaboratorsLabel.text? += userName
+					}
 				} else {
-					collaboratorsLabel.text? += collaborator + ", "
+					collaboratorsLabel.text? += collaborators[i] + ", "
 				}
 			}
 		}
@@ -251,6 +241,7 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 	
 	func updateFileInfo() {
 		updateCanvasObjects()
+		updateTable()
 	}
 	
 	func updateImages() {
@@ -322,5 +313,10 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 		
 		
     }
+	
+	
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		model.closeProject()
+	}
 }
 

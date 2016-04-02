@@ -26,6 +26,16 @@ function findProject(project_id, callback) {
 	});
 }
 
+function findAllProjects(callback) {
+	Project.find({}, function(err, projects) {
+		 if (projects) {
+			callback(err, projects)
+		 } else {
+			callback(new Error("Couldn't return all projects"), projects)
+		 }
+	});
+}
+
 exports.create = function(projectName, creator, callback) {
 	//find the creator
 	findUser(creator, function(err, creator){
@@ -112,4 +122,10 @@ exports.get = function(project_id, callback) {
 	findProject(project_id, function(err, project){
 		callback(err, project);
 	})
+}
+
+exports.getAll = function(callback) {
+	findAllProjects(function(err, projects) {
+		callback(err, projects);
+	});
 }

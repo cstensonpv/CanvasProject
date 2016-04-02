@@ -11,6 +11,8 @@ import Alamofire
 import AlamofireImage
 import SwiftyJSON
 
+var model = CanvasProjectModel()
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

@@ -19,10 +19,24 @@ function errHandling(err){
 		return "User not in project!";
 	}else if(msg == "Your the last user in the project!") {
 		return "Your the last user in the project!";
+	}else if(msg == "Couldn't return all projects") {
+		return "Couldn't return all projects";
 	}else {
 		return "Something went wrong";
 	}
 }
+
+// Get all projects
+router.get('/all', function(req, res) {
+	console.log("Request get all projects");
+	projectModel.getAll(function(err, projects) {
+		if (err) {
+			res.send(errHandling(err));
+		} else {
+			res.send(projects);
+		}
+	});
+});
 
 // Get specified project data
 router.get('/:project_id', function(req, res) {
@@ -50,6 +64,7 @@ router.post('/', function(req, res) {
 			res.send(errHandling(err));
 		}else{
     		res.send(project);
+			socketCtrl.notifyProjectSubscribers(socketCtrl.PROJECTS_UPDATE_MESSAGE);
 		}
   	});
 });
@@ -109,6 +124,7 @@ router.delete('/:project_id', function(req, res) {
 			res.send("failure")
 		}else{
 			res.send("success");
+			socketCtrl.notifyProjectSubscribers(socketCtrl.PROJECTS_UPDATE_MESSAGE);
 		}
 	});
 });

@@ -19,10 +19,11 @@ class CanvasProjectModel {
 	let userID: String = "1"
 	var userNames = [String: String]()
 	var userInfo = [JSON]()
+	var allProjects = [JSON]()
 	var currentProject: Project?
 	var socket: SocketIOClient?
 	
-	let serverAddress: String = "130.229.137.95"
+	let serverAddress: String = "192.168.0.10"
 	let serverHTTPPort: String = "8080"
 	let serverSocketPort: String = "8081"
 	let serverURI: String
@@ -31,7 +32,7 @@ class CanvasProjectModel {
 	init() {
 		serverURI = "http://" + serverAddress + ":" + serverHTTPPort
 		serverSocketURI = "http://" + serverAddress + ":" + serverSocketPort
-		switchProject(id: "56f29db6451cba0416cf06ee")
+		print("Model initialized")
 	}
 	
 	enum CanvasObjectType {
@@ -94,25 +95,44 @@ class CanvasProjectModel {
 		socket = SocketIOClient(socketURL: NSURL(string: serverSocketURI)!)
 		socket?.on("connect") {data, ack in
 			print("Socket connected")
-			self.socket?.emit("subscribeToProject", self.currentProject!.id)
 		}
 		
 		socket?.on("canvasObjectUpdate") { data, ack in
 			print("Received notification of canvas object update")
-			self.requestCanvasObjects()
+			if self.currentProject != nil {
+				self.requestCanvasObjects()
+			}
+		}
+		
+		socket?.on("projectsUpdate") { data, ack in
+			self.requestProjects()
 		}
 		
 		socket?.on("projectUpdate") { data, ack in
-			self.switchProject(id: self.currentProject!.id)
+			if let currentProject = self.currentProject {
+				self.openProject(id: currentProject.id)
+			}
 		}
 		
 		socket?.connect()
 	}
 	
+	func closeProject() {
+		print("Close project")
+		currentProject = nil
+	}
+	
 	
 	// API request functions
 	
-	func switchProject(id id: String) {
+	func requestProjects() {
+		print("Request projects")
+		Alamofire.request(.GET, serverURI + "/project/all/").responseJSON {
+			response in self.receiveProjects(response)
+		}
+	}
+	
+	func openProject(id id: String) {
 		print("Switch project")
 		Alamofire.request(.GET, serverURI + "/project/" + id).responseJSON {
 			response in self.receiveProject(response)
@@ -256,6 +276,17 @@ class CanvasProjectModel {
 	
 	// API response functions
 	
+	func receiveProjects(response: Response<AnyObject, NSError>) {
+		print("received projects")
+		print(response)
+		if let responseValue = response.result.value {
+			for (_, project) in JSON(responseValue) {
+				allProjects.append(project)
+			}
+			notificationCenter.postNotificationName("ReceivedProjects", object: nil)
+		}
+	}
+	
 	func receiveProject(response: Response<AnyObject, NSError>) {
 		if let responseValue = response.result.value {
 			print("Project received")
@@ -276,7 +307,7 @@ class CanvasProjectModel {
 				}
 			}
 			
-			setupSocket()
+			self.socket?.emit("subscribeToProject", self.currentProject!.id)
 			notificationCenter.postNotificationName("ReceivedProject", object: nil)
 		}
 	}

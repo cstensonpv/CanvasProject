@@ -4,6 +4,7 @@ var express = require('express'),
 	io = require('socket.io')(server);
 
 exports.PROJECT_UPDATE_MESSAGE = "projectUpdate";
+exports.PROJECTS_UPDATE_MESSAGE = "projectsUpdate";
 exports.CANVAS_OBJECT_UPDATE_MESSAGE = "canvasObjectUpdate";
 
 server.listen(8081);
@@ -20,4 +21,9 @@ io.on('connection', function(client) {
 exports.notifyProjectSubscribers = function(projectID, message) {
 	console.log("Notifying subscribers to " + projectID + ": " + message);
 	io.to(projectID).emit(message);
+}
+
+exports.notifyAllSubscribers = function(message) {
+	console.log("Notifying all subscribers: " + message);
+	io.emit(message);
 }

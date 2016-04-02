@@ -169,6 +169,37 @@ returns
   "registred": "2016-03-21T12:38:53.082Z"
 }
 ```
+### GET All projects
+Called to get all information on all projects
+```
+GET /project/all
+```
+Return if projects are found
+```javascript
+[
+	{
+	"_id": ObjectId("56f29db6451cba0416cf06ee"),
+	"name": "test project",
+	"creator": ObjectId("56ef023e1c37e4a80538f828"),
+	"collaborators": [
+	ObjectId("56ef023e1c37e4a80538f828"),
+	ObjectId("56efbffde10fad5411928ab7")
+	],
+	"registered": new Date(1458740662204),
+	"__v": 0,
+	"driveFolderID": "0B2pgS6-ccOOGQ29CLUNSRW9mYnc"
+	},
+	{
+	...
+	},
+	...
+]
+
+```
+Return if projects couldn't be found
+```
+'Couldn't return all projects'
+```
 ### GET Project
 Shoule be called every time a user access a project and should add the user to notifyObserver. Is done throug an middleware "userBelongsToProject". wich checks if the user is a collaborator to the project.???
 ```
