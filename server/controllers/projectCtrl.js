@@ -38,6 +38,19 @@ router.get('/all', function(req, res) {
 	});
 });
 
+// Get projects where the specified user is a collaborator
+router.get('/forUser/:userID', function(req, res) {
+	var userID = req.params.userID;
+	console.log("Request projects for user ID: " + userID);
+	projectModel.getForUser(userID, function(err, projects) {
+		if (err) {
+			res.send(errHandling(err));
+		} else {
+			res.send(projects);
+		}
+	});
+});
+
 // Get specified project data
 router.get('/:project_id', function(req, res) {
 	var project_id = req.params.project_id;

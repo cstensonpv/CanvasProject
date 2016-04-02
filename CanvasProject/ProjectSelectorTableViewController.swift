@@ -17,17 +17,20 @@ class ProjectSelectorTableViewController: UITableViewController {
 	var projects = [String]()
 	let notificationCenter = NSNotificationCenter.defaultCenter()
 	
+	@IBOutlet weak var projectsLoadingIndicator: UIActivityIndicatorView!
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		self.navigationItem.rightBarButtonItem = self.editButtonItem()
-		model.requestProjects()
+		projectsLoadingIndicator.startAnimating()
+		model.requestProjectsForLoggedInUser()
 		notificationCenter.addObserver(self, selector: #selector(loadProjects), name: "ReceivedProjects", object: nil)
 		loadProjects()
     }
 	
 	func loadProjects() {
 		print("load projects")
-		
+		projectsLoadingIndicator.hidden = true
 		self.tableView.reloadData()
 	}
 
@@ -92,8 +95,10 @@ class ProjectSelectorTableViewController: UITableViewController {
     }
     */
 
-
     // MARK: - Navigation
+	override func viewWillDisappear(animated: Bool) {
+		model.logout()
+	}
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

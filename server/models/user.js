@@ -44,3 +44,12 @@ exports.get = function(user_id, callback) {
 	});
 }
 
+exports.getFromUsername = function(username, callback) {
+	User.find({'UserName' : username}, function (err, user) {
+		if (user) {
+			callback(err, user);
+		} else {
+			callback(new Error("User doesn't exists!"),user);
+		}
+	});
+}

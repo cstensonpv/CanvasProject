@@ -15,13 +15,14 @@ import SocketIOClientSwift
 class CanvasProjectModel {
 	let notificationCenter = NSNotificationCenter.defaultCenter()
 	var testValue: String = ""
-	let username: String = "Mats"
-	let userID: String = "1"
+	var loggedInUser: JSON?
+	var userID: String?
 	var userNames = [String: String]()
 	var userInfo = [JSON]()
 	var allProjects = [JSON]()
 	var currentProject: Project?
-	var socket: SocketIOClient?
+	var userSocket: SocketIOClient?
+	var projectSocket: SocketIOClient?
 
 	let serverAddress: String = "192.168.0.10"
 	let serverHTTPPort: String = "8080"
@@ -32,7 +33,6 @@ class CanvasProjectModel {
 	init() {
 		serverURI = "http://" + serverAddress + ":" + serverHTTPPort
 		serverSocketURI = "http://" + serverAddress + ":" + serverSocketPort
-		print("Model initialized")
 	}
 	
 	enum CanvasObjectType {
@@ -64,17 +64,17 @@ class CanvasProjectModel {
 			}
 	}
 	
-	func testJSONGet() {
-		Alamofire.request(.GET, serverURI + "/get/test")
-			.responseJSON { response in
-					print(response.response)
-				
-					if let JSON = response.result.value {
-						print(JSON)
-					}
-			}
-	}
-	
+//	func testJSONGet() {
+//		Alamofire.request(.GET, serverURI + "/get/test")
+//			.responseJSON { response in
+//					print(response.response)
+//				
+//					if let JSON = response.result.value {
+//						print(JSON)
+//					}
+//			}
+//	}
+//	
 	func testJSONPost() {
 		let parameters = [
 			"foo": [1,2,3],
@@ -91,42 +91,99 @@ class CanvasProjectModel {
 			}
 	}
 	
-	func setupSocket() {
-		socket = SocketIOClient(socketURL: NSURL(string: serverSocketURI)!)
-		socket?.on("connect") {data, ack in
-			print("Socket connected")
+	func setupUserSocket() {
+		userSocket = SocketIOClient(socketURL: NSURL(string: serverSocketURI)!)
+		userSocket?.on("connect") { data, ack in
+			print("User socket connected")
+			self.userSocket?.emit("subscribeToProjects")
 		}
 		
-		socket?.on("canvasObjectUpdate") { data, ack in
-			print("Received notification of canvas object update")
-			if self.currentProject != nil {
-				self.requestCanvasObjects()
-			}
+		userSocket?.on("projectsUpdate") { data, ack in
+			self.requestProjectsForLoggedInUser()
 		}
 		
-		socket?.on("projectsUpdate") { data, ack in
-			self.requestProjects()
-		}
-		
-		socket?.on("projectUpdate") { data, ack in
+		userSocket?.on("projectUpdate") { data, ack in
 			if let currentProject = self.currentProject {
 				self.openProject(id: currentProject.id)
 			}
 		}
 		
-		socket?.connect()
+		userSocket?.connect()
+	}
+	
+	func setupProjectSocket() {
+		if let project = currentProject {
+			projectSocket = SocketIOClient(socketURL: NSURL(string: serverSocketURI)!)
+			projectSocket?.on("connect") { data, ack in
+				print("Project socket connected")
+				self.projectSocket!.emit("subscribeToProject", project.id)
+			}
+			
+			projectSocket?.on("canvasObjectUpdate") { data, ack in
+				print("canvas object update")
+				if self.currentProject != nil {
+					self.requestCanvasObjects()
+				}
+			}
+			
+			projectSocket?.connect()
+			
+		}
+	}
+	
+	func login(username: String, callback: (userFound: Bool) -> Void) {
+		checkUserName(username, callback: { response in
+			switch response.result {
+			case .Success:
+				if let responseValue = response.result.value {
+					let userInfo = JSON(responseValue)[0]
+					self.loggedInUser = userInfo
+					self.userID = userInfo["_id"].stringValue
+					print("Logging in. Setting userID = \(self.userID)")
+					self.setupUserSocket()
+					callback(userFound: true)
+				} else {
+					self.logout()
+					callback(userFound: false)
+				}
+			case .Failure:
+				self.logout()
+				callback(userFound: false)
+			}
+		})
+	}
+	
+	func logout() {
+		loggedInUser = nil
+		userID = nil
+		userSocket?.disconnect()
 	}
 	
 	func closeProject() {
 		print("Close project")
 		currentProject = nil
+		projectSocket?.disconnect()
+	}
+	
+	func requestProjectsForLoggedInUser() {
+		if let userID = self.userID {
+			requestProjects(forUserID: userID)
+		} else {
+			print("No user logged in. Can't request projects for logged in user")
+		}
 	}
 	
 	
 	// API request functions
 	
-	func requestProjects() {
-		print("Request projects")
+	func requestProjects(forUserID userID: String) {
+		print("Requesting projects for user ID: \(userID)")
+		Alamofire.request(.GET, serverURI + "/project/forUser/" + userID).responseJSON {
+			response in self.receiveProjects(response)
+		}
+	}
+	
+	func requestAllProjects() {
 		Alamofire.request(.GET, serverURI + "/project/all/").responseJSON {
 			response in self.receiveProjects(response)
 		}
@@ -147,6 +204,10 @@ class CanvasProjectModel {
 		}
 	}
 	
+	func checkUserName(username: String, callback: Response<AnyObject, NSError> -> Void) {
+		Alamofire.request(.GET, serverURI + "/user/name/" + username).responseJSON(completionHandler: callback)
+	}
+	
 	func requestProjectUserInfo() {
 		if let project = currentProject {
 			userInfo.removeAll()
@@ -155,7 +216,6 @@ class CanvasProjectModel {
 			requestUserInfo(project.creator)
 			
 			for collaborator in project.collaborators {
-				print("Requesting user info for collaborator " + collaborator)
 				requestUserInfo(collaborator)
 			}
 		}
@@ -216,7 +276,6 @@ class CanvasProjectModel {
 				newCanvasObject = CanvasObjectPrototypes.rectangle(project.id)
             case .File:
                 if let data = data {
-                    print(data);
                     newCanvasObject = CanvasObjectPrototypes.file(project.id, data: data)
                     
                 }
@@ -262,11 +321,8 @@ class CanvasProjectModel {
 	
 	func registerCanvasObjectText(id: String, text: String) {
 		print("Register canvas object text")
-		print(id)
-		print(text)
 		if var objectData = currentProject?.getObject(id) {
 			if objectData["type"].stringValue == "text" {
-				print(objectData)
 				objectData["text"] = JSON(text)
 				updateCanvasObject(objectData)
 			}
@@ -277,12 +333,13 @@ class CanvasProjectModel {
 	// API response functions
 	
 	func receiveProjects(response: Response<AnyObject, NSError>) {
-		print("received projects")
-		print(response)
 		if let responseValue = response.result.value {
+			allProjects.removeAll()
+			
 			for (_, project) in JSON(responseValue) {
 				allProjects.append(project)
 			}
+			
 			notificationCenter.postNotificationName("ReceivedProjects", object: nil)
 		}
 	}
@@ -307,7 +364,7 @@ class CanvasProjectModel {
 				}
 			}
 			
-			self.socket?.emit("subscribeToProject", self.currentProject!.id)
+			setupProjectSocket()
 			notificationCenter.postNotificationName("ReceivedProject", object: nil)
 		}
 	}
@@ -340,8 +397,6 @@ class CanvasProjectModel {
 	func receiveImage(response: Response<Image, NSError>, forFileID fileID: String) {
 		if let image = response.result.value {
 			currentProject?.addImage(image, forFileID: fileID)
-			print("image downloaded: \(image)")
-			print("For fileID \(fileID)")
 			
 			notificationCenter.postNotificationName("ReceivedImage", object: nil)
 		}
@@ -351,8 +406,6 @@ class CanvasProjectModel {
         if let responseValue = response.result.value {
             print("Drive folder info received")
             let folder = JSON(responseValue)
-//			print("Received files:")
-//			print(folder)
 			for (_, file) in folder {
 				currentProject?.addFile(file)
 			}

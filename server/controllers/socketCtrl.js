@@ -16,6 +16,11 @@ io.on('connection', function(client) {
 		console.log("Client subscribed to project " + projectID);
 		client.join(projectID)
 	});
+
+	client.on('subscribeToProjects', function() {
+		console.log("Client subscribed to projects list updates etc");
+		client.join('projects');
+	});
 });
 
 exports.notifyProjectSubscribers = function(projectID, message) {

@@ -1,8 +1,8 @@
 //user controller
 
-var express = require('express')
-  	, router = express.Router()
-  	, userModel = require('../models/user')
+var express = require('express'), 
+	router = express.Router(), 
+	userModel = require('../models/user')
 
 
 router.get('/:user_id', function(req, res) {
@@ -12,9 +12,21 @@ router.get('/:user_id', function(req, res) {
 		if(err && err.message == "User doesn't exists!"){
 			res.send("'User does not exists'");
 		}else{
-    		res.send(user);
+			res.send(user);
 		}
-  	});
+	});
+});
+
+router.get('/name/:username', function(req, res) {
+	var username = req.params.username;
+	console.log("Request get user with username: " + username);
+	userModel.getFromUsername(username, function(err, user) {
+		if (err || user.length == 0) {
+			res.send("User doesn't exist");
+		} else {
+			res.send(user)
+		}
+	});
 })
 
 router.post('/:UserName', function(req, res) {
@@ -23,9 +35,9 @@ router.post('/:UserName', function(req, res) {
 		if(err){
 			res.send("userName taken!");
 		}else{
-    		res.send(user);
+			res.send(user);
 		}
-  	});
+	});
 })
 
 router.put('/', function(req, res) {

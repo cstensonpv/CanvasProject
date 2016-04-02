@@ -28,11 +28,21 @@ function findProject(project_id, callback) {
 
 function findAllProjects(callback) {
 	Project.find({}, function(err, projects) {
-		 if (projects) {
+		if (projects) {
 			callback(err, projects)
-		 } else {
+		} else {
 			callback(new Error("Couldn't return all projects"), projects)
-		 }
+		}
+	});
+}
+
+function findProjectsForUser(userID, callback) {
+	Project.find({'collaborators': userID}, function(err, projects) {
+		if (projects) {
+			callback(err, projects)
+		} else {
+			callback(new Error("Couldn't return all projects"), projects)
+		}
 	});
 }
 
@@ -126,6 +136,12 @@ exports.get = function(project_id, callback) {
 
 exports.getAll = function(callback) {
 	findAllProjects(function(err, projects) {
+		callback(err, projects);
+	});
+}
+
+exports.getForUser = function(userID, callback) {
+	findProjectsForUser(userID, function(err, projects) {
 		callback(err, projects);
 	});
 }

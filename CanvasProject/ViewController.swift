@@ -33,7 +33,7 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 	@IBOutlet weak var canvasScrollView: UIScrollView!
 	@IBOutlet weak var canvas: UIView!
 	@IBOutlet weak var collaboratorsLabel: UILabel!
-	@IBOutlet weak var FolderScrollView: UIScrollView!
+	@IBOutlet weak var folderScrollView: UIScrollView!
 	@IBOutlet weak var folderTableView: UITableView!
 	@IBOutlet weak var projectNameLabel: UINavigationItem!
 
@@ -48,25 +48,25 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
         folderTableView.dataSource = self
         folderTableView.delegate = self
         //initial is hide on show folder
-        hideContainerView()
+		self.folderScrollView.hidden = true
 		
 		canvas.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deselectAllCanvasViewObjects)))
 		canvasScrollView.contentSize = canvas.frame.size
 		
 		print("ViewController did load")
 	}
-	
-    @IBAction func ShowListFolder(sender: AnyObject) {
-		model.requestDriveFolder()
-        hideContainerView()
-        updateTable()
-    }
-	
+
 	@IBAction func requestHelloWorld(sender: AnyObject) {
 		model.testStringGet()
-	}	
+	}
 	
 	// Toolbar functions
+	@IBAction func showFolder(sender: AnyObject) {
+		model.requestDriveFolder()
+		toggleFolderView()
+		updateTable()
+	}
+	
 	@IBAction func addTextBox(sender: AnyObject) {
         model.addCanvasObject(CanvasProjectModel.CanvasObjectType.TextBox)
 	}
@@ -83,12 +83,11 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 		}
 	}
     
-    func hideContainerView() {
-        if(self.FolderScrollView.hidden) {
-            self.FolderScrollView.hidden = false
-			
+    func toggleFolderView() {
+        if (self.folderScrollView.hidden) {
+            self.folderScrollView.hidden = false
         } else {
-            self.FolderScrollView.hidden = true
+            self.folderScrollView.hidden = true
         }
     }
     

@@ -32,6 +32,19 @@ This documentation is used of me when implementing the back-end. I will try to g
   "registred": "2016-03-20T12:50:52.632Z"
 }
 ```
+### Get user
+```
+GET /user/name/<USERNAME>
+```
+returns 
+```javascript
+{
+  "__v": 0,
+  "UserName": "UserName",
+  "_id": "56ee9cac4eb7f89c051cc950",
+  "registred": "2016-03-20T12:50:52.632Z"
+}
+```
 
 ### Add user
 (No authentication added)
