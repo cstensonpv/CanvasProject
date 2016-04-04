@@ -7,6 +7,7 @@ var express = require('express'),
 router.use('/user', require('./userCtrl'))
 router.use('/project', require('./projectCtrl'))
 router.use('/canvasObject', require('./canvasObjectCtrl'))
+router.use('/chat', require('./chatCtrl'))
 
 router.get('/files/:folder_id', function(req, res){
 	var folder_id = req.params.folder_id;
