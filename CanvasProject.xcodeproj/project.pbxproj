@@ -21,6 +21,7 @@
 		F105256D1C96E61C004EAE1A /* CanvasProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F105256C1C96E61C004EAE1A /* CanvasProjectUITests.swift */; };
 		F10B48611CAEEC1300370144 /* ProjectSelectorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10B48601CAEEC1300370144 /* ProjectSelectorTableViewController.swift */; };
 		F10B48651CAF17C000370144 /* ProjectSelectorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10B48641CAF17C000370144 /* ProjectSelectorTableViewCell.swift */; };
+		F110B79A1CB5CAA1007F5404 /* AddProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F110B7991CB5CAA1007F5404 /* AddProjectViewController.swift */; };
 		F11C92D11C9C59C100483023 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11C92D01C9C59C100483023 /* Project.swift */; };
 		F13DD4941CA2BDA000020389 /* CanvasObjectPrototypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DD4931CA2BDA000020389 /* CanvasObjectPrototypes.swift */; };
 		F13DD4991CA2F92400020389 /* CanvasViewObjectStucts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DD4981CA2F92400020389 /* CanvasViewObjectStucts.swift */; };
@@ -73,6 +74,7 @@
 		F105256E1C96E61C004EAE1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F10B48601CAEEC1300370144 /* ProjectSelectorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectSelectorTableViewController.swift; sourceTree = "<group>"; };
 		F10B48641CAF17C000370144 /* ProjectSelectorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProjectSelectorTableViewCell.swift; path = ProjectSelector/ProjectSelectorTableViewCell.swift; sourceTree = "<group>"; };
+		F110B7991CB5CAA1007F5404 /* AddProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddProjectViewController.swift; path = ProjectSelector/AddProjectViewController.swift; sourceTree = "<group>"; };
 		F11C92D01C9C59C100483023 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		F13DD4931CA2BDA000020389 /* CanvasObjectPrototypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasObjectPrototypes.swift; sourceTree = "<group>"; };
 		F13DD4981CA2F92400020389 /* CanvasViewObjectStucts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasViewObjectStucts.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			children = (
 				F10B48641CAF17C000370144 /* ProjectSelectorTableViewCell.swift */,
 				F10B48601CAEEC1300370144 /* ProjectSelectorTableViewController.swift */,
+				F110B7991CB5CAA1007F5404 /* AddProjectViewController.swift */,
 			);
 			name = ProjectSelector;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				F187E2E41CA52E8C00D751D1 /* CanvasViewFile.swift in Sources */,
 				117D134A1CB4074C006A197A /* ChatViewController.swift in Sources */,
 				F13DD4941CA2BDA000020389 /* CanvasObjectPrototypes.swift in Sources */,
+				F110B79A1CB5CAA1007F5404 /* AddProjectViewController.swift in Sources */,
 				F1DCE3581CAE6C2800F70AB0 /* CanvasViewRectangle.swift in Sources */,
 				F1A307D11CAFD8D30011310E /* LoginViewController.swift in Sources */,
 				F13DD4991CA2F92400020389 /* CanvasViewObjectStucts.swift in Sources */,

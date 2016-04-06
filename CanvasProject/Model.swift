@@ -300,6 +300,14 @@ class CanvasProjectModel {
 			}
 		)
 	}
+	
+	func addProject(withName projectName: String) {
+		let parameters = [
+			"name": projectName,
+			"creator": userID!
+		]
+		Alamofire.request(.POST, serverURI + "/project/", parameters: parameters)
+	}
  
 	func addCanvasObject(type: CanvasObjectType, data: JSON? = nil) {
 		if let project = currentProject {

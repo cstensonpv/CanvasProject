@@ -70,7 +70,7 @@ router.get('/:project_id', function(req, res) {
 router.post('/', function(req, res) {
 	var name = req.headers.name;
 	var creator = req.headers.creator;
-	console.log("Request add project : " + name + " creator :" + name);
+	console.log("Request add project : " + name + " creator :" + creator);
 	projectModel.create(name, creator ,function (err, project) {
 		// console.log(err);
 		if(err){
