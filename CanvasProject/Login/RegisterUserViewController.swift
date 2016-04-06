@@ -47,9 +47,9 @@ class RegisterUserViewController: UIViewController {
 					self.newUsername = returnedInfo
 					self.performSegueWithIdentifier("closeRegisterUserView", sender: sender)
 				}
-			})
 				
-			self.activityIndicator.hidden = true
+				self.activityIndicator.hidden = true
+			})
 		}
 	}
 

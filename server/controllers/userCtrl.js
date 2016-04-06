@@ -32,8 +32,8 @@ router.get('/:user_id', function(req, res) {
 });
 
 // Get user info based on username
-router.get('/name/:username', function(req, res) {
-	var username = req.params.username;
+router.post('/userNameQuery/', function(req, res) {
+	var username = req.body.username;
 	console.log("Request get user with username: " + username);
 	userModel.getFromUsername(username, function(err, user) {
 		if (err || user.length == 0) {
@@ -60,8 +60,9 @@ router.post('/', function(req, res) {
 
 // Update user using information in body
 router.put('/', function(req, res) {
-	console.log("Request update of user : " + req.headers.username);
-	userModel.update(req.headers._id, req.headers.username, function (err, user) {
+	var userInfo = req.body;
+	console.log("Request update of user : " + userInfo.UserName);
+	userModel.update(userInfo._id, userInfo.UserName, function (err, user) {
 		if(err){
 			if(err.message == "User exists!") {
 				res.send("Username taken!")
@@ -78,10 +79,10 @@ router.put('/', function(req, res) {
 });
 
 // Delete user with specified username
-router.delete('/:UserName', function(req, res) {
-	console.log("Request delete of user : " + req.params.UserName);
-	var UserName = req.params.UserName;
-	userModel.remove(UserName, function(err) {
+router.delete('/', function(req, res) {
+	var username = req.body.username;
+	console.log("Request delete of user : " + username);
+	userModel.remove(username, function(err) {
 		if(err){
 			res.send("failure")
 		}else{

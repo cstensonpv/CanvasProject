@@ -211,7 +211,9 @@ class CanvasProjectModel {
 	}
 	
 	func checkUserName(username: String, callback: Response<AnyObject, NSError> -> Void) {
-		Alamofire.request(.GET, serverURI + "/user/name/" + username).responseJSON(completionHandler: callback)
+		let userInfo = ["username": username]
+		print(userInfo)
+		Alamofire.request(.POST, serverURI + "/user/userNameQuery/", parameters: userInfo, encoding: .JSON).responseJSON(completionHandler: callback)
 	}
 	
 	func requestProjectUserInfo() {
