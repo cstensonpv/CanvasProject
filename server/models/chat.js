@@ -10,7 +10,7 @@ exports.create = function(project_id, body, callback) {
 	findProject(project_id, function(err, project) {
 		if(project) {
 		  	var chatMessage = new ChatMessage({
-		    	'UserName' : body.userName,
+		    	'UserID' : body.UserID,
 		    	'message' : body.message,
 		    	'project_id' : project_id
 		    	// ,'registred': '2015-02-16'
@@ -26,10 +26,11 @@ exports.create = function(project_id, body, callback) {
 exports.get = function(project_id, callback) {
 	var err;
 	findProject(project_id, function(err, project) { //checks so project is valid
+
 		if(project){
 			ChatMessage.find({'project_id' : project_id} , function (err, messages) {
 				if(messages.length > 0){
-					callback(err, messages);
+					callback(err, {"chatMessages": messages });
 				}else{
 					callback(new Error("Project doesn't have any messages!"),messages);
 				}
