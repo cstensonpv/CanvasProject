@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		117D13481CB40535006A197A /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117D13471CB40535006A197A /* ChatTableViewCell.swift */; };
+		117D134A1CB4074C006A197A /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117D13491CB4074C006A197A /* ChatViewController.swift */; };
 		474478A787B2A1EE0853566C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15EA9F16B8707D87825B7304 /* Pods.framework */; };
 		4A4C5B031CA1C119008A4907 /* CanvasViewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4C5B021CA1C119008A4907 /* CanvasViewObject.swift */; };
 		A856F07D5C655E2EB2870CBF /* Pods_CanvasProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF4A4B9077D44427B4BC90C1 /* Pods_CanvasProject.framework */; };
@@ -25,6 +27,7 @@
 		F187E2E21CA4009800D751D1 /* CanvasViewTextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F187E2E11CA4009800D751D1 /* CanvasViewTextBox.swift */; };
 		F187E2E41CA52E8C00D751D1 /* CanvasViewFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F187E2E31CA52E8C00D751D1 /* CanvasViewFile.swift */; };
 		F1A307D11CAFD8D30011310E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A307D01CAFD8D30011310E /* LoginViewController.swift */; };
+		F1A328A01CB5431200F35F1A /* RegisterUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A3289F1CB5431200F35F1A /* RegisterUserViewController.swift */; };
 		F1AB278F1C9F436300A9CE0F /* testserver in Resources */ = {isa = PBXBuildFile; fileRef = F1AB278E1C9F436300A9CE0F /* testserver */; };
 		F1DCE3581CAE6C2800F70AB0 /* CanvasViewRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DCE3571CAE6C2800F70AB0 /* CanvasViewRectangle.swift */; };
 		F1E857C01C96F7E600E30EC7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E857BF1C96F7E600E30EC7 /* Model.swift */; };
@@ -48,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		117D13471CB40535006A197A /* ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		117D13491CB4074C006A197A /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		15EA9F16B8707D87825B7304 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F4AB81E8E9E464F7706160 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		4A4C5B021CA1C119008A4907 /* CanvasViewObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasViewObject.swift; sourceTree = "<group>"; };
@@ -74,6 +79,7 @@
 		F187E2E11CA4009800D751D1 /* CanvasViewTextBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CanvasViewTextBox.swift; path = CanvasViewObjects/CanvasViewTextBox.swift; sourceTree = "<group>"; };
 		F187E2E31CA52E8C00D751D1 /* CanvasViewFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CanvasViewFile.swift; path = CanvasViewObjects/CanvasViewFile.swift; sourceTree = "<group>"; };
 		F1A307D01CAFD8D30011310E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Login/LoginViewController.swift; sourceTree = "<group>"; };
+		F1A3289F1CB5431200F35F1A /* RegisterUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterUserViewController.swift; path = Login/RegisterUserViewController.swift; sourceTree = "<group>"; };
 		F1AB278E1C9F436300A9CE0F /* testserver */ = {isa = PBXFileReference; lastKnownFileType = folder; path = testserver; sourceTree = "<group>"; };
 		F1DCE3571CAE6C2800F70AB0 /* CanvasViewRectangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CanvasViewRectangle.swift; path = CanvasViewObjects/CanvasViewRectangle.swift; sourceTree = "<group>"; };
 		F1E857BF1C96F7E600E30EC7 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -190,12 +196,14 @@
 		F10B48631CAF169300370144 /* Project */ = {
 			isa = PBXGroup;
 			children = (
+				117D13491CB4074C006A197A /* ChatViewController.swift */,
 				F105254E1C96E61B004EAE1A /* ViewController.swift */,
 				F187E2E11CA4009800D751D1 /* CanvasViewTextBox.swift */,
 				F1DCE3571CAE6C2800F70AB0 /* CanvasViewRectangle.swift */,
 				F187E2E31CA52E8C00D751D1 /* CanvasViewFile.swift */,
 				4A4C5B021CA1C119008A4907 /* CanvasViewObject.swift */,
 				F13DD4981CA2F92400020389 /* CanvasViewObjectStucts.swift */,
+				117D13471CB40535006A197A /* ChatTableViewCell.swift */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -241,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				F1A307D01CAFD8D30011310E /* LoginViewController.swift */,
+				F1A3289F1CB5431200F35F1A /* RegisterUserViewController.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -434,14 +443,17 @@
 				F187E2E21CA4009800D751D1 /* CanvasViewTextBox.swift in Sources */,
 				F10B48611CAEEC1300370144 /* ProjectSelectorTableViewController.swift in Sources */,
 				F1E857C01C96F7E600E30EC7 /* Model.swift in Sources */,
+				117D13481CB40535006A197A /* ChatTableViewCell.swift in Sources */,
 				F105254D1C96E61B004EAE1A /* AppDelegate.swift in Sources */,
 				4A4C5B031CA1C119008A4907 /* CanvasViewObject.swift in Sources */,
 				F11C92D11C9C59C100483023 /* Project.swift in Sources */,
 				F187E2E41CA52E8C00D751D1 /* CanvasViewFile.swift in Sources */,
+				117D134A1CB4074C006A197A /* ChatViewController.swift in Sources */,
 				F13DD4941CA2BDA000020389 /* CanvasObjectPrototypes.swift in Sources */,
 				F1DCE3581CAE6C2800F70AB0 /* CanvasViewRectangle.swift in Sources */,
 				F1A307D11CAFD8D30011310E /* LoginViewController.swift in Sources */,
 				F13DD4991CA2F92400020389 /* CanvasViewObjectStucts.swift in Sources */,
+				F1A328A01CB5431200F35F1A /* RegisterUserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import AlamofireImage
+
 import SwiftyJSON
 import SocketIOClientSwift
 
@@ -16,8 +17,8 @@ class CanvasProjectModel {
 	let notificationCenter = NSNotificationCenter.defaultCenter()
 	var testValue: String = ""
 	var loggedInUser: JSON?
-	var userID: String?
-	var userNames = [String: String]()
+    var userID: String?
+    var userNames = [String: String]()
 	var userInfo = [JSON]()
 	var allProjects = [JSON]()
 	var currentProject: Project?
@@ -39,6 +40,11 @@ class CanvasProjectModel {
 		case TextBox
 		case Rectangle
         case File
+	}
+	
+	enum APIErrorMessage: String {
+		case Unknown = "Unknown API error"
+		case UserNameTaken = "Username taken"
 	}
 
 	func test() {
@@ -205,7 +211,9 @@ class CanvasProjectModel {
 	}
 	
 	func checkUserName(username: String, callback: Response<AnyObject, NSError> -> Void) {
-		Alamofire.request(.GET, serverURI + "/user/name/" + username).responseJSON(completionHandler: callback)
+		let userInfo = ["username": username]
+		print(userInfo)
+		Alamofire.request(.POST, serverURI + "/user/userNameQuery/", parameters: userInfo, encoding: .JSON).responseJSON(completionHandler: callback)
 	}
 	
 	func requestProjectUserInfo() {
@@ -262,10 +270,38 @@ class CanvasProjectModel {
 		}
 	}
 	
+    func requestChatMessages() {
+        if let project = currentProject {
+            Alamofire.request(.GET, serverURI + "/chat/" + project.id).responseJSON {
+                response in self.receiveChatMessages(response)
+            }
+            
+        }
+    }
 	
 	// API upload functions
 
-    func addCanvasObject(type: CanvasObjectType, data: JSON? = nil) {
+	func registerUser(username: String, callback: (response: String) -> Void) {
+		let userInfo = ["username": username]
+		print(userInfo)
+		
+		Alamofire.request(.POST, serverURI + "/user/", parameters: userInfo, encoding: .JSON)
+			.responseJSON(completionHandler: { response in
+				if let responseValue = response.result.value {
+					let newUser = JSON(responseValue)
+					if newUser["error"].stringValue == APIErrorMessage.UserNameTaken.rawValue {
+						callback(response: APIErrorMessage.UserNameTaken.rawValue)
+					} else {
+						callback(response: newUser["UserName"].stringValue)
+					}
+				} else {
+					callback(response: APIErrorMessage.Unknown.rawValue)
+				}
+			}
+		)
+	}
+ 
+	func addCanvasObject(type: CanvasObjectType, data: JSON? = nil) {
 		if let project = currentProject {
 			var newCanvasObject: JSON?
 			
@@ -412,6 +448,18 @@ class CanvasProjectModel {
 
 			notificationCenter.postNotificationName("ReceivedFiles", object: nil)
 			requestFolderImages()
+        }
+    }
+    
+    func receiveChatMessages(response: Response<AnyObject, NSError>) {
+        if let responseValue = response.result.value {
+            print("Chat Messages received")
+            let messages = JSON(responseValue)
+            for (_, message) in messages {
+                currentProject?.addMessage(message)
+            }
+        
+            notificationCenter.postNotificationName("ReceivedMessages", object: nil)
         }
     }
 	

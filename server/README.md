@@ -32,9 +32,15 @@ This documentation is used of me when implementing the back-end. I will try to g
   "registred": "2016-03-20T12:50:52.632Z"
 }
 ```
-### Get user
+### Get user based on name
 ```
-GET /user/name/<USERNAME>
+POST /user/userNameQuery/
+```
+Parameters as body:
+```javascript
+{
+  "username": <username>
+}
 ```
 returns 
 ```javascript
@@ -45,19 +51,26 @@ returns
   "registred": "2016-03-20T12:50:52.632Z"
 }
 ```
+All usernames are sent as body since that has better support for special characters
 
 ### Add user
 (No authentication added)
 
 ```
-POST /user/<USERNAME>
+POST /user
+```
+Parameters as body:
+```javascript
+{
+  "username": <username>
+}
 ```
 returns Generated UserID if username isn't already taken
 
 #####Example 
 
 ```
-POST /user/userName
+POST /user
 ```
 returns
 ```javascript
@@ -69,29 +82,35 @@ returns
 }
 ```
 Then if we try to do it again
-```
-POST /user/userName
-```
+
 returns
 ```javascript
-"userName taken"
+{
+  "error": "Username taken"
+}
 ``` 
 
 ### Update user
 ```
-PUT /user?param=value(&param2=value2)>
+PUT /user
 ```
-(the params are the serialization of the JSON Object from swift. 
-
-Hopefully I can get how this one looks when you try to send it.)
+Parameters: the whole user JSON object as body
 
 #####Example
 Update username "UserName" to "UserName22"
-id from UserName, and UserName is the new UserName.
 ```
-PUT /user?_id=56ee9cac4eb7f89c051cc950&username=UserName22
+PUT /user
 ```
-returns new User objecty (if UserName22 is not already taken)
+Parameters as body:
+```
+{
+  "_id": "56ee9cac4eb7f89c051cc950",
+  "UserName": "UserName22",
+  "__v": 0,
+  "registred": "2016-03-20T12:50:52.632Z"
+}
+```
+returns new User object (if UserName22 is not already taken)
 ```javascript
 {
   "_id": "56ee9cac4eb7f89c051cc950",
@@ -112,7 +131,11 @@ UserID doesn't exists!
 
 ###Delete user
 ```
-DELETE /user/<UserName>
+DELETE /user/
+```
+Parameters as body:
+```
+{"username": <username>}
 ```
 returns:
 ```javascript

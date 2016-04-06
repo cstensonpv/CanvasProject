@@ -17,6 +17,7 @@ class ProjectSelectorTableViewController: UITableViewController {
 	var projects = [String]()
 	let notificationCenter = NSNotificationCenter.defaultCenter()
 	
+	@IBOutlet weak var projectSelectorTitle: UINavigationItem!
 	@IBOutlet weak var projectsLoadingIndicator: UIActivityIndicatorView!
 	
     override func viewDidLoad() {
@@ -31,6 +32,7 @@ class ProjectSelectorTableViewController: UITableViewController {
 	func loadProjects() {
 		print("load projects")
 		projectsLoadingIndicator.hidden = true
+		projectSelectorTitle.title = model.loggedInUser!["UserName"].stringValue + ": Projects"
 		self.tableView.reloadData()
 	}
 
