@@ -1,10 +1,6 @@
 //users.js mongoose schema definintion
 var mongoose = require( 'mongoose' ); 
 
-function arrayLimit(val) {
-  return val.length > 0;
-}
-
 var ProjectSchema = new mongoose.Schema(
 	{ 
 		name : {type: String, required: true}
