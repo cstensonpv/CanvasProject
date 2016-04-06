@@ -2,9 +2,23 @@
 
 var express = require('express'), 
 	router = express.Router(), 
-	userModel = require('../models/user')
+	userModel = require('../models/user');
 
+var bodyParser = require('body-parser');
+router.use(bodyParser.json());       // to support JSON-encoded bodies
+router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 
+function errorJSON(errorString) {
+	var errorJSON = {
+		error: errorString
+	};
+
+	return errorJSON;
+}
+
+// Get user into based on user ID
 router.get('/:user_id', function(req, res) {
 	var user_id = req.params.user_id;
 	console.log("Request get user : " + user_id);
@@ -17,6 +31,7 @@ router.get('/:user_id', function(req, res) {
 	});
 });
 
+// Get user info based on username
 router.get('/name/:username', function(req, res) {
 	var username = req.params.username;
 	console.log("Request get user with username: " + username);
@@ -27,19 +42,23 @@ router.get('/name/:username', function(req, res) {
 			res.send(user)
 		}
 	});
-})
+});
 
-router.post('/:UserName', function(req, res) {
-	console.log("Request add user : " + req.params.UserName);
-	userModel.create(req.params.UserName, function (err, user) {
+// Add user
+router.post('/', function(req, res) {
+	var username = req.body.username;
+	console.log("Request add user: " + username);
+	userModel.create(username, function (err, user) {
 		if(err){
-			res.send("userName taken!");
+			console.log("Username taken");
+			res.send(errorJSON("Username taken"));
 		}else{
 			res.send(user);
 		}
 	});
-})
+});
 
+// Update user using information in body
 router.put('/', function(req, res) {
 	console.log("Request update of user : " + req.headers.username);
 	userModel.update(req.headers._id, req.headers.username, function (err, user) {
@@ -55,9 +74,10 @@ router.put('/', function(req, res) {
 			res.send(user);
 		}
 
-	})
-})
+	});
+});
 
+// Delete user with specified username
 router.delete('/:UserName', function(req, res) {
 	console.log("Request delete of user : " + req.params.UserName);
 	var UserName = req.params.UserName;
@@ -67,7 +87,7 @@ router.delete('/:UserName', function(req, res) {
 		}else{
 			res.send("success");
 		}
-	})
-})
+	});
+});
 
 module.exports = router;

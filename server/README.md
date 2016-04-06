@@ -50,14 +50,20 @@ returns
 (No authentication added)
 
 ```
-POST /user/<USERNAME>
+POST /user
+```
+Parameters
+```javascript
+{
+  "username": <username>
+}
 ```
 returns Generated UserID if username isn't already taken
 
 #####Example 
 
 ```
-POST /user/userName
+POST /user
 ```
 returns
 ```javascript
@@ -74,7 +80,9 @@ POST /user/userName
 ```
 returns
 ```javascript
-"userName taken"
+{
+  "error": "Username taken"
+}
 ``` 
 
 ### Update user

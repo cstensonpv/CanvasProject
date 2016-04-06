@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import AlamofireImage
+
 import SwiftyJSON
 import SocketIOClientSwift
 
@@ -24,7 +25,7 @@ class CanvasProjectModel {
 	var userSocket: SocketIOClient?
 	var projectSocket: SocketIOClient?
 
-	let serverAddress: String = "192.168.1.98"
+	let serverAddress: String = "192.168.0.10"
 	let serverHTTPPort: String = "8080"
 	let serverSocketPort: String = "8081"
 	let serverURI: String
@@ -39,6 +40,11 @@ class CanvasProjectModel {
 		case TextBox
 		case Rectangle
         case File
+	}
+	
+	enum APIErrorMessage: String {
+		case Unknown = "Unknown API error"
+		case UserNameTaken = "Username taken"
 	}
 
 	func test() {
@@ -273,7 +279,27 @@ class CanvasProjectModel {
 	
 	// API upload functions
 
-    func addCanvasObject(type: CanvasObjectType, data: JSON? = nil) {
+	func registerUser(username: String, callback: (response: String) -> Void) {
+		let userInfo = ["username": username]
+		print(userInfo)
+		
+		Alamofire.request(.POST, serverURI + "/user/", parameters: userInfo, encoding: .JSON)
+			.responseJSON(completionHandler: { response in
+				if let responseValue = response.result.value {
+					let newUser = JSON(responseValue)
+					if newUser["error"].stringValue == APIErrorMessage.UserNameTaken.rawValue {
+						callback(response: APIErrorMessage.UserNameTaken.rawValue)
+					} else {
+						callback(response: newUser["UserName"].stringValue)
+					}
+				} else {
+					callback(response: APIErrorMessage.Unknown.rawValue)
+				}
+			}
+		)
+	}
+ 
+	func addCanvasObject(type: CanvasObjectType, data: JSON? = nil) {
 		if let project = currentProject {
 			var newCanvasObject: JSON?
 			

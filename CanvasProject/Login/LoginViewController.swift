@@ -38,18 +38,26 @@ class LoginViewController: UIViewController {
     // MARK: - Navigation
 	@IBAction func loginButtonTapped(sender: AnyObject) {
 		if let username = userNameInput.text {
-			loginActivityIndicator.hidden = false
-			loginActivityIndicator.startAnimating()
-			model.login(username, callback: { userFound in
-				if (userFound) {
-					self.performSegueWithIdentifier("login", sender: sender)
-				} else {
-					self.errorLabel.text = self.couldntFindUserError
-				}
-				
-				self.loginActivityIndicator.hidden = true
-			})
+			tryLogin(username)
 		}
+	}
+	
+	func tryLogin(username: String) {
+		loginActivityIndicator.hidden = false
+		loginActivityIndicator.startAnimating()
+		model.login(username, callback: { userFound in
+			if (userFound) {
+				self.performSegueWithIdentifier("login", sender: nil)
+			} else {
+				self.errorLabel.text = self.couldntFindUserError
+			}
+			
+			self.loginActivityIndicator.hidden = true
+		})
+	}
+	
+	@IBAction func unwind(segue: UIStoryboardSegue) {
+		
 	}
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
