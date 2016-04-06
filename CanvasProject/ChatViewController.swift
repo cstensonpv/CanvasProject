@@ -16,7 +16,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var cellIdentifier = "ChatTableViewCell"
 
     override func viewDidLoad() {
-        print("Loaded chatView CTRL)")
+        //print("Loaded chatView CTRL)")
         model.requestChatMessages()
         notificationCenter.addObserver(self, selector: #selector(updateTable), name: "ReceivedChatMessages", object: nil)
         
@@ -28,37 +28,59 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     @IBOutlet weak var chatTable: UITableView!
+    @IBOutlet weak var textField: UITextView!
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func clickSendButton(sender: AnyObject) {
+        print("adds Chat message")
+        model.addChatMessage(textField.text)
+    }
     func updateTable() {
+        print("Updates chatTable")
+        //model.requestChatMessages()
         if let project = model.currentProject {
             messages = project.getChatMessages()
-            print(messages);
         }
         chatTable.reloadData()
+        scrollToEnd();
+        
+        
         
     }
     
-    /*func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("You selected cell #\(indexPath.row)!")
-        model.addCanvasObject(CanvasProjectModel.CanvasObjectType.File, data: tableData[indexPath.row])
-    }*/
+    func scrollToEnd() {
+        let indexPath = NSIndexPath(forRow: messages.count - 1, inSection: 0)
+        chatTable.scrollToRowAtIndexPath(indexPath,atScrollPosition:UITableViewScrollPosition.Middle, animated: true)
+        
+    
+    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //print("Called tableview count")
+        //print("Called chattableview count " + String(messages.count))
         return messages.count //length of aray in model
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) ->   UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ChatTableViewCell
+        
         let message = messages[indexPath.row]
-        print(message)
-        cell.UserNameLabel.text = message["UserName"].stringValue
+        var userName = "";
+        if(message["UserID"].stringValue == model.userID) {
+            userName = "Me"
+        }else {
+            //If user not in UserNames the messages dosn't get a sender.
+            userName = model.userNames[message["UserID"].stringValue]!
+        }
+        
+        //add to component in cell
+        cell.UserNameLabel.text = userName
         cell.MessageLabel.text = message["message"].stringValue
+        cell.TimeLabel.text = message["posted"].stringValue
+        //print("added cell with: " + message["message"].stringValue)
         
         
         
