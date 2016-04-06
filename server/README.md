@@ -1,22 +1,22 @@
-# INteractive canvas api-server
+# API server for CanvasProject
 
-This server is used in the interactiveCanvas project. A project wiuthin the scope of the course DD2390 at the Rotyal Institute of Technology.
+This server is used as the backend for the application CanvasProject. A project within the scope of the course DD2390 at the Rotyal Institute of Technology.
 
-It is using a MongoDB on mLab on url:
+It is using a MongoDB on mLab on URL:
 ```
 'mongodb://cstenson:intnet16@ds015939.mlab.com:15939/intnet16'
 ```
 
 ## Installation
 
-type 'npm install' in the server folder. All the node modules required for this project will automatically be installed.
+Type 'npm install' in the server folder. All the node modules required for this project will automatically be installed.
 
 ## Get started
-Start the server by typing 'npm start' in the server root folder which start the app.js file. The server is listening on port 8080.
+Start the server by typing 'npm start' in the server root folder which starts app.js. The server is listening on port 8080.
 
 # Documentation
 
-This documentation is used of me when implementing the back-end. I will try to go from the top down and mark which features that are implemented.
+This documentation is used as part of the process of developing the backend and referencing its functionality when developing the frontent. 
 
 
 
@@ -32,17 +32,34 @@ This documentation is used of me when implementing the back-end. I will try to g
   "registred": "2016-03-20T12:50:52.632Z"
 }
 ```
+
+### Get user based on user ID
+```
+GET /user/<USERID>
+```
+Returns if user exists:
+```javascript
+{
+    "_id": "56eee1825c517ac01ff3f33c",
+    "UserName": "userName",
+    "__v": 0,
+    "registred": "2016-03-20T17:44:34.044Z"
+}
+```
+Or if no user with specified user ID exists:
+```
+'User does not exists'
+```
+
 ### Get user based on name
 ```
 POST /user/userNameQuery/
 ```
 Parameters as body:
 ```javascript
-{
-  "username": <username>
-}
+{"username": <username>}
 ```
-returns 
+Returns:
 ```javascript
 {
   "__v": 0,
@@ -51,28 +68,24 @@ returns
   "registred": "2016-03-20T12:50:52.632Z"
 }
 ```
-All usernames are sent as body since that has better support for special characters
+All usernames are sent as body since that has better support for special characters than sendint URI parameters.
 
 ### Add user
-(No authentication added)
-
 ```
 POST /user
 ```
 Parameters as body:
 ```javascript
-{
-  "username": <username>
-}
+{"username": <username>}
 ```
-returns Generated UserID if username isn't already taken
+Returns generated the user object if the username isn't already taken.
 
 #####Example 
 
 ```
 POST /user
 ```
-returns
+Returns:
 ```javascript
 {
   "__v": 0,
@@ -81,13 +94,11 @@ returns
   "registred": "2016-03-20T12:50:52.632Z"
 }
 ```
-Then if we try to do it again
+Then if we try to do it again with the same data
 
-returns
+Returns:
 ```javascript
-{
-  "error": "Username taken"
-}
+{"error": "Username taken"}
 ``` 
 
 ### Update user
@@ -110,7 +121,7 @@ Parameters as body:
   "registred": "2016-03-20T12:50:52.632Z"
 }
 ```
-returns new User object (if UserName22 is not already taken)
+Returns the new user object (if UserName22 is not already taken)
 ```javascript
 {
   "_id": "56ee9cac4eb7f89c051cc950",
@@ -119,11 +130,11 @@ returns new User object (if UserName22 is not already taken)
   "registred": "2016-03-20T12:50:52.632Z"
 }
 ```
-returns (if UserName22 is already taken)
+Returns (if UserName22 is already taken):
 ```javascript
 Username taken!
 ```
-returns (if unvalid _id is submitted)
+Returns (if unvalid _id is submitted):
 ```javascript
 UserID doesn't exists!
 ```
@@ -137,29 +148,13 @@ Parameters as body:
 ```
 {"username": <username>}
 ```
-returns:
+Returns:
 ```javascript
 'succes'
-or
+//or
 'failure'
 ```
-### Get user
-```
-GET /user/<USERID>
-```
-returns if user exists
-```javascript
-{
-    "_id": "56eee1825c517ac01ff3f33c",
-    "UserName": "userName",
-    "__v": 0,
-    "registred": "2016-03-20T17:44:34.044Z"
-}
-```
-or if no user with the userName exists
-```
-'User does not exists'
-```
+
 
 ##Project
 #### JSON Structure
