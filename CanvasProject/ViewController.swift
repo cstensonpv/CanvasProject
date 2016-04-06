@@ -23,6 +23,11 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 	var dimensionsBeforeResize: CGSize?
     
     var tableData = [JSON]()//["item1", "item2", "item3"]
+    
+    
+    
+  
+    
 	
 //	required init?(coder aDecoder: NSCoder) {
 //	    fatalError("init(coder:) has not been implemented")
@@ -36,7 +41,8 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 	@IBOutlet weak var folderScrollView: UIScrollView!
 	@IBOutlet weak var folderTableView: UITableView!
 	@IBOutlet weak var projectNameLabel: UINavigationItem!
-
+    
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		notificationCenter.addObserver(self, selector: #selector(updateWholeProject), name: "ReceivedProject", object: nil)
@@ -44,11 +50,14 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 		notificationCenter.addObserver(self, selector: #selector(updateUserInfo), name: "ReceivedUserInfo", object: nil)
 		notificationCenter.addObserver(self, selector: #selector(updateFileInfo), name: "ReceivedFiles", object: nil)
 		notificationCenter.addObserver(self, selector: #selector(updateImages), name: "ReceivedImage", object: nil)
+        
 
         folderTableView.dataSource = self
         folderTableView.delegate = self
         //initial is hide on show folder
 		self.folderScrollView.hidden = true
+        
+       
 		
 		canvas.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deselectAllCanvasViewObjects)))
 		canvasScrollView.contentSize = canvas.frame.size
@@ -66,6 +75,7 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 		toggleFolderView()
 		updateTable()
 	}
+    
 	
 	@IBAction func addTextBox(sender: AnyObject) {
         model.addCanvasObject(CanvasProjectModel.CanvasObjectType.TextBox)
@@ -94,7 +104,6 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
     func updateTable() {
         if let project = model.currentProject {
             tableData = project.getFiles()
-            //print(tableData[0]["name"]);
         }
         folderTableView.reloadData()
         
@@ -136,7 +145,6 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
                 
             }
         }
-
         cell.accessoryView = UIImageView(image:UIImage(named:"plusIcon")!)        
     
         return cell
