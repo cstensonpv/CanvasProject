@@ -16,15 +16,15 @@ class CanvasProjectModel {
 	let notificationCenter = NSNotificationCenter.defaultCenter()
 	var testValue: String = ""
 	var loggedInUser: JSON?
-	var userID: String?
-	var userNames = [String: String]()
+    var userID: String?
+    var userNames = [String: String]()
 	var userInfo = [JSON]()
 	var allProjects = [JSON]()
 	var currentProject: Project?
 	var userSocket: SocketIOClient?
 	var projectSocket: SocketIOClient?
 
-	let serverAddress: String = "192.168.0.10"
+	let serverAddress: String = "192.168.1.98"
 	let serverHTTPPort: String = "8080"
 	let serverSocketPort: String = "8081"
 	let serverURI: String
@@ -262,6 +262,14 @@ class CanvasProjectModel {
 		}
 	}
 	
+    func requestChatMessages() {
+        if let project = currentProject {
+            Alamofire.request(.GET, serverURI + "/chat/" + project.id).responseJSON {
+                response in self.receiveChatMessages(response)
+            }
+            
+        }
+    }
 	
 	// API upload functions
 
@@ -412,6 +420,18 @@ class CanvasProjectModel {
 
 			notificationCenter.postNotificationName("ReceivedFiles", object: nil)
 			requestFolderImages()
+        }
+    }
+    
+    func receiveChatMessages(response: Response<AnyObject, NSError>) {
+        if let responseValue = response.result.value {
+            print("Chat Messages received")
+            let messages = JSON(responseValue)
+            for (_, message) in messages {
+                currentProject?.addMessage(message)
+            }
+        
+            notificationCenter.postNotificationName("ReceivedMessages", object: nil)
         }
     }
 	
