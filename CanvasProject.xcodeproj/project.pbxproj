@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		117BE5781CB5A90A0030C797 /* ChatMessagePrototype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117BE5771CB5A90A0030C797 /* ChatMessagePrototype.swift */; };
 		117D13481CB40535006A197A /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117D13471CB40535006A197A /* ChatTableViewCell.swift */; };
 		117D134A1CB4074C006A197A /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 117D13491CB4074C006A197A /* ChatViewController.swift */; };
 		474478A787B2A1EE0853566C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15EA9F16B8707D87825B7304 /* Pods.framework */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		117BE5771CB5A90A0030C797 /* ChatMessagePrototype.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatMessagePrototype.swift; sourceTree = "<group>"; };
 		117D13471CB40535006A197A /* ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
 		117D13491CB4074C006A197A /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		15EA9F16B8707D87825B7304 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,6 +222,7 @@
 			children = (
 				F105254C1C96E61B004EAE1A /* AppDelegate.swift */,
 				F1E857BF1C96F7E600E30EC7 /* Model.swift */,
+				117BE5771CB5A90A0030C797 /* ChatMessagePrototype.swift */,
 				F11C92D01C9C59C100483023 /* Project.swift */,
 				F13DD4931CA2BDA000020389 /* CanvasObjectPrototypes.swift */,
 			);
@@ -438,6 +441,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				117BE5781CB5A90A0030C797 /* ChatMessagePrototype.swift in Sources */,
 				F105254F1C96E61B004EAE1A /* ViewController.swift in Sources */,
 				F10B48651CAF17C000370144 /* ProjectSelectorTableViewCell.swift in Sources */,
 				F187E2E21CA4009800D751D1 /* CanvasViewTextBox.swift in Sources */,

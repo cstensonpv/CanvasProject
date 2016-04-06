@@ -25,7 +25,7 @@ class CanvasProjectModel {
 	var userSocket: SocketIOClient?
 	var projectSocket: SocketIOClient?
 
-	let serverAddress: String = "192.168.0.10"
+	let serverAddress: String = "192.168.1.98"
 	let serverHTTPPort: String = "8080"
 	let serverSocketPort: String = "8081"
 	let serverURI: String
@@ -131,6 +131,12 @@ class CanvasProjectModel {
 					self.requestCanvasObjects()
 				}
 			}
+            projectSocket?.on("chatUpdate") { data, ack in
+                print("chat update")
+                if (self.currentProject != nil) {
+                    self.requestChatMessages()
+                }
+            }
 			
 			projectSocket?.connect()
 			
@@ -160,6 +166,7 @@ class CanvasProjectModel {
 	}
 	
 	func logout() {
+        print("logout!!!")
 		loggedInUser = nil
 		userID = nil
 		userSocket?.disconnect()
@@ -322,6 +329,33 @@ class CanvasProjectModel {
             }
 		}
 	}
+    
+    func addChatMessage(newMessage: String){
+        var newChatMessage: JSON?
+        
+        /*let userName = loggedInUser!["Username"]
+        
+        print(userName)*/
+        print("username of loggedinuser")
+        print(self.loggedInUser)
+        print(self.userNames)
+        
+        
+        
+        if let project = currentProject {
+            print("i project")
+            print(loggedInUser);
+            
+            newChatMessage = ChatMessagePrototype.chatMessage(self.loggedInUser!["_id"].stringValue, message: newMessage)
+            Alamofire.request(.POST, serverURI + "/chat/" + project.id, parameters: newChatMessage!.dictionaryObject, encoding: .JSON)
+            
+        }else {
+            print("no project")
+        }
+        
+        
+        
+    }
 	
 	func updateCanvasObject(objectData: JSON) {
 		Alamofire.request(.PUT, serverURI + "/canvasObject/", parameters: objectData.dictionaryObject, encoding: .JSON)
@@ -454,12 +488,12 @@ class CanvasProjectModel {
     func receiveChatMessages(response: Response<AnyObject, NSError>) {
         if let responseValue = response.result.value {
             print("Chat Messages received")
-            let messages = JSON(responseValue)
-            for (_, message) in messages {
-                currentProject?.addMessage(message)
-            }
-        
-            notificationCenter.postNotificationName("ReceivedMessages", object: nil)
+           
+            let rawResponse = JSON(responseValue)
+            let messages = rawResponse["chatMessages"].array
+            
+            currentProject?.addMessages(messages!)
+            notificationCenter.postNotificationName("ReceivedChatMessages", object: nil)
         }
     }
 	

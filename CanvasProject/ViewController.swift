@@ -308,7 +308,10 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 	
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		model.closeProject()
+        if(segue.identifier != "toChat"){
+            print("closes project")
+            model.closeProject()
+        }
 	}
 }
 

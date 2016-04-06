@@ -12,7 +12,7 @@ import SwiftyJSON
 class Project {
 	private var objects = [String: JSON]()
 	private var files = [String: JSON]()
-    private var messages = [String: JSON]()
+    private var messages = [JSON]()
 	var fileImages = [String: UIImage]()
 	var driveFolderID: String?
 	var driveFolderName: String?
@@ -37,9 +37,15 @@ class Project {
 		files[file["id"].stringValue] = file
 	}
     
-    func addMessage(message: JSON) {
-        messages[message["id"].stringValue] = message
-        print(messages)
+    func addMessages(newMessages: [JSON]) {
+        /*print( message)
+        if let messageArray = message.array {
+            messages += message.array
+        }*/
+        //print(messages)
+        
+        //old
+        messages = newMessages
     }
 	
 	func addImage(image: UIImage, forFileID fileID: String) {
@@ -72,10 +78,13 @@ class Project {
     
     func getChatMessages() -> [JSON] {
         var messages = [JSON]()
+        print("project getChatmessages")
         
-        for (_, value) in self.messages {
+        /*for (_, value) in self.messages {
+            print("appends")
             messages.append(value)
-        }
+        }*/
+        messages = self.messages
         
         return messages
     }
