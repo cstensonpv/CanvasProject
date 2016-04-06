@@ -12,6 +12,16 @@ class LoginViewRegisterController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		let width = self.preferredContentSize.width
+		print(width)
+		
+		self.preferredContentSize = CGSizeMake(
+			CGFloat(540),
+			CGFloat(200)
+		)
+		
+		print("Login register view did load")
 
         // Do any additional setup after loading the view.
     }
