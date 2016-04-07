@@ -66,25 +66,27 @@ class ProjectSelectorTableViewController: UITableViewController {
 		
 	}
 	
-    /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+		let creatorID = model.allProjects[indexPath.row]["creator"].stringValue
+		
+		if creatorID == model.userID {
+			return true
+		} else {
+			return false
+		}
+		
     }
-    */
-
-    /*
+	
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            // Delete the row from the data source
+            model.deleteProjectAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.
@@ -119,8 +121,7 @@ class ProjectSelectorTableViewController: UITableViewController {
 		
 		if (segue.identifier == "toProject") {
 			if let selected = self.tableView.indexPathForSelectedRow {
-				let projectIndex = selected.row
-				let projectID = model.allProjects[projectIndex]["_id"].stringValue
+				let projectID = model.allProjects[selected.row]["_id"].stringValue
 				print("Opening project \(projectID)")
 				model.openProject(id: projectID)
 

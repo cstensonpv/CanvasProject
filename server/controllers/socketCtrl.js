@@ -35,10 +35,8 @@ exports.notifyProjectSubscribers = function(projectID, message) {
 }
 
 exports.notifyUsers = function(users, message) {
-	console.log("Notifying users: " + message);
-	console.log(users);
 	for (var i = 0; i < users.length; i ++) {
-		console.log("Notifying user " + users[i]);
+		console.log("Notifying user " + users[i] + ": " + message);
 		exports.notifyUser(users[i], message);
 	}
 }

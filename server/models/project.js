@@ -137,8 +137,8 @@ exports.removeCollaborator = function(project_id, userName, callback) {
 
 exports.remove = function(project_id, callback) {
 	findProject(project_id, function(err, project){
-		Project.remove(callback(err,project));
-	})
+		project.remove(callback);
+	});
 }
 
 exports.get = function(project_id, callback) {

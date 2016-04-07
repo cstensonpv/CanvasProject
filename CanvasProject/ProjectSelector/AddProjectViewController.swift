@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddProjectViewController: UIViewController {
+class AddProjectViewController: UIViewController, UITextFieldDelegate {
 	let generalRegisterError = "Couldn't register: Server communication error"
 	let generalProjectError = "Unknown server project controller error"
 	var newProjectName: String?
@@ -29,6 +29,7 @@ class AddProjectViewController: UIViewController {
 		self.activityIndicator.stopAnimating()
 		self.activityIndicator.hidden = true
 		self.messageLabel.text = ""
+		projectNameTextField.delegate = self
 		projectNameTextField.becomeFirstResponder()
 		
 		// Do any additional setup after loading the view.
@@ -51,6 +52,11 @@ class AddProjectViewController: UIViewController {
 				self.activityIndicator.hidden = true
 			})
 		}
+	}
+	
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
+		createProject(textField)
+		return true
 	}
 	
 	override func didReceiveMemoryWarning() {

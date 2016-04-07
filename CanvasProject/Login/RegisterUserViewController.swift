@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RegisterUserViewController: UIViewController {
+class RegisterUserViewController: UIViewController, UITextFieldDelegate {
 	let userNameTakenError = "Username already taken"
 	let generalRegisterError = "Couldn't register: Server communication error"
 	var newUsername: String?
@@ -29,6 +29,7 @@ class RegisterUserViewController: UIViewController {
 		
 		self.activityIndicator.stopAnimating()
 		self.activityIndicator.hidden = true
+		self.userNameTextField.delegate = self
 		userNameTextField.becomeFirstResponder()
 
         // Do any additional setup after loading the view.
@@ -36,30 +37,39 @@ class RegisterUserViewController: UIViewController {
 
 	@IBAction func register(sender: AnyObject) {
 		if let username = userNameTextField.text {
-			activityIndicator.hidden = false
-			activityIndicator.startAnimating()
-			model.registerUser(username, callback: { returnedInfo in
-				if (returnedInfo == CanvasProjectModel.APIErrorMessage.UserNameTaken.rawValue) {
-					self.messageLabel.text = self.userNameTakenError
-				} else if (returnedInfo == CanvasProjectModel.APIErrorMessage.Unknown.rawValue) {
-					self.messageLabel.text = self.generalRegisterError
-				} else {
-					self.newUsername = returnedInfo
-					self.performSegueWithIdentifier("closeRegisterUserView", sender: sender)
-				}
-				
-				self.activityIndicator.hidden = true
-			})
+			tryRegister(username, sender: sender)
 		}
 	}
+	
+	func tryRegister(username: String, sender: AnyObject) {
+		activityIndicator.hidden = false
+		activityIndicator.startAnimating()
+		model.registerUser(username, callback: { returnedInfo in
+			if (returnedInfo == CanvasProjectModel.APIErrorMessage.UserNameTaken.rawValue) {
+				self.messageLabel.text = self.userNameTakenError
+			} else if (returnedInfo == CanvasProjectModel.APIErrorMessage.Unknown.rawValue) {
+				self.messageLabel.text = self.generalRegisterError
+			} else {
+				self.newUsername = returnedInfo
+				self.performSegueWithIdentifier("closeRegisterUserView", sender: sender)
+			}
+			
+			self.activityIndicator.hidden = true
+		})
+	}
 
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
+		if let username = userNameTextField.text {
+			tryRegister(username, sender: textField)
+		}
+		return true
+	}
+	
 	override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 	
-
-    
 
 	
     // MARK: - Navigation

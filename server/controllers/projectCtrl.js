@@ -144,15 +144,15 @@ router.delete('/:project_id/:username', function(req, res) {
 router.delete('/:project_id', function(req, res) {
 	var project_id = req.params.project_id;
 	console.log("Request delete of project : " + project_id);
-	projectModel.get(project_id, function(err, project) { // First, find the project
+	projectModel.get(project_id, function(err, project) { // First, find the project, in order to get its collaborators
 		if (err) {
-			res.send("failure"); // if it wasn't found, return error
+			res.send("Project deletetion failed"); // if it wasn't found, return error
 		} else { 
 			projectModel.remove(project_id, function(err) { // if it was found, try to delete it
 				if(err){
-					res.send("failure")
+					res.send("Project deletetion failed")
 				}else{
-					res.send("success"); 
+					res.send("Project deleted"); 
 					// Notify the previous collaborators and current subscribers of update
 					socketCtrl.notifyUsers(project.collaborators, socketCtrl.PROJECTS_UPDATE_MESSAGE);
 					socketCtrl.notifyProjectSubscribers(project_id, socketCtrl.PROJECT_UPDATE_MESSAGE);

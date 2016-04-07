@@ -162,7 +162,7 @@ Returns:
 {
   "_id": "56efb7772ae164b8261aa26f",
   "name": "test",
-  "creator": "Calle",
+  "creator": "56ef023e1c37e4a80538f828",
   "__v": 0,
   "colaborators": [
     "56ef023e1c37e4a80538f828"
@@ -286,7 +286,7 @@ DELETE /project/<ID>
 ```
 returns if successful
 ```javascript
-succes
+Project deleted
 ```
 if not succesfull
 ```javascript

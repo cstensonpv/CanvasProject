@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
 	// MARK: Properties
 	
@@ -25,6 +25,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 		loginActivityIndicator.hidden = true
 		errorLabel.text = ""
+		userNameInput.delegate = self
         // Do any additional setup after loading the view.
     }
 
@@ -54,6 +55,13 @@ class LoginViewController: UIViewController {
 			
 			self.loginActivityIndicator.hidden = true
 		})
+	}
+	
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
+		if let username = userNameInput.text {
+			tryLogin(username)
+		}
+		return true
 	}
 	
 	@IBAction func unwind(segue: UIStoryboardSegue) {

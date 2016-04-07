@@ -42,10 +42,15 @@ class CanvasProjectModel {
         case File
 	}
 	
+	enum APISuccessMessage: String {
+		case ProjectDeleted = "Project deleted"
+	}
+	
 	enum APIErrorMessage: String {
 		case Unknown = "Unknown API error"
 		case UnknownProjectError = "Something went wrong"
 		case UserNameTaken = "Username taken"
+		case ProjectDeletionFailed = "Project deletetion failed"
 	}
 
 	func test() {
@@ -170,7 +175,7 @@ class CanvasProjectModel {
 	}
 	
 	func logout() {
-        print("logout!!!")
+		print("Log out")
 		loggedInUser = nil
 		userID = nil
 		userSocket?.disconnect()
@@ -188,6 +193,12 @@ class CanvasProjectModel {
 		} else {
 			print("No user logged in. Can't request projects for logged in user")
 		}
+	}
+	
+	func deleteProjectAtIndex(index: Int) {
+		let projectID = allProjects[index]["_id"].stringValue
+		allProjects.removeAtIndex(index) // First, delete the project from the internal array so that controllers can reflect the update immediately
+		deleteProject(projectID) // Then actually request the project's deletion
 	}
 	
 	
@@ -329,6 +340,14 @@ class CanvasProjectModel {
 				}
 			} else {
 				callback(response: APIErrorMessage.Unknown.rawValue)
+			}
+		}
+	}
+	
+	func deleteProject(projectID: String) {
+		Alamofire.request(.DELETE, serverURI + "/project/" + projectID).responseString { response in
+			if let responseValue = response.result.value {
+				print(responseValue)
 			}
 		}
 	}
