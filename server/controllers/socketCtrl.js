@@ -23,9 +23,9 @@ io.on('connection', function(client) {
 
 
 	//Används denna?
-	client.on('subscribeToProjects', function() {
-		console.log("Client subscribed to projects list updates etc");
-		client.join('projects');
+	client.on('subscribeToUser', function(userID) {
+		console.log("Client subscribed to user updates for " + userID);
+		client.join(userID);
 	});
 });
 
@@ -34,9 +34,17 @@ exports.notifyProjectSubscribers = function(projectID, message) {
 	io.to(projectID).emit(message);
 }
 
-exports.notifyProjectListSubscribers = function(message) {
-	console.log("Notifying subscribers to projects: " + message);
-	io.to('projects').emit(message);
+exports.notifyUsers = function(users, message) {
+	console.log("Notifying users: " + message);
+	console.log(users);
+	for (var i = 0; i < users.length; i ++) {
+		console.log("Notifying user " + users[i]);
+		exports.notifyUser(users[i], message);
+	}
+}
+
+exports.notifyUser = function(userID, message) {
+	io.to(userID).emit(message);
 }
 
 //Används denna?

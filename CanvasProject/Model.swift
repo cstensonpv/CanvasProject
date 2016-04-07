@@ -99,23 +99,19 @@ class CanvasProjectModel {
 	}
 	
 	func setupUserSocket() {
-		userSocket = SocketIOClient(socketURL: NSURL(string: serverSocketURI)!)
-		userSocket?.on("connect") { data, ack in
-			print("User socket connected")
-			self.userSocket?.emit("subscribeToProjects")
-		}
-		
-		userSocket?.on("projectsUpdate") { data, ack in
-			self.requestProjectsForLoggedInUser()
-		}
-		
-		userSocket?.on("projectUpdate") { data, ack in
-			if let currentProject = self.currentProject {
-				self.openProject(id: currentProject.id)
+		if let userID = self.userID {
+			userSocket = SocketIOClient(socketURL: NSURL(string: serverSocketURI)!)
+			userSocket?.on("connect") { data, ack in
+				print("User socket connected")
+				self.userSocket?.emit("subscribeToUser", userID)
 			}
+			
+			userSocket?.on("projectsUpdate") { data, ack in
+				self.requestProjectsForLoggedInUser()
+			}
+			
+			userSocket?.connect()
 		}
-		
-		userSocket?.connect()
 	}
 	
 	func setupProjectSocket() {
@@ -126,14 +122,21 @@ class CanvasProjectModel {
 				self.projectSocket!.emit("subscribeToProject", project.id)
 			}
 			
+			projectSocket?.on("projectUpdate") { data, ack in
+				// If the project info has been updated and it's the one currently open, the project will be repopened to obtain the new info
+				if let currentProject = self.currentProject {
+					self.openProject(id: currentProject.id)
+				}
+			}
+			
 			projectSocket?.on("canvasObjectUpdate") { data, ack in
 				print("canvas object update")
 				if self.currentProject != nil {
 					self.requestCanvasObjects()
 				}
 			}
+			
             projectSocket?.on("chatUpdate") { data, ack in
-                print("chat update")
                 if (self.currentProject != nil) {
                     self.requestChatMessages()
                 }

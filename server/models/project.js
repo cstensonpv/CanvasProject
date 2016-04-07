@@ -121,15 +121,15 @@ exports.removeCollaborator = function(project_id, userName, callback) {
 					if(status.nModified > 0){
 						console.log(status);
 						findProject(project_id, function(err, project) {
-							callback(err,project);
+							callback(err, project, user._id);
 						})
 					}else{
 						console.log("No change");
-						callback(new Error("User not in project!"), project);
+						callback(new Error("User not in project!"), project, null);
 					}
 				});
 			}else{
-				callback(new Error("Your the last user in the project!"), project);
+				callback(new Error("Your the last user in the project!"), project, null);
 			}
 		})
 	});

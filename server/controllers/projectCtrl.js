@@ -3,6 +3,7 @@
 var express = require('express'),
 	router = express.Router(),
 	projectModel = require('../models/project'),
+	userModel = require('../models/user'),
 	socketCtrl = require('./socketCtrl');
 
 var bodyParser = require('body-parser');
@@ -67,9 +68,9 @@ router.get('/:project_id', function(req, res) {
 			res.send(errHandling(err));
 			// console.log(err);
 		}else{
-    		res.send(project);
+			res.send(project);
 		}
-  	});
+	});
 });
 
 // Post new project
@@ -83,16 +84,14 @@ router.post('/', function(req, res) {
 			console.log("Error adding project: " + err);
 			res.send({"error": errHandling(err)});
 		}else{
-			console.log(project)
-    		res.send(project);
-			socketCtrl.notifyProjectListSubscribers(socketCtrl.PROJECTS_UPDATE_MESSAGE);
+			res.send(project);
+			socketCtrl.notifyUsers(project.collaborators, socketCtrl.PROJECTS_UPDATE_MESSAGE);
 		}
-  	});
+	});
 });
 
 // Change name for specified project
 router.put('/:project_id', function(req, res) {
-
 	var name = req.headers.name;
 	var id = req.params.project_id;
 	console.log("Request update of projectName: " + name + " id: " + id );
@@ -101,7 +100,8 @@ router.put('/:project_id', function(req, res) {
 			res.send(errHandling(err));
 		}else{
 			res.send(project);
-			socketCtrl.notifyProjectSubscribers(id, socketCtrl.PROJECT_UPDATE_MESSAGE);
+			socketCtrl.notifyUsers(project.collaborators, socketCtrl.PROJECTS_UPDATE_MESSAGE);
+			socketCtrl.notifyProjectSubscribers(project._id, socketCtrl.PROJECT_UPDATE_MESSAGE);
 		}
 
 	});
@@ -117,22 +117,25 @@ router.put('/:project_id/:newCollaborator', function(req, res) {
 			errHandling(err);
 		}else{
 			res.send(project);
-			socketCtrl.notifyProjectSubscribers(id, socketCtrl.PROJECT_UPDATE_MESSAGE);
+			socketCtrl.notifyUsers(project.collaborators, socketCtrl.PROJECTS_UPDATE_MESSAGE);
+			socketCtrl.notifyProjectSubscribers(project._id, socketCtrl.PROJECT_UPDATE_MESSAGE);
 		}
 	});
 });
 
 // Delete specified collaborator from specified project
-router.delete('/:project_id/:newCollaborator', function(req, res) {
-	var userName = req.params.newCollaborator;
-	var id = req.params.project_id;
-	console.log("Request delete user from project: " + userName + " project id: " + id );
-	projectModel.removeCollaborator( id, userName, function (err, project) {
-		if(err){
+router.delete('/:project_id/:username', function(req, res) {
+	var userName = req.params.username;
+	var project_id = req.params.project_id;
+	console.log("Request delete user from project: " + userName + " project id: " + project_id );
+	projectModel.removeCollaborator(project_id, userName, function(err, project, removedUserID) {
+		if (err) {
 			errHandling(err);
-		}else{
+		} else {
 			res.send(project);
-			socketCtrl.notifyProjectSubscribers(id, socketCtrl.PROJECT_UPDATE_MESSAGE);
+			socketCtrl.notifyUsers(project.collaborators, socketCtrl.PROJECTS_UPDATE_MESSAGE);
+			socketCtrl.notifyUsers([removedUserID], socketCtrl.PROJECTS_UPDATE_MESSAGE);
+			socketCtrl.notifyProjectSubscribers(project._id, socketCtrl.PROJECT_UPDATE_MESSAGE);
 		}
 	});
 });
@@ -141,12 +144,20 @@ router.delete('/:project_id/:newCollaborator', function(req, res) {
 router.delete('/:project_id', function(req, res) {
 	var project_id = req.params.project_id;
 	console.log("Request delete of project : " + project_id);
-	projectModel.remove(project_id, function(err) {
-		if(err){
-			res.send("failure")
-		}else{
-			res.send("success");
-			socketCtrl.notifyProjectSubscribers(socketCtrl.PROJECTS_UPDATE_MESSAGE);
+	projectModel.get(project_id, function(err, project) { // First, find the project
+		if (err) {
+			res.send("failure"); // if it wasn't found, return error
+		} else { 
+			projectModel.remove(project_id, function(err) { // if it was found, try to delete it
+				if(err){
+					res.send("failure")
+				}else{
+					res.send("success"); 
+					// Notify the previous collaborators and current subscribers of update
+					socketCtrl.notifyUsers(project.collaborators, socketCtrl.PROJECTS_UPDATE_MESSAGE);
+					socketCtrl.notifyProjectSubscribers(project_id, socketCtrl.PROJECT_UPDATE_MESSAGE);
+				}
+			});
 		}
 	});
 });
