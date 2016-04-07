@@ -17,7 +17,7 @@ exports.create = function(project_id, body, callback) {
 		  	})
 		 	chatMessage.save(callback);
 		} else {
-			callback(err, message);
+			callback(err, project);
 		}
 	})
 }
