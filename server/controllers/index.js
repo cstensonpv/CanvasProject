@@ -12,7 +12,7 @@ router.use('/chat', require('./chatCtrl'))
 router.get('/files/:folder_id', function(req, res){
 	var folder_id = req.params.folder_id;
 	console.log("request files");
-	drive.authorize(folder_id, function(err, files){
+	drive.authorize(folder_id, "listFiles", function(err, files){
 		if(!err){
 			res.send(files)
 		}else{

@@ -1,12 +1,11 @@
 // includes the connection and methods to insert, modify and delete users
 
-var db = require( './db' );
- 
+var db = require( './db' ),
+	userModel = require('../models/user'),
+	drive = require('../helpers/googleDrive');
+
 Project = require('./schemas/projectSchema');
 User = require('./schemas/userSchema');
-
-var userModel = require('../models/user');
-
 
 function findUser(userID, callback) {
 	console.log("Finding user ID: " + userID);
@@ -50,25 +49,39 @@ function findProjectsForUser(userID, callback) {
 	});
 }
 
-exports.create = function(projectName, creatorID, callback) {
-	//find the creator
+exports.create = function(projectName, creatorID, driveFolderName, callback) {
 	console.log("Creator ID is: " + creatorID);
-	findUser(creatorID, function(err, creator) {
+
+	var projectData = {
+		'name': projectName, 
+		'creator': creatorID, 
+		'collaborators': [creatorID]
+	};
+
+	findUser(creatorID, function(err, creator) { // First find the creator
 		if (err) {
 			callback(err, null)
 		} else {
-			console.log(creatorID)
-			var project = new Project({
-				'name': projectName, 
-				'creator': creatorID, 
-				'collaborators': [creatorID]
-			});
+			if (driveFolderName == "") { // If no drive folder name is given, create project without folder
+				new Project(projectData).save(callback);
+				console.log(projectData);
+			} else { // If drive folder name is given, find its driveFolderID and add to the project
+				drive.authorize(driveFolderName, "getFolderID", function(err, driveFolderID) {
+					if (err) {
+						callback(err, null)
+					} else {
+						console.log("Folder found. Creating adding driveFolderID + " + driveFolderID + " to project. Project data: ");
+						projectData['driveFolderID'] = driveFolderID;
+						console.logprojectData
+						new Project(projectData).save(callback);
+					}
+				});
+			}
 
-			console.log(project);
-			project.save(callback);
+			
 		}
 		
-	})  	
+	});
 }
 
 exports.updateName = function(project_id, newName, callback) {

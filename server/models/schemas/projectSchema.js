@@ -15,7 +15,7 @@ var ProjectSchema = new mongoose.Schema(
         		ref: 'User', unique: true
         	}]
     	}
-    	, driveFolderId : {type: String}
+    	, driveFolderID : {type: String}
 	}
 );
 

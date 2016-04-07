@@ -25,7 +25,7 @@ class CanvasProjectModel {
 	var userSocket: SocketIOClient?
 	var projectSocket: SocketIOClient?
 
-	let serverAddress: String = "192.168.0.10"
+	let serverAddress: String = "130.229.131.225"
 	let serverHTTPPort: String = "8080"
 	let serverSocketPort: String = "8081"
 	let serverURI: String
@@ -51,6 +51,8 @@ class CanvasProjectModel {
 		case UnknownProjectError = "Something went wrong"
 		case UserNameTaken = "Username taken"
 		case ProjectDeletionFailed = "Project deletetion failed"
+		case CouldntFindFolder = "No folders found"
+		case FoundMoreThanOneFolder = "Found more than one folder. Couldn't choose which you wanted"
 	}
 
 	func test() {
@@ -323,23 +325,28 @@ class CanvasProjectModel {
 		)
 	}
 	
-	func addProject(withName projectName: String, callback: (response: String) -> Void) {
+	func addProject(withName projectName: String, driveFolderName: String, callback: (response: String, success: Bool) -> Void) {
 		let parameters = [
 			"name": projectName,
+			"driveFolderName": driveFolderName,
 			"creator": userID!
 		]
 		
 		Alamofire.request(.POST, serverURI + "/project/", parameters: parameters, encoding: .JSON).responseJSON { response in
 			if let responseValue = response.result.value {
 				let newProject = JSON(responseValue)
-				
-				if newProject["error"].stringValue == APIErrorMessage.UnknownProjectError.rawValue {
-					callback(response: APIErrorMessage.UnknownProjectError.rawValue)
+				let error = newProject["error"].stringValue
+				print("Error:")
+				print(error)
+				if error == "" {
+					print("Project adding success")
+					callback(response: newProject["_id"].stringValue, success: true)
 				} else {
-					callback(response: newProject["_id"].stringValue)
+					print("Sending back error")
+					callback(response: error, success: false)
 				}
 			} else {
-				callback(response: APIErrorMessage.Unknown.rawValue)
+				callback(response: APIErrorMessage.Unknown.rawValue, success: false)
 			}
 		}
 	}

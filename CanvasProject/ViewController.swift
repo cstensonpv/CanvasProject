@@ -61,6 +61,8 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
 		
 		canvas.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(deselectAllCanvasViewObjects)))
 		canvasScrollView.contentSize = canvas.frame.size
+		folderScrollView.layer.borderWidth = CGFloat(0.5)
+		
 		
 		print("ViewController did load")
 	}
@@ -134,15 +136,15 @@ class ViewController: UIViewController, UITextViewDelegate, UITableViewDataSourc
                     width: cell.bounds.height - margin,
                     height: cell.bounds.height - margin
                 ))
-                let imageView = UIImageView(image:image)
-                imageView.frame = CGRect(
-                    x: margin/2,
-                    y: margin/2,
-                    width: cell.bounds.height - margin,
-                    height: cell.bounds.height - margin
-                )
-                cell.addSubview(imageView)
-                
+//                let imageView = UIImageView(image:image)
+//                imageView.frame = CGRect(
+//                    x: margin/2,
+//                    y: margin/2,
+//                    width: cell.bounds.height - margin,
+//                    height: cell.bounds.height - margin
+//                )
+//                cell.addSubview(imageView)
+				
             }
         }
         cell.accessoryView = UIImageView(image:UIImage(named:"plusIcon")!)        

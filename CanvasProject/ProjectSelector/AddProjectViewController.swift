@@ -11,9 +11,12 @@ import UIKit
 class AddProjectViewController: UIViewController, UITextFieldDelegate {
 	let generalRegisterError = "Couldn't register: Server communication error"
 	let generalProjectError = "Unknown server project controller error"
+	let couldntFindFolderError = "Couldn't find folder"
+	let moreThanOneFolderError = "There is more than one folder with that name"
 	var newProjectName: String?
 	
 	// MARK: Properties
+	@IBOutlet weak var driveFolderNameTextField: UITextField!
 	@IBOutlet weak var projectNameTextField: UITextField!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 	@IBOutlet weak var messageLabel: UILabel!
@@ -23,13 +26,14 @@ class AddProjectViewController: UIViewController, UITextFieldDelegate {
 		
 		self.preferredContentSize = CGSizeMake(
 			CGFloat(540),
-			CGFloat(150)
+			CGFloat(200)
 		)
 		
 		self.activityIndicator.stopAnimating()
 		self.activityIndicator.hidden = true
 		self.messageLabel.text = ""
 		projectNameTextField.delegate = self
+		driveFolderNameTextField.delegate = self
 		projectNameTextField.becomeFirstResponder()
 		
 		// Do any additional setup after loading the view.
@@ -39,15 +43,22 @@ class AddProjectViewController: UIViewController, UITextFieldDelegate {
 		if let newProjectName = projectNameTextField.text {
 			activityIndicator.hidden = false
 			activityIndicator.startAnimating()
-			model.addProject(withName: newProjectName, callback: { returnedInfo in
-				if (returnedInfo == CanvasProjectModel.APIErrorMessage.UnknownProjectError.rawValue) {
-					self.messageLabel.text = self.generalProjectError
-				} else if (returnedInfo == CanvasProjectModel.APIErrorMessage.Unknown.rawValue) {
-					self.messageLabel.text = self.generalRegisterError
-				} else {
-					self.newProjectName = returnedInfo
+			let driveFolderName = driveFolderNameTextField.text ?? ""
+			model.addProject(withName: newProjectName, driveFolderName: driveFolderName, callback: { returnedInfo, success in
+				if (success) {
 					self.performSegueWithIdentifier("closeAddProjectView", sender: sender)
+				} else {
+					if (returnedInfo == CanvasProjectModel.APIErrorMessage.UnknownProjectError.rawValue) {
+						self.messageLabel.text = self.generalProjectError
+					} else if (returnedInfo == CanvasProjectModel.APIErrorMessage.CouldntFindFolder.rawValue) {
+						self.messageLabel.text = self.couldntFindFolderError
+					} else if (returnedInfo == CanvasProjectModel.APIErrorMessage.FoundMoreThanOneFolder.rawValue) {
+						self.messageLabel.text = self.moreThanOneFolderError
+					} else {
+						self.messageLabel.text = self.generalRegisterError
+					}
 				}
+				
 				
 				self.activityIndicator.hidden = true
 			})
