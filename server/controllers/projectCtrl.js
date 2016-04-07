@@ -58,7 +58,7 @@ router.get('/forUser/:userID', function(req, res) {
 	});
 });
 
-// Get specified project data
+// Get project with specified ID
 router.get('/:project_id', function(req, res) {
 	var project_id = req.params.project_id;
 	console.log("Request get project: " + project_id);
@@ -77,13 +77,15 @@ router.get('/:project_id', function(req, res) {
 router.post('/', function(req, res) {
 	var name = req.body.name;
 	var creator = req.body.creator;
+	var driveFolderName = req.body.driveFolderName;
 	console.log("Request add project with name: " + name + " creator:" + creator);
-	projectModel.create(name, creator, function(err, project) {
+	projectModel.create(name, creator, driveFolderName, function(err, project) {
 		// console.log(err);
 		if(err){
-			console.log("Error adding project: " + err);
-			res.send({"error": errHandling(err)});
+			console.log("Error adding project: " + err.message);
+			res.send({"error": err.message});
 		}else{
+			console.log(project)
 			res.send(project);
 			socketCtrl.notifyUsers(project.collaborators, socketCtrl.PROJECTS_UPDATE_MESSAGE);
 		}
