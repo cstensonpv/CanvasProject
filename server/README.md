@@ -486,3 +486,65 @@ or
 ```
 error msg
 ```
+
+## Chat
+
+### Post a new chat message
+```
+POST /chat/<PROJECT_ID> + json in body
+```
+Message should look like:
+```javascript
+{
+  "UserID": "user id",
+  "message": "my message"
+}
+```
+
+returns new chatMessageObject if succesfull
+```javascript
+{
+    "_id": "570586a09fd952a82633f0b1",
+    "UserID":"user id",
+    "message": "my message",
+    "project_id": "56ffbf098a286b05221ef3d1",
+    "posted": "2016-04-06T21:58:56.387Z",
+    "__v": 0
+}
+```
+if not succesfull it returns error message corresponding to error
+```javascript
+ProjectID doesn't exists!
+```
+###Get chat for a project
+```
+Get /chat/<PROJECTID>
+```
+returns
+```javascript
+{
+  "chatMessages": [
+    {
+      "_id": "5705889b9fd952a82633f0b2",
+      "UserID": "56efbffde10fad5411928ab7",
+      "message": "Hej Calle",
+      "project_id": "56f29db6451cba0416cf06ee",
+      "__v": 0,
+      "posted": "2016-04-06T22:07:23.597Z"
+    },
+    {
+      "_id": "570588ce9fd952a82633f0b3",
+      "UserID": "56ef023e1c37e4a80538f828",
+      "message": "Hej Rasmus",
+      "project_id": "56f29db6451cba0416cf06ee",
+      "__v": 0,
+      "posted": "2016-04-06T22:08:14.092Z"
+    },
+    ... 
+  ]
+}
+```
+or error message 
+```
+ProjectID doesn't exists!
+```
