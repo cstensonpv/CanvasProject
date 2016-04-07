@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CanvasProject/Model.swift"
-            timestampString = "481661045.662572"
+            timestampString = "481681682.566536"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "396"
-            endingLineNumber = "396"
-            landmarkName = "receiveProject(_:)"
+            startingLineNumber = "410"
+            endingLineNumber = "410"
+            landmarkName = "registerCanvasObjectResize(_:width:height:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

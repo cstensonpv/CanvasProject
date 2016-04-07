@@ -5,15 +5,19 @@ var db = require( './db' );
 Project = require('./schemas/projectSchema');
 User = require('./schemas/userSchema');
 
+var userModel = require('../models/user');
 
-function findUser(UserName, callback) {
-	User.find({'UserName' : UserName}, function (err, user) {
-		if(user.length > 0 ){
-		 	callback(err, user[0]);
-		}else{
+
+function findUser(userID, callback) {
+	console.log("Finding user ID: " + userID);
+	userModel.get(userID, function(err, user) {
+		console.log("Search result: ");
+		if (user) {
+			callback(err, user);
+		} else {
 			callback(new Error("User doesn't exists!"), user);
 		}
-	})
+	});
 }
 
 function findProject(project_id, callback) {
@@ -46,15 +50,24 @@ function findProjectsForUser(userID, callback) {
 	});
 }
 
-exports.create = function(projectName, creator, callback) {
+exports.create = function(projectName, creatorID, callback) {
 	//find the creator
-	findUser(creator, function(err, creator){
-	 	var project = new Project({
-		   	'name' : projectName
-		   	, 'creator' : creator
-		   	, 'collaborators' : [creator]
-	 	})
-		project.save(callback);
+	console.log("Creator ID is: " + creatorID);
+	findUser(creatorID, function(err, creator) {
+		if (err) {
+			callback(err, null)
+		} else {
+			console.log(creatorID)
+			var project = new Project({
+				'name': projectName, 
+				'creator': creatorID, 
+				'collaborators': [creatorID]
+			});
+
+			console.log(project);
+			project.save(callback);
+		}
+		
 	})  	
 }
 

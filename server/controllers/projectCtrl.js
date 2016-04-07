@@ -5,6 +5,12 @@ var express = require('express'),
 	projectModel = require('../models/project'),
 	socketCtrl = require('./socketCtrl');
 
+var bodyParser = require('body-parser');
+router.use(bodyParser.json());       // to support JSON-encoded bodies
+router.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
+
 function errHandling(err){
 	var msg = err.message;
 	if(msg == "ProjectID doesn't exists!") {
@@ -54,7 +60,7 @@ router.get('/forUser/:userID', function(req, res) {
 // Get specified project data
 router.get('/:project_id', function(req, res) {
 	var project_id = req.params.project_id;
-	console.log("Request get project : " + project_id);
+	console.log("Request get project: " + project_id);
 	projectModel.get(project_id, function (err, project) {
 		// console.log(project);
 		if(err){
@@ -68,25 +74,28 @@ router.get('/:project_id', function(req, res) {
 
 // Post new project
 router.post('/', function(req, res) {
-	var name = req.headers.name;
-	var creator = req.headers.creator;
-	console.log("Request add project : " + name + " creator :" + creator);
-	projectModel.create(name, creator ,function (err, project) {
+	var name = req.body.name;
+	var creator = req.body.creator;
+	console.log("Request add project with name: " + name + " creator:" + creator);
+	projectModel.create(name, creator, function(err, project) {
 		// console.log(err);
 		if(err){
-			res.send(errHandling(err));
+			console.log("Error adding project: " + err);
+			res.send({"error": errHandling(err)});
 		}else{
+			console.log(project)
     		res.send(project);
-			socketCtrl.notifyProjectSubscribers(socketCtrl.PROJECTS_UPDATE_MESSAGE);
+			socketCtrl.notifyProjectListSubscribers(socketCtrl.PROJECTS_UPDATE_MESSAGE);
 		}
   	});
 });
 
 // Change name for specified project
 router.put('/:project_id', function(req, res) {
+
 	var name = req.headers.name;
 	var id = req.params.project_id;
-	console.log("Request update of projectName : " + name + " id: " + id );
+	console.log("Request update of projectName: " + name + " id: " + id );
 	projectModel.updateName( id, name, function (err, project) {
 		if(err){
 			res.send(errHandling(err));
@@ -102,7 +111,7 @@ router.put('/:project_id', function(req, res) {
 router.put('/:project_id/:newCollaborator', function(req, res) {
 	var userName = req.params.newCollaborator;
 	var id = req.params.project_id;
-	console.log("Request add user to project : " + userName + " project id: " + id );
+	console.log("Request add user to project: " + userName + " project id: " + id );
 	projectModel.addCollaborator( id, userName, function (err, project) {
 		if(err){
 			errHandling(err);
@@ -117,7 +126,7 @@ router.put('/:project_id/:newCollaborator', function(req, res) {
 router.delete('/:project_id/:newCollaborator', function(req, res) {
 	var userName = req.params.newCollaborator;
 	var id = req.params.project_id;
-	console.log("Request delete user from project : " + userName + " project id: " + id );
+	console.log("Request delete user from project: " + userName + " project id: " + id );
 	projectModel.removeCollaborator( id, userName, function (err, project) {
 		if(err){
 			errHandling(err);

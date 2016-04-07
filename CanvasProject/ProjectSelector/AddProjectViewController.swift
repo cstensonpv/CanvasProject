@@ -9,15 +9,14 @@
 import UIKit
 
 class AddProjectViewController: UIViewController {
-	let userNameTakenError = "Username already taken"
 	let generalRegisterError = "Couldn't register: Server communication error"
-	var newUsername: String?
+	let generalProjectError = "Unknown server project controller error"
+	var newProjectName: String?
 	
 	// MARK: Properties
-	@IBOutlet weak var userNameTextField: UITextField!
-	@IBOutlet weak var messageLabel: UILabel!
-	
+	@IBOutlet weak var projectNameTextField: UITextField!
 	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+	@IBOutlet weak var messageLabel: UILabel!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -29,23 +28,24 @@ class AddProjectViewController: UIViewController {
 		
 		self.activityIndicator.stopAnimating()
 		self.activityIndicator.hidden = true
-		userNameTextField.becomeFirstResponder()
+		self.messageLabel.text = ""
+		projectNameTextField.becomeFirstResponder()
 		
 		// Do any additional setup after loading the view.
 	}
 	
-	@IBAction func register(sender: AnyObject) {
-		if let username = userNameTextField.text {
+	@IBAction func createProject(sender: AnyObject) {
+		if let newProjectName = projectNameTextField.text {
 			activityIndicator.hidden = false
 			activityIndicator.startAnimating()
-			model.registerUser(username, callback: { returnedInfo in
-				if (returnedInfo == CanvasProjectModel.APIErrorMessage.UserNameTaken.rawValue) {
-					self.messageLabel.text = self.userNameTakenError
+			model.addProject(withName: newProjectName, callback: { returnedInfo in
+				if (returnedInfo == CanvasProjectModel.APIErrorMessage.UnknownProjectError.rawValue) {
+					self.messageLabel.text = self.generalProjectError
 				} else if (returnedInfo == CanvasProjectModel.APIErrorMessage.Unknown.rawValue) {
 					self.messageLabel.text = self.generalRegisterError
 				} else {
-					self.newUsername = returnedInfo
-					self.performSegueWithIdentifier("closeRegisterUserView", sender: sender)
+					self.newProjectName = returnedInfo
+					self.performSegueWithIdentifier("closeAddProjectView", sender: sender)
 				}
 				
 				self.activityIndicator.hidden = true
@@ -70,14 +70,11 @@ class AddProjectViewController: UIViewController {
 		activityIndicator.stopAnimating()
 		activityIndicator.hidden = true
 		
-		if let loginViewController = segue.destinationViewController as? LoginViewController {
-			if let newUsername = newUsername {
-				loginViewController.userNameInput.text = newUsername
-				loginViewController.tryLogin(newUsername)
-			}
-		}
-		// Get the new view controller using segue.destinationViewController.
-		// Pass the selected object to the new view controller.
+//		if let projectSelectorController = segue.destinationViewController as? ProjectSelectorTableViewController {
+//			if let newProjectName = newProjectName {
+//				// Maybe go to the project automatically?
+//			}
+//		}
 	}
 	
 	

@@ -62,6 +62,10 @@ class ProjectSelectorTableViewController: UITableViewController {
         return cell
     }
 	
+	@IBAction func unwind(segue: UIStoryboardSegue) {
+		
+	}
+	
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -99,26 +103,30 @@ class ProjectSelectorTableViewController: UITableViewController {
 
     // MARK: - Navigation
 	override func viewWillDisappear(animated: Bool) {
-		//model.logout()
+		super.viewWillDisappear(animated)
+		
+		if (self.isMovingFromParentViewController()){
+			print("Back to login")
+			model.logout()
+		}
 	}
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController
-        
-		let projectIndex = self.tableView.indexPathForSelectedRow!.row
-		let projectID = model.allProjects[projectIndex]["_id"].stringValue
-		print("Opening project \(projectID)")
-		model.openProject(id: projectID)
-        
-        //if on the way back to login logout.
-        if(segue.identifier != "toProject"){
-            print("back to login")
-            model.logout()
-        }		
-		print("Segue to project")
-        // Pass the selected object to the new view controller.
-    }
+		
+		print(segue.identifier)
+		
+		if (segue.identifier == "toProject") {
+			if let selected = self.tableView.indexPathForSelectedRow {
+				let projectIndex = selected.row
+				let projectID = model.allProjects[projectIndex]["_id"].stringValue
+				print("Opening project \(projectID)")
+				model.openProject(id: projectID)
 
+			}
+		}
+	
+    }
 
 }

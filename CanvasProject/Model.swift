@@ -25,7 +25,7 @@ class CanvasProjectModel {
 	var userSocket: SocketIOClient?
 	var projectSocket: SocketIOClient?
 
-	let serverAddress: String = "192.168.1.98"
+	let serverAddress: String = "192.168.0.10"
 	let serverHTTPPort: String = "8080"
 	let serverSocketPort: String = "8081"
 	let serverURI: String
@@ -44,6 +44,7 @@ class CanvasProjectModel {
 	
 	enum APIErrorMessage: String {
 		case Unknown = "Unknown API error"
+		case UnknownProjectError = "Something went wrong"
 		case UserNameTaken = "Username taken"
 	}
 
@@ -308,12 +309,25 @@ class CanvasProjectModel {
 		)
 	}
 	
-	func addProject(withName projectName: String) {
+	func addProject(withName projectName: String, callback: (response: String) -> Void) {
 		let parameters = [
 			"name": projectName,
 			"creator": userID!
 		]
-		Alamofire.request(.POST, serverURI + "/project/", parameters: parameters)
+		
+		Alamofire.request(.POST, serverURI + "/project/", parameters: parameters, encoding: .JSON).responseJSON { response in
+			if let responseValue = response.result.value {
+				let newProject = JSON(responseValue)
+				
+				if newProject["error"].stringValue == APIErrorMessage.UnknownProjectError.rawValue {
+					callback(response: APIErrorMessage.UnknownProjectError.rawValue)
+				} else {
+					callback(response: newProject["_id"].stringValue)
+				}
+			} else {
+				callback(response: APIErrorMessage.Unknown.rawValue)
+			}
+		}
 	}
  
 	func addCanvasObject(type: CanvasObjectType, data: JSON? = nil) {
@@ -498,10 +512,12 @@ class CanvasProjectModel {
             print("Chat Messages received")
            
             let rawResponse = JSON(responseValue)
-            let messages = rawResponse["chatMessages"].array
-            
-            currentProject?.addMessages(messages!)
-            notificationCenter.postNotificationName("ReceivedChatMessages", object: nil)
+
+			if let messages = rawResponse["chatMessages"].array {
+				currentProject?.addMessages(messages)
+				notificationCenter.postNotificationName("ReceivedChatMessages", object: nil)
+			}
+			
         }
     }
 	

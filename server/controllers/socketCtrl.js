@@ -34,6 +34,11 @@ exports.notifyProjectSubscribers = function(projectID, message) {
 	io.to(projectID).emit(message);
 }
 
+exports.notifyProjectListSubscribers = function(message) {
+	console.log("Notifying subscribers to projects: " + message);
+	io.to('projects').emit(message);
+}
+
 //Används denna?
 exports.notifyAllSubscribers = function(message) {
 	console.log("Notifying all subscribers: " + message);

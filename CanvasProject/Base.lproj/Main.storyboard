@@ -5,6 +5,74 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
+        <!--Add Project View Controller-->
+        <scene sceneID="ZmL-ni-yry">
+            <objects>
+                <viewController id="UvS-Gk-zVS" customClass="AddProjectViewController" customModule="CanvasProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4rC-lr-GOb"/>
+                        <viewControllerLayoutGuide type="bottom" id="TqP-u7-OQU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LSW-bk-eGN">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New project" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJe-pZ-cuA">
+                                <rect key="frame" x="20" y="20" width="500" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="I4w-Xg-3hQ">
+                                <rect key="frame" x="73" y="49" width="447" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gy1-oP-WZe">
+                                <rect key="frame" x="20" y="53" width="45" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQ8-ch-j9p">
+                                <rect key="frame" x="474" y="112" width="46" height="30"/>
+                                <state key="normal" title="Create"/>
+                                <connections>
+                                    <action selector="createProject:" destination="UvS-Gk-zVS" eventType="touchUpInside" id="kpt-ep-Vpj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAg-09-CBW">
+                                <rect key="frame" x="418" y="112" width="48" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <segue destination="6eZ-16-XdJ" kind="unwind" identifier="closeAddProjectView" unwindAction="unwind:" id="lSl-Xf-EDN"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="9a4-1e-xQb">
+                                <rect key="frame" x="390" y="117" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OUz-K4-Yis">
+                                <rect key="frame" x="20" y="87" width="500" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="540" height="150"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="9a4-1e-xQb" id="vfV-nq-Vxn"/>
+                        <outlet property="messageLabel" destination="OUz-K4-Yis" id="zHL-JX-DaQ"/>
+                        <outlet property="projectNameTextField" destination="I4w-Xg-3hQ" id="ixs-ev-K2W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="huT-uD-IGl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="6eZ-16-XdJ" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="752" y="-1176"/>
+        </scene>
         <!--ProjectSelectorController-->
         <scene sceneID="7O1-lo-PW1">
             <objects>
@@ -48,7 +116,11 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem systemItem="add" id="vw1-eQ-NLP"/>
+                        <barButtonItem systemItem="add" id="vw1-eQ-NLP">
+                            <connections>
+                                <segue destination="UvS-Gk-zVS" kind="presentation" modalPresentationStyle="formSheet" id="a9W-Ax-3zo"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Projects" id="SYd-jj-RMc"/>
                     <connections>
@@ -140,7 +212,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lm4-b4-4P8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="DcV-eF-YD6" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-77" y="-1376"/>
+            <point key="canvasLocation" x="-83" y="-1176"/>
         </scene>
         <!--LoginViewController-->
         <scene sceneID="tTx-pD-MXb">
@@ -299,7 +371,7 @@
                         </barButtonItem>
                         <barButtonItem enabled="NO" title="Rectangle" id="P2e-6H-REn"/>
                         <barButtonItem systemItem="flexibleSpace" id="6hJ-jh-yP5"/>
-                        <barButtonItem title="Chat" width="291" id="kzL-Nf-pRe" userLabel="Chat Icon">
+                        <barButtonItem title="Chat" width="59" id="kzL-Nf-pRe" userLabel="Chat Icon">
                             <connections>
                                 <action selector="chatClicked:" destination="BYZ-38-t0r" id="hsZ-BF-fuP"/>
                                 <segue destination="G80-j9-Ph3" kind="popoverPresentation" identifier="toChat" popoverAnchorBarButtonItem="kzL-Nf-pRe" id="7qh-uH-XcU">
@@ -347,7 +419,6 @@
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uvD-cH-ld6">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="419"/>
-                                <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="20" maxX="0.0" maxY="20"/>
                                 <color key="separatorColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
@@ -412,14 +483,14 @@
                                 </prototypes>
                             </tableView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Your message" translatesAutoresizingMaskIntoConstraints="NO" id="Zos-Tu-ZbS">
-                                <rect key="frame" x="6" y="427" width="240" height="65"/>
+                                <rect key="frame" x="6" y="427" width="328" height="65"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="scrollIndicatorInsets" minX="5" minY="6" maxX="5" maxY="5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BRI-ii-9lo">
-                                <rect key="frame" x="279" y="427" width="73" height="66"/>
+                                <rect key="frame" x="342" y="427" width="48" height="66"/>
                                 <state key="normal" title="Send"/>
                                 <connections>
                                     <action selector="clickSendButton:" destination="G80-j9-Ph3" eventType="touchUpInside" id="CKb-Ue-yS4"/>

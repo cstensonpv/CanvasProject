@@ -171,13 +171,19 @@ Returns:
 }
 ```
 ### Add new Project
-More than one project can have the same name. key är _id.
-Creator is checked that it is a user in the system. saved as the reference to the user of the creator.
+More than one project can have the same name. Key is _id.
+Creator is checked so that it is a user in the system. Saved as the reference to the user of the creator.
 ```
-POST /project?name=<NAME>&creator=<USERNAME>
+POST /project
 ```
-(vi bör kunna identifiera creator på vem som skickade requesten från början??)
-returns
+Data in body:
+```javascript
+{
+  "name": <new project name>
+  "creator": <userID>
+}
+```
+Returns:
 ```javascript
 {
   "__v": 0,
