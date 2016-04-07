@@ -64,7 +64,6 @@ exports.create = function(projectName, creatorID, driveFolderName, callback) {
 		} else {
 			if (driveFolderName == "") { // If no drive folder name is given, create project without folder
 				new Project(projectData).save(callback);
-				console.log(projectData);
 			} else { // If drive folder name is given, find its driveFolderID and add to the project
 				drive.authorize(driveFolderName, "getFolderID", function(err, driveFolderID) {
 					if (err) {
@@ -72,7 +71,6 @@ exports.create = function(projectName, creatorID, driveFolderName, callback) {
 					} else {
 						console.log("Folder found. Creating adding driveFolderID + " + driveFolderID + " to project. Project data: ");
 						projectData['driveFolderID'] = driveFolderID;
-						console.logprojectData
 						new Project(projectData).save(callback);
 					}
 				});

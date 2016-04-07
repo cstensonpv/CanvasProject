@@ -9,11 +9,14 @@
 import UIKit
 import SwiftyJSON
 
-class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
     
     let notificationCenter = NSNotificationCenter.defaultCenter()
     var messages = [JSON]()
     var cellIdentifier = "ChatTableViewCell"
+	
+	@IBOutlet weak var chatTable: UITableView!
+	@IBOutlet weak var textField: UITextView!
 
     override func viewDidLoad() {
         //print("Loaded chatView CTRL)")
@@ -23,12 +26,13 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         chatTable.dataSource = self
         chatTable.delegate = self
+		
+		textField.delegate = self
 
         // Do any additional setup after loading the view.
     }
 
-    @IBOutlet weak var chatTable: UITableView!
-    @IBOutlet weak var textField: UITextView!
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -38,6 +42,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func clickSendButton(sender: AnyObject) {
         print("adds Chat message")
         model.addChatMessage(textField.text)
+		textField.text = ""
     }
     func updateTable() {
         print("Updates chatTable")
@@ -46,17 +51,12 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             messages = project.getChatMessages()
         }
         chatTable.reloadData()
-        scrollToEnd();
-        
-        
-        
+        scrollToEnd()
     }
     
     func scrollToEnd() {
         let indexPath = NSIndexPath(forRow: messages.count - 1, inSection: 0)
         chatTable.scrollToRowAtIndexPath(indexPath,atScrollPosition:UITableViewScrollPosition.Middle, animated: true)
-        
-    
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -82,11 +82,13 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.TimeLabel.text = message["posted"].stringValue
         //print("added cell with: " + message["message"].stringValue)
         
-        
-        
-        
         return cell
     }
+	
+	func textViewShouldReturn(textField: UITextField) -> Bool {
+		clickSendButton(textField)
+		return true
+	}
     
     
     
